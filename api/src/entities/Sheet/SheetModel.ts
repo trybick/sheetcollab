@@ -7,6 +7,12 @@ export class Sheet {
   id: number;
 
   @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+
+  @Field()
   title: string;
 
   @Field()

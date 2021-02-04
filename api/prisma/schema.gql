@@ -9,6 +9,11 @@ input CreateSheetInput {
   year: String
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Mutation {
   createSheet(data: CreateSheetInput!): Sheet!
   deleteSheet(id: Int!): Sheet
@@ -30,8 +35,10 @@ input RegisterUserInput {
 
 type Sheet {
   artist: String!
+  createdAt: DateTime!
   id: ID!
   title: String!
+  updatedAt: DateTime!
   year: String
 }
 
@@ -42,8 +49,10 @@ input UpdateSheetInput {
 }
 
 type User {
+  createdAt: DateTime!
   email: String!
   id: ID!
   name: String
   sheets: [Sheet!]!
+  updatedAt: DateTime!
 }

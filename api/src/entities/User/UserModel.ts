@@ -5,8 +5,14 @@ import { Sheet } from '../Sheet/SheetModel';
 
 @ObjectType()
 export class User {
-  @Field((type) => ID)
+  @Field(() => ID)
   id: number;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
 
   @Field()
   @IsEmail()
@@ -15,9 +21,9 @@ export class User {
   @MinLength(6)
   password: string;
 
-  @Field((type) => String, { nullable: true })
+  @Field(() => String, { nullable: true })
   name?: string | null;
 
-  @Field((type) => [Sheet])
+  @Field(() => [Sheet])
   sheets?: [Sheet];
 }
