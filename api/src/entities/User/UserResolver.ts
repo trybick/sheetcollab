@@ -8,15 +8,15 @@ import { RegisterUserInput } from './inputs';
 @Resolver(User)
 export class UserResolver {
   @Mutation(() => User)
-  async registerUser(@Arg('data') data: RegisterUserInput, @Ctx() ctx: Context) {
+  async registerUser(@Arg('data') data: RegisterUserInput, @Ctx() { prisma }: Context) {
     const hashedPassword = await bcrypt.hash(data.password, 12);
     data.password = hashedPassword;
-    return ctx.prisma.user.create({ data });
+    return prisma.user.create({ data });
   }
 
   @Query(() => User, { nullable: true })
-  findUser(@Arg('id', () => Int) id: number, @Ctx() ctx: Context) {
-    return ctx.prisma.user.findUnique({
+  findUser(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context) {
+    return prisma.user.findUnique({
       where: { id },
     });
   }

@@ -7,35 +7,35 @@ import { CreateSheetInput, UpdateSheetInput } from './inputs';
 @Resolver(Sheet)
 export class SheetResolver {
   @Query(() => Sheet, { nullable: true })
-  sheet(@Arg('id', () => Int) id: number, @Ctx() ctx: Context) {
-    return ctx.prisma.sheet.findUnique({ where: { id } });
+  sheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context) {
+    return prisma.sheet.findUnique({ where: { id } });
   }
 
   @Mutation(() => Sheet)
-  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() ctx: Context) {
-    return ctx.prisma.sheet.create({ data });
+  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context) {
+    return prisma.sheet.create({ data });
   }
 
   @Mutation(() => Sheet, { nullable: true })
   updateSheet(
     @Arg('id', () => Int) id: number,
     @Arg('data') data: UpdateSheetInput,
-    @Ctx() ctx: Context
+    @Ctx() { prisma }: Context
   ) {
-    return ctx.prisma.sheet.update({
+    return prisma.sheet.update({
       where: { id },
       data,
     });
   }
 
   @Mutation(() => Sheet, { nullable: true })
-  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() ctx: Context) {
-    return ctx.prisma.sheet.delete({ where: { id } });
+  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context) {
+    return prisma.sheet.delete({ where: { id } });
   }
 
   @Query(() => [Sheet])
-  filterSheets(@Arg('searchString') searchString: string, @Ctx() ctx: Context) {
-    return ctx.prisma.sheet.findMany({
+  filterSheets(@Arg('searchString') searchString: string, @Ctx() { prisma }: Context) {
+    return prisma.sheet.findMany({
       where: {
         OR: [
           { title: { contains: searchString } },
