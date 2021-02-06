@@ -17,7 +17,7 @@ const startServer = async () => {
   });
 
   const apolloServer = new ApolloServer({
-    context: createContext(),
+    context: ({ req }) => createContext(req),
     schema,
   });
 

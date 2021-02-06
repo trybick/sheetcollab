@@ -10,7 +10,10 @@ import { LoginUserInput, LoginOrRegisterResponse, RegisterUserInput } from './ty
 @Resolver(User)
 export class UserResolver {
   @Mutation(() => LoginOrRegisterResponse)
-  async registerUser(@Arg('data') data: RegisterUserInput, @Ctx() { prisma }: Context) {
+  async registerUser(
+    @Arg('data') data: RegisterUserInput,
+    @Ctx() { prisma }: Context
+  ): Promise<LoginOrRegisterResponse> {
     const hashedPassword = await bcrypt.hash(data.password, 11);
     return prisma.user
       .create({
@@ -28,7 +31,10 @@ export class UserResolver {
   }
 
   @Mutation(() => LoginOrRegisterResponse)
-  async loginUser(@Arg('data') data: LoginUserInput, @Ctx() { prisma }: Context) {
+  async loginUser(
+    @Arg('data') data: LoginUserInput,
+    @Ctx() { prisma }: Context
+  ): Promise<LoginOrRegisterResponse> {
     const requestedUser = await prisma.user.findUnique({
       where: {
         email: data.email,
@@ -41,7 +47,7 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  findUser(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context) {
+  findUser(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<User | null> {
     return prisma.user.findUnique({
       where: { id },
     });

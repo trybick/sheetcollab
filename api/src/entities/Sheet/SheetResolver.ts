@@ -7,12 +7,12 @@ import { CreateSheetInput, UpdateSheetInput } from './types';
 @Resolver(Sheet)
 export class SheetResolver {
   @Query(() => Sheet, { nullable: true })
-  sheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context) {
+  sheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<Sheet | null> {
     return prisma.sheet.findUnique({ where: { id } });
   }
 
   @Mutation(() => Sheet)
-  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context) {
+  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context): Promise<Sheet> {
     return prisma.sheet.create({ data });
   }
 
@@ -21,7 +21,7 @@ export class SheetResolver {
     @Arg('id', () => Int) id: number,
     @Arg('data') data: UpdateSheetInput,
     @Ctx() { prisma }: Context
-  ) {
+  ): Promise<Sheet | null> {
     return prisma.sheet.update({
       where: { id },
       data,
@@ -29,12 +29,15 @@ export class SheetResolver {
   }
 
   @Mutation(() => Sheet, { nullable: true })
-  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context) {
+  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<Sheet | null> {
     return prisma.sheet.delete({ where: { id } });
   }
 
   @Query(() => [Sheet])
-  filterSheets(@Arg('searchString') searchString: string, @Ctx() { prisma }: Context) {
+  filterSheets(
+    @Arg('searchString') searchString: string,
+    @Ctx() { prisma }: Context
+  ): Promise<Sheet[]> {
     return prisma.sheet.findMany({
       where: {
         OR: [
