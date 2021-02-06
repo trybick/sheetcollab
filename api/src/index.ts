@@ -1,12 +1,14 @@
 import 'reflect-metadata';
+import Express from 'express';
+import cors from 'cors';
 import path from 'path';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { SheetResolver } from './entities/Sheet/SheetResolver';
 import { UserResolver } from './entities/User/UserResolver';
 import { createContext } from './context';
 
-const port = 4000;
+const PORT = 4000;
 
 const startServer = async () => {
   const schema = await buildSchema({
@@ -16,9 +18,24 @@ const startServer = async () => {
 
   const context = createContext();
 
-  new ApolloServer({ schema, context }).listen({ port }, () =>
-    console.log(`🚀 Server ready at: http://localhost:${port}`)
+  const apolloServer = new ApolloServer({
+    schema,
+    context,
+  });
+
+  const app = Express();
+  app.use(
+    cors({
+      credentials: true,
+      origin: 'http://localhost:5555',
+    })
   );
+
+  apolloServer.applyMiddleware({ app, cors: false });
+
+  app.listen(PORT, () => {
+    console.log(`🚀 Server ready at: http://localhost:${PORT}/graphql`);
+  });
 };
 
-startServer();
+startServer().catch((err) => console.error(err));
