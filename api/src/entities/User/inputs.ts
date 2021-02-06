@@ -1,4 +1,4 @@
-import { InputType, Field } from 'type-graphql';
+import { InputType, Field, ObjectType } from 'type-graphql';
 import { IsEmail } from 'class-validator';
 import { User } from './UserModel';
 
@@ -13,4 +13,13 @@ export class RegisterUserInput implements Partial<User> {
 
   @Field({ nullable: true })
   name?: string;
+}
+
+@ObjectType()
+export class LoginResponse {
+  @Field()
+  token: string;
+
+  @Field()
+  user: User;
 }
