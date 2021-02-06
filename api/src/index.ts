@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import * as path from 'path';
+import path from 'path';
 import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 import { SheetResolver } from './entities/Sheet/SheetResolver';
