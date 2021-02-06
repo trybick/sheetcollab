@@ -12,7 +12,7 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  findSingleUser(@Arg('id', () => Int) id: number, @Ctx() ctx: Context) {
+  findUser(@Arg('id', () => Int) id: number, @Ctx() ctx: Context) {
     return ctx.prisma.user.findUnique({
       where: { id },
     });

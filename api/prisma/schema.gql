@@ -3,6 +3,12 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+interface Base {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
 input CreateSheetInput {
   artist: String!
   title: String!
@@ -23,7 +29,7 @@ type Mutation {
 
 type Query {
   filterSheets(searchString: String!): [Sheet!]!
-  findSingleUser(id: Int!): User
+  findUser(id: Int!): User
   sheet(id: Int!): Sheet
 }
 
@@ -33,12 +39,13 @@ input RegisterUserInput {
   password: String!
 }
 
-type Sheet {
+type Sheet implements Base {
   artist: String!
   createdAt: DateTime!
   id: ID!
   title: String!
   updatedAt: DateTime!
+  users: [User!]
   year: String
 }
 
@@ -48,11 +55,11 @@ input UpdateSheetInput {
   year: String
 }
 
-type User {
+type User implements Base {
   createdAt: DateTime!
   email: String!
   id: ID!
   name: String
-  sheets: [Sheet!]!
+  sheets: [Sheet!]
   updatedAt: DateTime!
 }

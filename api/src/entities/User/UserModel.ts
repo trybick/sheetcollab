@@ -1,29 +1,21 @@
 import 'reflect-metadata';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field } from 'type-graphql';
 import { IsEmail, MinLength } from 'class-validator';
 import { Sheet } from '../Sheet/SheetModel';
+import { Base } from '../BaseModel';
 
-@ObjectType()
-export class User {
-  @Field(() => ID)
-  id: number;
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
-
+@ObjectType({ implements: Base })
+export class User extends Base {
   @Field()
   @IsEmail()
   email: string;
 
-  @MinLength(6)
-  password: string;
-
   @Field(() => String, { nullable: true })
   name?: string | null;
 
-  @Field(() => [Sheet])
+  @MinLength(6)
+  password: string;
+
+  @Field(() => [Sheet], { nullable: true })
   sheets?: [Sheet];
 }

@@ -1,22 +1,18 @@
 import 'reflect-metadata';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field } from 'type-graphql';
+import { Base } from '../BaseModel';
+import { User } from '../User/UserModel';
 
-@ObjectType()
-export class Sheet {
-  @Field(() => ID)
-  id: number;
-
+@ObjectType({ implements: Base })
+export class Sheet extends Base {
   @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
+  artist: string;
 
   @Field()
   title: string;
 
-  @Field()
-  artist: string;
+  @Field(() => [User], { nullable: true })
+  users?: [User];
 
   @Field(() => String, { nullable: true })
   year?: string | null;

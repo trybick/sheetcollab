@@ -8,20 +8,21 @@ datasource db {
 }
 
 model User {
-  id         Int     @default(autoincrement()) @id
-  updatedAt  DateTime @default(now())
-  createdAt  DateTime @default(now())
-  email      String  @unique
-  password   String
-  name       String?
-  sheets     Sheet[]
+  id          Int        @default(autoincrement()) @id
+  updatedAt   DateTime   @default(now())
+  createdAt   DateTime   @default(now())
+  email       String     @unique
+  password    String
+  name        String?
+  sheets      Sheet[]
 }
 
 model Sheet {
-  id        Int     @default(autoincrement()) @id
-  updatedAt DateTime @default(now())
-  createdAt DateTime @default(now())
-  title     String
-  artist    String
-  year      String?
+  id          Int        @default(autoincrement()) @id
+  updatedAt   DateTime   @default(now())
+  createdAt   DateTime   @default(now())
+  artist      String
+  title       String
+  users       User[]
+  year        String?
 }
