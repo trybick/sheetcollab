@@ -20,15 +20,21 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
-type LoginResponse {
+type LoginOrRegisterResponse {
   token: String!
   user: User!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
 
 type Mutation {
   createSheet(data: CreateSheetInput!): Sheet!
   deleteSheet(id: Int!): Sheet
-  registerUser(data: RegisterUserInput!): LoginResponse!
+  loginUser(data: LoginUserInput!): LoginOrRegisterResponse!
+  registerUser(data: RegisterUserInput!): LoginOrRegisterResponse!
   updateSheet(data: UpdateSheetInput!, id: Int!): Sheet
 }
 

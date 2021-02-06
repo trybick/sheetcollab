@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Resolver, Query, Mutation, Arg, Ctx, Int } from 'type-graphql';
 import { Context } from '../../context';
 import { Sheet } from './SheetModel';
-import { CreateSheetInput, UpdateSheetInput } from './inputs';
+import { CreateSheetInput, UpdateSheetInput } from './types';
 
 @Resolver(Sheet)
 export class SheetResolver {

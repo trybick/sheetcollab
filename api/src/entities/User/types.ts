@@ -15,8 +15,17 @@ export class RegisterUserInput implements Partial<User> {
   name?: string;
 }
 
+@InputType()
+export class LoginUserInput implements Partial<User> {
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
+}
+
 @ObjectType()
-export class LoginResponse {
+export class LoginOrRegisterResponse {
   @Field()
   token: string;
 
