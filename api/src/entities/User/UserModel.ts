@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { ObjectType, Field } from 'type-graphql';
-import { IsEmail, MinLength } from 'class-validator';
+import { IsEmail } from 'class-validator';
 import { Sheet } from '../Sheet/SheetModel';
 import { Base } from '../BaseModel';
 
@@ -13,7 +13,6 @@ export class User extends Base {
   @Field(() => String, { nullable: true })
   name?: string | null;
 
-  @MinLength(6)
   password: string;
 
   @Field(() => [Sheet], { nullable: true })
