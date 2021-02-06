@@ -3,25 +3,18 @@ import { IsEmail } from 'class-validator';
 import { User } from './UserModel';
 
 @InputType()
-export class RegisterUserInput implements Partial<User> {
-  @IsEmail()
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
-
-  @Field({ nullable: true })
-  name?: string;
-}
-
-@InputType()
 export class LoginUserInput implements Partial<User> {
   @Field()
   email: string;
 
   @Field()
   password: string;
+}
+
+@InputType()
+export class RegisterUserInput extends LoginUserInput {
+  @Field({ nullable: true })
+  name?: string;
 }
 
 @ObjectType()
