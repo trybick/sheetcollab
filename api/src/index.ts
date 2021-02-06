@@ -16,11 +16,9 @@ const startServer = async () => {
     emitSchemaFile: path.resolve(__dirname, '../graphql', 'schema.gql'),
   });
 
-  const context = createContext();
-
   const apolloServer = new ApolloServer({
+    context: createContext(),
     schema,
-    context,
   });
 
   const app = Express();
