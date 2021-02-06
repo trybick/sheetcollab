@@ -11,7 +11,7 @@ const port = 4000;
 const startServer = async () => {
   const schema = await buildSchema({
     resolvers: [SheetResolver, UserResolver],
-    emitSchemaFile: path.resolve(__dirname, '../prisma', 'schema.gql'),
+    emitSchemaFile: path.resolve(__dirname, '../graphql', 'schema.gql'),
   });
 
   const context = createContext();
