@@ -1,3 +1,4 @@
+require('dotenv').config();
 import 'reflect-metadata';
 import { Arg, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
 import bcrypt from 'bcrypt';
@@ -10,7 +11,7 @@ import { LoginResponse, RegisterUserInput } from './inputs';
 export class UserResolver {
   @Mutation(() => LoginResponse)
   async registerUser(@Arg('data') data: RegisterUserInput, @Ctx() { prisma }: Context) {
-    const hashedPassword = await bcrypt.hash(data.password, 12);
+    const hashedPassword = await bcrypt.hash(data.password, 11);
     return prisma.user
       .create({
         data: {
@@ -20,7 +21,7 @@ export class UserResolver {
       })
       .then((user) => {
         return {
-          token: sign(user, 'supersecret'),
+          token: sign(user, process.env.JWT_SECRET!),
           user,
         };
       });
