@@ -2,7 +2,7 @@
   "name": "sheetcollab-front",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 4321",
     "build": "next build",
     "start": "next start"
   },
