@@ -1,7 +1,14 @@
 {
   "name": "sheetcollab",
+  "description": "Sheet music knowledge sharing portal",
+  "author": "Tim Rybicki",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trybick/sheetcollab.git"
+  },
+  "scripts": {
+    "postinstall": "(cd api && yarn); (cd front && yarn);",
+    "serve": "yarn --cwd api dev",
+    "start": "yarn --cwd front dev"
   }
 }
