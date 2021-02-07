@@ -7,7 +7,7 @@ import { AppProps } from 'next/app';
 // change to the new page. Therefore, any props you send to Component will be received by the page.
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider resetCSS theme={theme}>
+    <ChakraProvider theme={theme} resetCSS>
       <Component {...pageProps} />
     </ChakraProvider>
   );
