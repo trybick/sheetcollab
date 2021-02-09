@@ -22,7 +22,7 @@ export class UserResolver {
           password: hashedPassword,
         },
       })
-      .then((user) => {
+      .then(user => {
         return {
           user,
           token: sign(user, process.env.JWT_SECRET!),
