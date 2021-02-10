@@ -1,54 +1,55 @@
 import 'reflect-metadata';
-import { Resolver, Query, Mutation, Arg, Ctx, Int, Authorized } from 'type-graphql';
-import { Context } from '../../context';
+import { Resolver, Query, Mutation, Arg, Int, Authorized } from 'type-graphql';
 import { Sheet } from './SheetModel';
 import { CreateSheetInput, UpdateSheetInput } from './types';
 
 @Resolver(Sheet)
 export class SheetResolver {
   @Query(() => Sheet, { nullable: true })
-  sheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<Sheet | null> {
-    return prisma.sheet.findUnique({ where: { id } });
+  async sheet(@Arg('id', () => Int) id: number): Promise<Sheet | null> {
+    return (await Sheet.findOne({ where: { id } })) || null;
   }
 
-  @Query(() => [Sheet])
-  filterSheets(
-    @Arg('searchString') searchString: string,
-    @Ctx() { prisma }: Context
-  ): Promise<Sheet[]> {
-    return prisma.sheet.findMany({
-      where: {
-        OR: [
-          { title: { contains: searchString } },
-          { artist: { contains: searchString } },
-          { year: { contains: searchString } },
-        ],
-      },
-    });
-  }
+  // @Query(() => [Sheet])
+  // async filterSheets(@Arg('searchString') searchString: string): Promise<Sheet[]> {
+  //   return Sheet.find({
+  //     where: {
+  //       OR: [
+  //         { title: { contains: searchString } },
+  //         { artist: { contains: searchString } },
+  //         { year: { contains: searchString } },
+  //       ],
+  //     },
+  //   });
+  // }
 
   @Authorized()
   @Mutation(() => Sheet)
-  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context): Promise<Sheet> {
-    return prisma.sheet.create({ data });
+  async createSheet(@Arg('data') { title, artist, year }: CreateSheetInput): Promise<Sheet> {
+    return await Sheet.create({ title, artist, year }).save();
   }
 
   @Authorized()
-  @Mutation(() => Sheet, { nullable: true })
-  updateSheet(
+  @Mutation(() => Boolean)
+  async updateSheet(
     @Arg('id', () => Int) id: number,
-    @Arg('data') data: UpdateSheetInput,
-    @Ctx() { prisma }: Context
-  ): Promise<Sheet | null> {
-    return prisma.sheet.update({
-      where: { id },
-      data,
-    });
+    @Arg('data') { title, artist, year }: UpdateSheetInput
+  ): Promise<boolean> {
+    const requestedSheet = await Sheet.findOne({ where: { id } });
+    if (!requestedSheet) throw new Error('Sheet not found');
+    await Sheet.update(
+      {
+        id,
+      },
+      { title, artist, year }
+    );
+    return true;
   }
 
   @Authorized()
-  @Mutation(() => Sheet, { nullable: true })
-  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<Sheet | null> {
-    return prisma.sheet.delete({ where: { id } });
+  @Mutation(() => Boolean)
+  async deleteSheet(@Arg('id', () => Int) id: number): Promise<boolean> {
+    await Sheet.delete({ id });
+    return true;
   }
 }

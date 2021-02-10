@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
+import { createConnection } from 'typeorm';
 import { SheetResolver } from './entities/Sheet/SheetResolver';
 import { UserResolver } from './entities/User/UserResolver';
 import { createContext } from './context';
@@ -12,6 +13,8 @@ import { checkIsAuth } from './middleware/checkIsAuth';
 const PORT = 4000;
 
 const startServer = async () => {
+  await createConnection();
+
   const schema = await buildSchema({
     resolvers: [SheetResolver, UserResolver],
     emitSchemaFile: path.resolve(__dirname, '../graphql', 'schema.gql'),
