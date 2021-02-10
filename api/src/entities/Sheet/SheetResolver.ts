@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import { Resolver, Query, Mutation, Arg, Int, Authorized } from 'type-graphql';
 import { Sheet } from './SheetModel';
 import { CreateSheetInput, UpdateSheetInput } from './types';
