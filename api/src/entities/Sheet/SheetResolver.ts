@@ -11,29 +11,6 @@ export class SheetResolver {
     return prisma.sheet.findUnique({ where: { id } });
   }
 
-  @Authorized()
-  @Mutation(() => Sheet)
-  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context): Promise<Sheet> {
-    return prisma.sheet.create({ data });
-  }
-
-  @Mutation(() => Sheet, { nullable: true })
-  updateSheet(
-    @Arg('id', () => Int) id: number,
-    @Arg('data') data: UpdateSheetInput,
-    @Ctx() { prisma }: Context
-  ): Promise<Sheet | null> {
-    return prisma.sheet.update({
-      where: { id },
-      data,
-    });
-  }
-
-  @Mutation(() => Sheet, { nullable: true })
-  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<Sheet | null> {
-    return prisma.sheet.delete({ where: { id } });
-  }
-
   @Query(() => [Sheet])
   filterSheets(
     @Arg('searchString') searchString: string,
@@ -48,5 +25,30 @@ export class SheetResolver {
         ],
       },
     });
+  }
+
+  @Authorized()
+  @Mutation(() => Sheet)
+  createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context): Promise<Sheet> {
+    return prisma.sheet.create({ data });
+  }
+
+  @Authorized()
+  @Mutation(() => Sheet, { nullable: true })
+  updateSheet(
+    @Arg('id', () => Int) id: number,
+    @Arg('data') data: UpdateSheetInput,
+    @Ctx() { prisma }: Context
+  ): Promise<Sheet | null> {
+    return prisma.sheet.update({
+      where: { id },
+      data,
+    });
+  }
+
+  @Authorized()
+  @Mutation(() => Sheet, { nullable: true })
+  deleteSheet(@Arg('id', () => Int) id: number, @Ctx() { prisma }: Context): Promise<Sheet | null> {
+    return prisma.sheet.delete({ where: { id } });
   }
 }
