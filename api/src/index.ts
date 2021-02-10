@@ -7,6 +7,7 @@ import { buildSchema } from 'type-graphql';
 import { SheetResolver } from './entities/Sheet/SheetResolver';
 import { UserResolver } from './entities/User/UserResolver';
 import { createContext } from './context';
+import { checkIsAuth } from './middleware/checkIsAuth';
 
 const PORT = 4000;
 
@@ -14,6 +15,7 @@ const startServer = async () => {
   const schema = await buildSchema({
     resolvers: [SheetResolver, UserResolver],
     emitSchemaFile: path.resolve(__dirname, '../graphql', 'schema.gql'),
+    authChecker: checkIsAuth,
   });
 
   const apolloServer = new ApolloServer({
@@ -36,4 +38,4 @@ const startServer = async () => {
   });
 };
 
-startServer().catch((err) => console.error(err));
+startServer().catch(err => console.error(err));

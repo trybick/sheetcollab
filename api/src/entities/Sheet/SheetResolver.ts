@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Resolver, Query, Mutation, Arg, Ctx, Int } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Ctx, Int, Authorized } from 'type-graphql';
 import { Context } from '../../context';
 import { Sheet } from './SheetModel';
 import { CreateSheetInput, UpdateSheetInput } from './types';
@@ -11,6 +11,7 @@ export class SheetResolver {
     return prisma.sheet.findUnique({ where: { id } });
   }
 
+  @Authorized()
   @Mutation(() => Sheet)
   createSheet(@Arg('data') data: CreateSheetInput, @Ctx() { prisma }: Context): Promise<Sheet> {
     return prisma.sheet.create({ data });
