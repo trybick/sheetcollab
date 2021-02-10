@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg, Int, Authorized } from 'type-graphql';
+import { getManager } from 'typeorm';
 import { Sheet } from './SheetModel';
 import { CreateSheetInput, UpdateSheetInput } from './types';
 
@@ -9,17 +10,28 @@ export class SheetResolver {
     return (await Sheet.findOne({ where: { id } })) || null;
   }
 
-  // @Query(() => [Sheet])
+  // @Query(() => [Sheet], { nullable: true })
   // async filterSheets(@Arg('searchString') searchString: string): Promise<Sheet[]> {
-  //   return Sheet.find({
-  //     where: {
-  //       OR: [
-  //         { title: { contains: searchString } },
-  //         { artist: { contains: searchString } },
-  //         { year: { contains: searchString } },
-  //       ],
-  //     },
-  //   });
+  //   const res = await getManager()
+  //     .createQueryBuilder()
+  //     .select('sheet')
+  //     .from(Sheet, 'sheet')
+  //     .where('sheet.title = :title', { title: searchString })
+  //     .orWhere('sheet.artist = :artist', { artist: searchString })
+  //     .orWhere('sheet.year = :year', { year: searchString })
+  //     .getMany();
+  //   console.log('res:', res);
+
+  //   // return Sheet.find({
+  //   //   where: {
+  //   //     OR: [
+  //   //       { title: { contains: searchString } },
+  //   //       { artist: { contains: searchString } },
+  //   //       { year: { contains: searchString } },
+  //   //     ],
+  //   //   },
+  //   // });
+  //   return res;
   // }
 
   @Authorized()
