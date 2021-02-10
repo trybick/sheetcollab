@@ -1,7 +1,7 @@
 {
   "name": "sheetcollab-api",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "yarn killPort && ts-node-dev --respawn --transpile-only src/index.ts",
     "killPort": "lsof -t -i tcp:4000 | xargs kill",
     "lint:fix": "eslint --fix --ext .tsx,.js,.ts ."
   },

@@ -32,16 +32,11 @@ export class SheetResolver {
   @Mutation(() => Boolean)
   async updateSheet(
     @Arg('id', () => Int) id: number,
-    @Arg('data') { title, artist, year }: UpdateSheetInput
+    @Arg('data') data: UpdateSheetInput
   ): Promise<boolean> {
-    const requestedSheet = await Sheet.findOne({ where: { id } });
-    if (!requestedSheet) throw new Error('Sheet not found');
-    await Sheet.update(
-      {
-        id,
-      },
-      { title, artist, year }
-    );
+    const sheet = await Sheet.findOneOrFail({ where: { id } });
+    Object.assign(sheet, { ...data });
+    await sheet.save();
     return true;
   }
 
