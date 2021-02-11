@@ -1,6 +1,6 @@
 import { AuthChecker } from 'type-graphql';
 import { verify } from 'jsonwebtoken';
-import { Context } from '../context';
+import { Context } from './createContext';
 import { User } from '../entities/User/UserModel';
 
 export const checkIsAuth: AuthChecker<Context> = ({ context }) => {

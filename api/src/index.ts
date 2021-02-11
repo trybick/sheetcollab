@@ -7,7 +7,7 @@ import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import { SheetResolver } from './entities/Sheet/SheetResolver';
 import { UserResolver } from './entities/User/UserResolver';
-import { createContext } from './context';
+import { createContext } from './middleware/createContext';
 import { checkIsAuth } from './middleware/checkIsAuth';
 
 const PORT = 4000;
