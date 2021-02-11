@@ -9,10 +9,10 @@ export abstract class Base extends BaseEntity {
   id: number;
 
   @Field()
-  @CreateDateColumn({ type: 'datetime' })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
   @Field()
-  @UpdateDateColumn({ type: 'datetime' })
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 }
