@@ -1,5 +1,5 @@
 import { ObjectType, Field } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToMany } from 'typeorm';
 import { Base } from '../BaseModel';
 import { User } from '../User/UserModel';
 
@@ -14,9 +14,9 @@ export class Sheet extends Base {
   @Column()
   title: string;
 
-  // @Field()
-  // @Column()
-  // users?: [User];
+  @ManyToMany(() => User, user => user.sheets)
+  @Field(() => [User])
+  users?: User[];
 
   @Column({ type: 'text', nullable: true })
   @Field(() => String, { nullable: true })

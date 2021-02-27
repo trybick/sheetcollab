@@ -3,7 +3,7 @@ import { User } from '../entities/User/UserModel';
 
 export interface Context {
   req: Request;
-  user?: User;
+  userId?: User['id'];
 }
 
 export function createContext(req: Request): Context {

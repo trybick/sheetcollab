@@ -1,5 +1,5 @@
 import { ObjectType, Field } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { Sheet } from '../Sheet/SheetModel';
 import { Base } from '../BaseModel';
@@ -19,7 +19,8 @@ export class User extends Base {
   @Column()
   password: string;
 
-  // @Column()
-  // @Field()
-  // sheets?: [Sheet];
+  @ManyToMany(() => Sheet, sheet => sheet.users)
+  @JoinTable()
+  @Field(() => [Sheet])
+  sheets?: Sheet[];
 }

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "(cd api && yarn); (cd front && yarn);",
-    "serve": "yarn --cwd api dev",
+    "serve": "yarn --cwd api serve",
     "start": "yarn --cwd front dev"
   }
 }

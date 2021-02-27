@@ -1,6 +1,8 @@
-import { Resolver, Query, Mutation, Arg, Int, Authorized } from 'type-graphql';
-import { getManager } from 'typeorm';
+import { Resolver, Query, Mutation, Arg, Int, Authorized, Ctx } from 'type-graphql';
+import { getManager, getConnection } from 'typeorm';
 import { Sheet } from './SheetModel';
+import { User } from '../User/UserModel';
+import { Context } from '../../middleware/createContext';
 import { CreateSheetInput, UpdateSheetInput } from './types';
 
 @Resolver(Sheet)
@@ -10,34 +12,44 @@ export class SheetResolver {
     return (await Sheet.findOne({ where: { id } })) || null;
   }
 
-  // @Query(() => [Sheet], { nullable: true })
-  // async filterSheets(@Arg('searchString') searchString: string): Promise<Sheet[]> {
-  //   const res = await getManager()
-  //     .createQueryBuilder()
-  //     .select('sheet')
-  //     .from(Sheet, 'sheet')
-  //     .where('sheet.title = :title', { title: searchString })
-  //     .orWhere('sheet.artist = :artist', { artist: searchString })
-  //     .orWhere('sheet.year = :year', { year: searchString })
-  //     .getMany();
-  //   console.log('res:', res);
+  @Query(() => [Sheet])
+  async filterSheets(@Arg('searchString') searchString: string): Promise<Sheet[]> {
+    const terms = { searchString: `%${searchString}%` };
+    return await getManager()
+      .createQueryBuilder()
+      .select('sheet')
+      .from(Sheet, 'sheet')
+      .where('artist ILIKE :searchString', terms)
+      .orWhere('title ILIKE :searchString', terms)
+      .orWhere('year ILIKE :searchString', terms)
+      .getMany();
+  }
 
-  //   // return Sheet.find({
-  //   //   where: {
-  //   //     OR: [
-  //   //       { title: { contains: searchString } },
-  //   //       { artist: { contains: searchString } },
-  //   //       { year: { contains: searchString } },
-  //   //     ],
-  //   //   },
-  //   // });
-  //   return res;
-  // }
+  @Authorized()
+  @Query(() => [Sheet])
+  async getUserSheets(@Ctx() { userId }: Context): Promise<Sheet[]> {
+    return await getConnection()
+      .createQueryBuilder()
+      .relation(User, 'sheets')
+      .of(userId)
+      .loadMany();
+  }
+
+  @Authorized()
+  @Query(() => [User])
+  async getSheetUsers(@Arg('id', () => Int) id: number): Promise<User[]> {
+    return await getConnection().createQueryBuilder().relation(Sheet, 'users').of(id).loadMany();
+  }
 
   @Authorized()
   @Mutation(() => Sheet)
-  async createSheet(@Arg('data') { title, artist, year }: CreateSheetInput): Promise<Sheet> {
-    return await Sheet.create({ title, artist, year }).save();
+  async createSheet(
+    @Arg('data') { title, artist, year }: CreateSheetInput,
+    @Ctx() { userId }: Context
+  ): Promise<Sheet> {
+    const sheet = await Sheet.create({ title, artist, year }).save();
+    await getConnection().createQueryBuilder().relation(Sheet, 'users').of(sheet).add(userId);
+    return sheet;
   }
 
   @Authorized()

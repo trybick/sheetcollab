@@ -39,7 +39,10 @@ type Mutation {
 }
 
 type Query {
+  filterSheets(searchString: String!): [Sheet!]!
   findUser(id: Int!): User
+  getSheetUsers(id: Int!): [User!]!
+  getUserSheets: [Sheet!]!
   sheet(id: Int!): Sheet
 }
 
@@ -55,6 +58,7 @@ type Sheet implements Base {
   id: ID!
   title: String!
   updatedAt: DateTime!
+  users: [User!]!
   year: String
 }
 
@@ -69,5 +73,6 @@ type User implements Base {
   email: String!
   id: ID!
   name: String
+  sheets: [Sheet!]!
   updatedAt: DateTime!
 }

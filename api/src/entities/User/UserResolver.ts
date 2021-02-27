@@ -1,9 +1,9 @@
-require('dotenv').config();
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { User } from './UserModel';
 import { LoginUserInput, LoginOrRegisterResponse, RegisterUserInput } from './types';
+require('dotenv').config();
 
 @Resolver(User)
 export class UserResolver {
@@ -19,7 +19,7 @@ export class UserResolver {
     }).save();
     return {
       user: createdUser,
-      token: sign({ createdUser }, process.env.JWT_SECRET!),
+      token: sign({ userId: createdUser.id }, process.env.JWT_SECRET!),
     };
   }
 
@@ -31,7 +31,10 @@ export class UserResolver {
     if (!requestedUser) throw new Error('Email not found');
     const isMatch = bcrypt.compareSync(password, requestedUser.password);
     if (!isMatch) throw new Error('Incorrect password');
-    return { user: requestedUser, token: sign({ requestedUser }, process.env.JWT_SECRET!) };
+    return {
+      user: requestedUser,
+      token: sign({ data: requestedUser.id }, process.env.JWT_SECRET!),
+    };
   }
 
   @Query(() => User, { nullable: true })
