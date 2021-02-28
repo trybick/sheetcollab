@@ -15,7 +15,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  plugins: ['react-hooks'],
+  plugins: ['react-hooks', 'prettier'],
   rules: {
     'prettier/prettier': 1,
     '@typescript-eslint/ban-ts-ignore': 0,
