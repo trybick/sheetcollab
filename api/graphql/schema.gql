@@ -31,6 +31,7 @@ input LoginUserInput {
 }
 
 type Mutation {
+  addUserToSheet(id: Int!): Boolean!
   createSheet(data: CreateSheetInput!): Sheet!
   deleteSheet(id: Int!): Boolean!
   loginUser(data: LoginUserInput!): LoginOrRegisterResponse!

@@ -42,6 +42,16 @@ export class SheetResolver {
   }
 
   @Authorized()
+  @Mutation(() => Boolean)
+  async addUserToSheet(
+    @Arg('id', () => Int) id: number,
+    @Ctx() { userId }: Context
+  ): Promise<boolean> {
+    await getConnection().createQueryBuilder().relation(Sheet, 'users').of(id).add(userId);
+    return true;
+  }
+
+  @Authorized()
   @Mutation(() => Sheet)
   async createSheet(
     @Arg('data') { title, artist, year }: CreateSheetInput,

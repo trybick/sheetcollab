@@ -9,10 +9,8 @@ export const checkIsAuth: AuthChecker<Context> = async ({ context }) => {
   }
 
   try {
-    const {
-      data: { id },
-    } = verify(token, process.env.JWT_SECRET!) as { data: { id: number } };
-    context.userId = id;
+    const { userId } = verify(token, process.env.JWT_SECRET!) as { userId: number };
+    context.userId = userId;
     return true;
   } catch (err) {
     console.log(err);
