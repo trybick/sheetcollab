@@ -10,6 +10,7 @@ export const checkIsAuth: AuthChecker<Context> = async ({ context }) => {
 
   try {
     const { userId } = verify(token, process.env.JWT_SECRET!) as { userId: number };
+    if (!userId) throw new Error('Failed to authenticate userId from token');
     context.userId = userId;
     return true;
   } catch (err) {
