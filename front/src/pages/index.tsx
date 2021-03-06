@@ -1,4 +1,5 @@
 import { Button, Flex, HStack } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const Index = () => (
   <Flex background="white" boxShadow="md" px={8} py={4}>
@@ -19,7 +20,9 @@ const Index = () => (
     </HStack>
 
     <Flex ml="auto">
-      <Button>Log in</Button>
+      <Link href="/login">
+        <Button>Log in</Button>
+      </Link>
     </Flex>
   </Flex>
 );
