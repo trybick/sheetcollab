@@ -61,9 +61,21 @@ const SignUpForm = () => {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
 
+        <FormControl isInvalid={Boolean(errors.password)} mt={4}>
+          <FormLabel>Confirm Password</FormLabel>
+          <Input
+            id="confirm-password"
+            name="confirmPassword"
+            placeholder="Re-enter password"
+            ref={register(formSchema.confirmPassword)}
+            type="password"
+          />
+          <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
+        </FormControl>
+
         <Box textAlign="right">
           <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
-            Login
+            Sign Up
           </Button>
         </Box>
       </Box>
