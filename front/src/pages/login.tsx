@@ -5,12 +5,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Grid,
   Input,
-  InputGroup,
-  InputRightElement,
-  ModalBody,
-  ModalFooter,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -32,11 +27,12 @@ const formSchema = {
 };
 
 const Login = () => {
-  const { handleSubmit, errors, register, setError, setValue } = useForm<FormData>();
+  const { handleSubmit, errors, register } = useForm<FormData>();
 
-  const onSubmit = () => {
-    console.log('a');
-  };
+  const onSubmit = handleSubmit(({ email, password }) => {
+    console.log('email:', email);
+    console.log('password:', password);
+  });
 
   return (
     <Flex background="gray.50" justify="center" minH="100vh">
@@ -44,13 +40,20 @@ const Login = () => {
         <Box as="form" onSubmit={onSubmit}>
           <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel htmlFor="email">Email</FormLabel>
-            <Input name="email" placeholder="Email" ref={register(formSchema.email)} autoFocus />
+            <Input
+              id="email"
+              name="email"
+              placeholder="Enter email"
+              ref={register(formSchema.email)}
+              autoFocus
+            />
             <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
           </FormControl>
 
           <FormControl isInvalid={Boolean(errors.password)} mt={4}>
             <FormLabel>Password</FormLabel>
             <Input
+              id="password"
               name="password"
               placeholder="Enter password"
               ref={register(formSchema.password)}
@@ -60,7 +63,7 @@ const Login = () => {
           </FormControl>
 
           <Box textAlign="right">
-            <Button isLoading={false} mt="22px" type="submit" variantColor="gray">
+            <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
               Login
             </Button>
           </Box>
