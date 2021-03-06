@@ -13,7 +13,7 @@ const Login = () => {
 
   return (
     <Flex background="gray.50" direction="column" minH="100vh">
-      <AboveLoginMessaging toggleIsLogin={toggleIsLogin} />
+      <AboveLoginMessaging isLogin={isLogin} toggleIsLogin={toggleIsLogin} />
       {isLogin ? <LoginForm /> : <SignUpForm />}
     </Flex>
   );

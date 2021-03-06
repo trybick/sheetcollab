@@ -1,15 +1,21 @@
 import { Box, Heading, Link, Text } from '@chakra-ui/react';
 
-const AboveLoginMessaging = ({ toggleIsLogin }: { toggleIsLogin: () => void }) => (
+const AboveLoginMessaging = ({
+  isLogin,
+  toggleIsLogin,
+}: {
+  isLogin: boolean;
+  toggleIsLogin: () => void;
+}) => (
   <Box m="7rem auto 0">
     <Heading as="h2" textAlign="center">
-      Sign in to your account
+      {isLogin ? 'Sign in to your account' : 'Sign Up'}
     </Heading>
 
     <Text fontWeight="medium" mt={4} textAlign="center">
-      Don't have an account?
+      {isLogin ? `Don't have an account?` : 'Already have an account?'}
       <Link color="blue.600" ml={1} onClick={toggleIsLogin}>
-        Sign up
+        {isLogin ? 'Sign up' : 'Back to Login'}
       </Link>
     </Text>
   </Box>
