@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { emailRegex } from '../../utils/regex';
 import { useLoginMutation } from 'src/generated/graphql';
@@ -22,23 +21,27 @@ const formSchema = {
 
 const LoginForm = () => {
   const router = useRouter();
-  const [login, { data, loading, error }] = useLoginMutation();
-  const token = data?.login.token;
+  const [login, { loading }] = useLoginMutation();
+  const { handleSubmit, errors, register, setError } = useForm<FormData>();
 
-  const { handleSubmit, errors, register } = useForm<FormData>();
-
-  const onSubmit = handleSubmit(({ email, password }) => {
-    login({ variables: { email, password } });
-    !error && router.push('/');
-  });
-
-  useEffect(() => {
-    token && localStorage.setItem('sc-token', token);
-  }, [token]);
+  const onSubmit: SubmitHandler<FormData> = async ({ email, password }) => {
+    await login({ variables: { email, password } })
+      .then(res => {
+        const token = res.data?.login.token!;
+        localStorage.setItem('sc-token', token);
+        router.push('/');
+      })
+      .catch((error: Error) => {
+        setError('password', {
+          type: 'server',
+          message: error.message,
+        });
+      });
+  };
 
   return (
     <Box background="white" boxShadow="md" borderRadius="4px" m="2rem auto 0" p={10} w="400px">
-      <Box as="form" onSubmit={onSubmit}>
+      <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.email}>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
