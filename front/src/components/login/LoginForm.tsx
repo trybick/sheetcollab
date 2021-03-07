@@ -2,29 +2,14 @@ import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { useLoginMutation } from 'generated/graphql';
-import { emailRegex } from 'utils/regex';
-
-type FormData = {
-  email: string;
-  password: string;
-};
-
-const formSchema = {
-  email: {
-    required: { value: true, message: 'Email is required' },
-    pattern: { value: emailRegex, message: 'Please enter a valid email' },
-  },
-  password: {
-    required: 'Password is required',
-  },
-};
+import { LoginFormData, loginFormSchema } from './loginHelpers';
 
 const LoginForm = () => {
   const router = useRouter();
   const [login, { loading }] = useLoginMutation();
-  const { handleSubmit, errors, register, setError } = useForm<FormData>();
+  const { handleSubmit, errors, register, setError } = useForm<LoginFormData>();
 
-  const onSubmit: SubmitHandler<FormData> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async ({ email, password }) => {
     await login({ variables: { email, password } })
       .then(res => {
         const token = res.data?.login.token!;
@@ -56,7 +41,7 @@ const LoginForm = () => {
           id="email"
           name="email"
           placeholder="Enter email"
-          ref={register(formSchema.email)}
+          ref={register(loginFormSchema.email)}
           autoFocus
         />
         <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
@@ -68,7 +53,7 @@ const LoginForm = () => {
           id="password"
           name="password"
           placeholder="Enter password"
-          ref={register(formSchema.password)}
+          ref={register(loginFormSchema.password)}
           type="password"
         />
         <FormErrorMessage>{errors.password?.message}</FormErrorMessage>

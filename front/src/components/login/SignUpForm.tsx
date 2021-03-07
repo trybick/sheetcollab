@@ -3,37 +3,25 @@ import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { useSignUpMutation } from 'generated/graphql';
-import { emailRegex } from 'utils/regex';
-
-type FormData = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { SignUpFormData, baseSignUpFormSchema } from './loginHelpers';
 
 const SignUpForm = () => {
   const router = useRouter();
   const [signUp, { loading }] = useSignUpMutation();
 
-  const { handleSubmit, errors, register, setError, watch } = useForm<FormData>();
+  const { handleSubmit, errors, register, setError, watch } = useForm<SignUpFormData>();
   const watchedPassword = useRef({});
   watchedPassword.current = watch('password', '');
 
-  const formSchema = {
-    email: {
-      required: { value: true, message: 'Email is required' },
-      pattern: { value: emailRegex, message: 'Please enter a valid email' },
-    },
-    password: {
-      required: 'Password is required',
-    },
+  const signUpFormSchema = {
+    ...baseSignUpFormSchema,
     confirmPassword: {
-      validate: (value: FormData['confirmPassword']) =>
+      validate: (value: SignUpFormData['confirmPassword']) =>
         value === watchedPassword.current || 'Passwords do not match',
     },
   };
 
-  const onSubmit: SubmitHandler<FormData> = async ({ email, password, confirmPassword }) => {
+  const onSubmit: SubmitHandler<SignUpFormData> = async ({ email, password, confirmPassword }) => {
     await signUp({ variables: { email, password, confirmPassword } })
       .then(res => {
         const token = res.data?.signUp.token!;
@@ -65,7 +53,7 @@ const SignUpForm = () => {
           id="email"
           name="email"
           placeholder="Enter email"
-          ref={register(formSchema.email)}
+          ref={register(signUpFormSchema.email)}
           autoFocus
         />
         <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
@@ -77,7 +65,7 @@ const SignUpForm = () => {
           id="password"
           name="password"
           placeholder="Enter password"
-          ref={register(formSchema.password)}
+          ref={register(signUpFormSchema.password)}
           type="password"
         />
         <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
@@ -89,7 +77,7 @@ const SignUpForm = () => {
           id="confirm-password"
           name="confirmPassword"
           placeholder="Re-enter password"
-          ref={register(formSchema.confirmPassword)}
+          ref={register(signUpFormSchema.confirmPassword)}
           type="password"
         />
         <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
