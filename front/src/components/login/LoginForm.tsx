@@ -28,7 +28,7 @@ const LoginForm = () => {
   return (
     <Box background="white" boxShadow="md" borderRadius="4px" m="2rem auto 0" p={10} w="400px">
       <Box as="form" onSubmit={onSubmit}>
-        <FormControl isInvalid={Boolean(errors.email)}>
+        <FormControl isInvalid={!!errors.email}>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
             id="email"
@@ -40,7 +40,7 @@ const LoginForm = () => {
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={Boolean(errors.password)} mt={4}>
+        <FormControl isInvalid={!!errors.password} mt={4}>
           <FormLabel>Password</FormLabel>
           <Input
             id="password"

@@ -37,7 +37,7 @@ const SignUpForm = () => {
   return (
     <Box background="white" boxShadow="md" borderRadius="4px" m="2rem auto 0" p={10} w="400px">
       <Box as="form" onSubmit={onSubmit}>
-        <FormControl isInvalid={Boolean(errors.email)}>
+        <FormControl isInvalid={!!errors.email}>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
             id="email"
@@ -49,7 +49,7 @@ const SignUpForm = () => {
           <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={Boolean(errors.password)} mt={4}>
+        <FormControl isInvalid={!!errors.password} mt={4}>
           <FormLabel>Password</FormLabel>
           <Input
             id="password"
@@ -61,7 +61,7 @@ const SignUpForm = () => {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={Boolean(errors.password)} mt={4}>
+        <FormControl isInvalid={!!errors.confirmPassword} mt={4}>
           <FormLabel>Confirm Password</FormLabel>
           <Input
             id="confirm-password"
