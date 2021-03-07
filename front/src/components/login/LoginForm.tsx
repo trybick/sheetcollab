@@ -52,11 +52,9 @@ const LoginForm = () => {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
 
-        <Box textAlign="right">
-          <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
-            Login
-          </Button>
-        </Box>
+        <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
+          Login
+        </Button>
       </Box>
     </Box>
   );

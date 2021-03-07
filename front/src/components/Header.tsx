@@ -1,5 +1,5 @@
-import { Button, Flex, HStack } from '@chakra-ui/react';
 import Link from 'next/link';
+import { Button, Flex, HStack } from '@chakra-ui/react';
 
 const Header = () => (
   <Flex background="white" boxShadow="md" px={8} py={4}>
