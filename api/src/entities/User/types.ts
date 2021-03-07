@@ -2,7 +2,7 @@ import { Field, ObjectType } from 'type-graphql';
 import { User } from './UserModel';
 
 @ObjectType()
-export class LoginOrRegisterResponse {
+export class LoginOrSignUpResponse {
   @Field()
   token: string;
 

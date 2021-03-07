@@ -16,7 +16,7 @@ const AboveLoginMessaging = ({
     </RouterLink>
 
     <Heading as="h2" mt={22} textAlign="center">
-      {isLogin ? 'Sign in to your account' : 'Sign Up'}
+      {isLogin ? 'Sign in to your account' : 'Create your account'}
     </Heading>
 
     <Text fontWeight="medium" mt={4} textAlign="center">

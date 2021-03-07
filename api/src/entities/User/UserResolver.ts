@@ -2,34 +2,43 @@ import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { User } from './UserModel';
-import { LoginOrRegisterResponse } from './types';
+import { LoginOrSignUpResponse } from './types';
 require('dotenv').config();
 
 @Resolver(User)
 export class UserResolver {
-  @Mutation(() => LoginOrRegisterResponse)
-  async register(
+  @Mutation(() => LoginOrSignUpResponse)
+  async signUp(
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Arg('name') name: string
-  ): Promise<LoginOrRegisterResponse> {
+    @Arg('confirmPassword') confirmPassword: string,
+    @Arg('name', { nullable: true }) name?: string
+  ): Promise<LoginOrSignUpResponse> {
+    if (password !== confirmPassword) {
+      throw new Error('Passwords do not match');
+    }
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) throw new Error('Email already exists');
+
     const hashedPassword = await bcrypt.hash(password, 11);
     const createdUser = await User.create({
       email,
       name,
       password: hashedPassword,
     }).save();
+
     return {
       user: createdUser,
       token: sign({ userId: createdUser.id }, process.env.JWT_SECRET!),
     };
   }
 
-  @Mutation(() => LoginOrRegisterResponse)
+  @Mutation(() => LoginOrSignUpResponse)
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string
-  ): Promise<LoginOrRegisterResponse> {
+  ): Promise<LoginOrSignUpResponse> {
     const requestedUser = await User.findOne({ where: { email } });
     if (!requestedUser) throw new Error('Email not found');
     const isMatch = bcrypt.compareSync(password, requestedUser.password);

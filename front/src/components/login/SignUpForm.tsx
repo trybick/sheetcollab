@@ -1,6 +1,8 @@
 import { useRef } from 'react';
+import { useRouter } from 'next/router';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useSignUpMutation } from 'src/generated/graphql';
 import { emailRegex } from '../../utils/regex';
 
 type FormData = {
@@ -10,7 +12,10 @@ type FormData = {
 };
 
 const SignUpForm = () => {
-  const { handleSubmit, errors, register, watch } = useForm<FormData>();
+  const router = useRouter();
+  const [signUp, { loading }] = useSignUpMutation();
+
+  const { handleSubmit, errors, register, setError, watch } = useForm<FormData>();
   const watchedPassword = useRef({});
   watchedPassword.current = watch('password', '');
 
@@ -28,11 +33,20 @@ const SignUpForm = () => {
     },
   };
 
-  const onSubmit = handleSubmit(({ email, password, confirmPassword }) => {
-    console.log('email:', email);
-    console.log('password:', password);
-    console.log('confirmPassword:', confirmPassword);
-  });
+  const onSubmit: SubmitHandler<FormData> = async ({ email, password, confirmPassword }) => {
+    await signUp({ variables: { email, password, confirmPassword } })
+      .then(res => {
+        const token = res.data?.signUp.token!;
+        localStorage.setItem('sc-token', token);
+        router.push('/');
+      })
+      .catch((error: Error) => {
+        setError('confirmPassword', {
+          type: 'server',
+          message: error.message,
+        });
+      });
+  };
 
   return (
     <Box
@@ -41,7 +55,7 @@ const SignUpForm = () => {
       boxShadow="md"
       borderRadius="4px"
       m="2rem auto 0"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       p={10}
       w="400px"
     >
@@ -81,7 +95,7 @@ const SignUpForm = () => {
         <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
       </FormControl>
 
-      <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
+      <Button isLoading={loading} mt="28px" type="submit" colorScheme="gray" w="100%">
         Sign Up
       </Button>
     </Box>

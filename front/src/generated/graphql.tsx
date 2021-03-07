@@ -78,8 +78,8 @@ export type Mutation = {
   createSheet: Sheet;
   updateSheet: Scalars['Boolean'];
   deleteSheet: Scalars['Boolean'];
-  register: LoginOrRegisterResponse;
-  login: LoginOrRegisterResponse;
+  signUp: LoginOrSignUpResponse;
+  login: LoginOrSignUpResponse;
 };
 
 
@@ -104,8 +104,9 @@ export type MutationDeleteSheetArgs = {
 };
 
 
-export type MutationRegisterArgs = {
-  name: Scalars['String'];
+export type MutationSignUpArgs = {
+  name?: Maybe<Scalars['String']>;
+  confirmPassword: Scalars['String'];
   password: Scalars['String'];
   email: Scalars['String'];
 };
@@ -128,8 +129,8 @@ export type UpdateSheetInput = {
   year?: Maybe<Scalars['String']>;
 };
 
-export type LoginOrRegisterResponse = {
-  __typename?: 'LoginOrRegisterResponse';
+export type LoginOrSignUpResponse = {
+  __typename?: 'LoginOrSignUpResponse';
   token: Scalars['String'];
   user: User;
 };
@@ -143,8 +144,23 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login: (
-    { __typename?: 'LoginOrRegisterResponse' }
-    & Pick<LoginOrRegisterResponse, 'token'>
+    { __typename?: 'LoginOrSignUpResponse' }
+    & Pick<LoginOrSignUpResponse, 'token'>
+  ) }
+);
+
+export type SignUpMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  confirmPassword: Scalars['String'];
+}>;
+
+
+export type SignUpMutation = (
+  { __typename?: 'Mutation' }
+  & { signUp: (
+    { __typename?: 'LoginOrSignUpResponse' }
+    & Pick<LoginOrSignUpResponse, 'token'>
   ) }
 );
 
@@ -182,3 +198,37 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const SignUpDocument = gql`
+    mutation SignUp($email: String!, $password: String!, $confirmPassword: String!) {
+  signUp(email: $email, password: $password, confirmPassword: $confirmPassword) {
+    token
+  }
+}
+    `;
+export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMutationVariables>;
+
+/**
+ * __useSignUpMutation__
+ *
+ * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *      confirmPassword: // value for 'confirmPassword'
+ *   },
+ * });
+ */
+export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
+        return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
+      }
+export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
+export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
