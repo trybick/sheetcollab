@@ -25,17 +25,12 @@ type LoginOrRegisterResponse {
   user: User!
 }
 
-input LoginUserInput {
-  email: String!
-  password: String!
-}
-
 type Mutation {
   addUserToSheet(id: Int!): Boolean!
   createSheet(data: CreateSheetInput!): Sheet!
   deleteSheet(id: Int!): Boolean!
-  loginUser(data: LoginUserInput!): LoginOrRegisterResponse!
-  registerUser(data: RegisterUserInput!): LoginOrRegisterResponse!
+  login(email: String!, password: String!): LoginOrRegisterResponse!
+  register(email: String!, name: String!, password: String!): LoginOrRegisterResponse!
   updateSheet(data: UpdateSheetInput!, id: Int!): Boolean!
 }
 
@@ -45,12 +40,6 @@ type Query {
   getSheetUsers(id: Int!): [User!]!
   getUserSheets: [Sheet!]!
   sheet(id: Int!): Sheet
-}
-
-input RegisterUserInput {
-  email: String!
-  name: String
-  password: String!
 }
 
 type Sheet implements Base {

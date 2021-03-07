@@ -1,6 +1,8 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from '../../utils/regex';
+import { useMutation, gql } from '@apollo/client';
+import { useEffect } from 'react';
 
 type FormData = {
   email: string;
@@ -17,13 +19,27 @@ const formSchema = {
   },
 };
 
+const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
+  }
+`;
+
 const LoginForm = () => {
+  const [login, { data, error, loading }] = useMutation(LOGIN);
+  const token = data?.login.token;
+
   const { handleSubmit, errors, register } = useForm<FormData>();
 
   const onSubmit = handleSubmit(({ email, password }) => {
-    console.log('email:', email);
-    console.log('password:', password);
+    login({ variables: { email, password } });
   });
+
+  useEffect(() => {
+    token && localStorage.setItem('sc-token', token);
+  }, [token]);
 
   return (
     <Box background="white" boxShadow="md" borderRadius="4px" m="2rem auto 0" p={10} w="400px">
@@ -52,7 +68,7 @@ const LoginForm = () => {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
 
-        <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
+        <Button isLoading={loading} mt="28px" type="submit" colorScheme="gray" w="100%">
           Login
         </Button>
       </Box>

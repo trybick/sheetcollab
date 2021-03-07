@@ -2,14 +2,16 @@ import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { User } from './UserModel';
-import { LoginUserInput, LoginOrRegisterResponse, RegisterUserInput } from './types';
+import { LoginOrRegisterResponse } from './types';
 require('dotenv').config();
 
 @Resolver(User)
 export class UserResolver {
   @Mutation(() => LoginOrRegisterResponse)
-  async registerUser(
-    @Arg('data') { email, password, name }: RegisterUserInput
+  async register(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('name') name: string
   ): Promise<LoginOrRegisterResponse> {
     const hashedPassword = await bcrypt.hash(password, 11);
     const createdUser = await User.create({
@@ -24,8 +26,9 @@ export class UserResolver {
   }
 
   @Mutation(() => LoginOrRegisterResponse)
-  async loginUser(
-    @Arg('data') { email, password }: LoginUserInput
+  async login(
+    @Arg('email') email: string,
+    @Arg('password') password: string
   ): Promise<LoginOrRegisterResponse> {
     const requestedUser = await User.findOne({ where: { email } });
     if (!requestedUser) throw new Error('Email not found');

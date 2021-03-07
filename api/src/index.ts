@@ -30,7 +30,7 @@ const startServer = async () => {
   app.use(
     cors({
       credentials: true,
-      origin: 'http://localhost:5555',
+      origin: 'http://localhost:4321',
     })
   );
 
