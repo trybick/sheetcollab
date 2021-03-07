@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useLoginMutation } from 'src/generated/graphql';
-import { emailRegex } from '../../utils/regex';
+import { useLoginMutation } from 'generated/graphql';
+import { emailRegex } from 'utils/regex';
 
 type FormData = {
   email: string;

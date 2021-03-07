@@ -14,6 +14,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "components/*": ["./src/components/*"],
+      "generated/*": ["./src/generated/*"],
+      "graphql/*": ["./src/graphql/*"],
+      "pages/*": ["./src/pages/*"],
+      "utils/*": ["./src/utils/*"],
+      "@theme": ["./src/theme.tsx"]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
