@@ -35,48 +35,55 @@ const SignUpForm = () => {
   });
 
   return (
-    <Box background="white" boxShadow="md" borderRadius="4px" m="2rem auto 0" p={10} w="400px">
-      <Box as="form" onSubmit={onSubmit}>
-        <FormControl isInvalid={!!errors.email}>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <Input
-            id="email"
-            name="email"
-            placeholder="Enter email"
-            ref={register(formSchema.email)}
-            autoFocus
-          />
-          <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-        </FormControl>
+    <Box
+      as="form"
+      background="white"
+      boxShadow="md"
+      borderRadius="4px"
+      m="2rem auto 0"
+      onSubmit={onSubmit}
+      p={10}
+      w="400px"
+    >
+      <FormControl isInvalid={!!errors.email}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
+          id="email"
+          name="email"
+          placeholder="Enter email"
+          ref={register(formSchema.email)}
+          autoFocus
+        />
+        <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+      </FormControl>
 
-        <FormControl isInvalid={!!errors.password} mt={4}>
-          <FormLabel>Password</FormLabel>
-          <Input
-            id="password"
-            name="password"
-            placeholder="Enter password"
-            ref={register(formSchema.password)}
-            type="password"
-          />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-        </FormControl>
+      <FormControl isInvalid={!!errors.password} mt={4}>
+        <FormLabel>Password</FormLabel>
+        <Input
+          id="password"
+          name="password"
+          placeholder="Enter password"
+          ref={register(formSchema.password)}
+          type="password"
+        />
+        <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+      </FormControl>
 
-        <FormControl isInvalid={!!errors.confirmPassword} mt={4}>
-          <FormLabel>Confirm Password</FormLabel>
-          <Input
-            id="confirm-password"
-            name="confirmPassword"
-            placeholder="Re-enter password"
-            ref={register(formSchema.confirmPassword)}
-            type="password"
-          />
-          <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
-        </FormControl>
+      <FormControl isInvalid={!!errors.confirmPassword} mt={4}>
+        <FormLabel>Confirm Password</FormLabel>
+        <Input
+          id="confirm-password"
+          name="confirmPassword"
+          placeholder="Re-enter password"
+          ref={register(formSchema.confirmPassword)}
+          type="password"
+        />
+        <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
+      </FormControl>
 
-        <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
-          Sign Up
-        </Button>
-      </Box>
+      <Button isLoading={false} mt="28px" type="submit" colorScheme="gray" w="100%">
+        Sign Up
+      </Button>
     </Box>
   );
 };

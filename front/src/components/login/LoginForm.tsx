@@ -40,36 +40,43 @@ const LoginForm = () => {
   };
 
   return (
-    <Box background="white" boxShadow="md" borderRadius="4px" m="2rem auto 0" p={10} w="400px">
-      <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={!!errors.email}>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <Input
-            id="email"
-            name="email"
-            placeholder="Enter email"
-            ref={register(formSchema.email)}
-            autoFocus
-          />
-          <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-        </FormControl>
+    <Box
+      as="form"
+      background="white"
+      boxShadow="md"
+      borderRadius="4px"
+      m="2rem auto 0"
+      onSubmit={handleSubmit(onSubmit)}
+      p={10}
+      w="400px"
+    >
+      <FormControl isInvalid={!!errors.email}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
+          id="email"
+          name="email"
+          placeholder="Enter email"
+          ref={register(formSchema.email)}
+          autoFocus
+        />
+        <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+      </FormControl>
 
-        <FormControl isInvalid={!!errors.password} mt={4}>
-          <FormLabel>Password</FormLabel>
-          <Input
-            id="password"
-            name="password"
-            placeholder="Enter password"
-            ref={register(formSchema.password)}
-            type="password"
-          />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-        </FormControl>
+      <FormControl isInvalid={!!errors.password} mt={4}>
+        <FormLabel>Password</FormLabel>
+        <Input
+          id="password"
+          name="password"
+          placeholder="Enter password"
+          ref={register(formSchema.password)}
+          type="password"
+        />
+        <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+      </FormControl>
 
-        <Button isLoading={loading} mt="28px" type="submit" colorScheme="gray" w="100%">
-          Login
-        </Button>
-      </Box>
+      <Button isLoading={loading} mt="28px" type="submit" colorScheme="gray" w="100%">
+        Login
+      </Button>
     </Box>
   );
 };
