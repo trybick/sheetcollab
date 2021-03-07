@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { emailRegex } from '../../utils/regex';
@@ -20,6 +21,7 @@ const formSchema = {
 };
 
 const LoginForm = () => {
+  const router = useRouter();
   const [login, { data, loading, error }] = useLoginMutation();
   const token = data?.login.token;
 
@@ -27,6 +29,7 @@ const LoginForm = () => {
 
   const onSubmit = handleSubmit(({ email, password }) => {
     login({ variables: { email, password } });
+    !error && router.push('/');
   });
 
   useEffect(() => {
