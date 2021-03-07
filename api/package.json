@@ -1,5 +1,6 @@
 {
   "name": "sheetcollab-api",
+  "license": "UNLICENSED",
   "scripts": {
     "serve": "yarn killPort && ts-node-dev --respawn --transpile-only src/index.ts",
     "killPort": "lsof -t -i tcp:4000 | xargs kill",

@@ -2,6 +2,7 @@
   "name": "sheetcollab",
   "description": "Sheet music knowledge sharing portal",
   "author": "Tim Rybicki",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trybick/sheetcollab.git"

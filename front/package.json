@@ -1,6 +1,6 @@
 {
   "name": "sheetcollab-front",
-  "version": "0.0.1",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next -p 4321",
     "build": "next build && next export",
