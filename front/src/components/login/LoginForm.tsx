@@ -1,8 +1,8 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import { emailRegex } from '../../utils/regex';
-import { useMutation, gql } from '@apollo/client';
 import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
+import { emailRegex } from '../../utils/regex';
+import { useLoginMutation } from 'src/generated/graphql';
 
 type FormData = {
   email: string;
@@ -19,16 +19,8 @@ const formSchema = {
   },
 };
 
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-    }
-  }
-`;
-
 const LoginForm = () => {
-  const [login, { data, error, loading }] = useMutation(LOGIN);
+  const [login, { data, loading, error }] = useLoginMutation();
   const token = data?.login.token;
 
   const { handleSubmit, errors, register } = useForm<FormData>();
