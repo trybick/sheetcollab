@@ -9,11 +9,12 @@ import { SheetResolver } from './entities/Sheet/SheetResolver';
 import { UserResolver } from './entities/User/UserResolver';
 import { createContext } from './middleware/createContext';
 import { checkIsAuth } from './middleware/checkIsAuth';
+import { databaseOptions } from './config/database';
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 const startServer = async () => {
-  await createConnection();
+  await createConnection(databaseOptions);
 
   const schema = await buildSchema({
     resolvers: [SheetResolver, UserResolver],
@@ -30,7 +31,7 @@ const startServer = async () => {
   app.use(
     cors({
       credentials: true,
-      origin: 'http://localhost:4321',
+      origin: ['http://localhost:4321', 'https://sheetcollab.netlify.app'],
     })
   );
 

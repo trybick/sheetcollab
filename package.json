@@ -7,11 +7,16 @@
     "type": "git",
     "url": "git+https://github.com/trybick/sheetcollab.git"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "dev": "concurrently \"yarn api:start\" \"yarn front:start\"",
     "postinstall": "(cd api && yarn); (cd front && yarn);",
     "api:start": "yarn --cwd api serve",
-    "front:start": "yarn --cwd front dev"
+    "front:start": "yarn --cwd front dev",
+    "build": "yarn --cwd api build",
+    "api:serve:prod": "yarn --cwd api serve:prod"
   },
   "dependencies": {
     "concurrently": "^6.0.0"

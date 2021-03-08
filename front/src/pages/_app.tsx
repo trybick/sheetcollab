@@ -3,9 +3,10 @@ import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@theme';
 import Layout from 'components/Layout';
+import { apolloEndpoint } from 'utils/api';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: apolloEndpoint,
   cache: new InMemoryCache(),
 });
 
