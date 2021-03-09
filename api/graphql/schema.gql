@@ -40,6 +40,7 @@ type Query {
   getSheetUsers(id: Int!): [User!]!
   getUserSheets: [Sheet!]!
   sheet(id: Int!): Sheet
+  sheets: [Sheet!]!
 }
 
 type Sheet implements Base {

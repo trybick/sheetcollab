@@ -13,6 +13,17 @@ export class SheetResolver {
   }
 
   @Query(() => [Sheet])
+  async sheets(): Promise<Sheet[]> {
+    return await Sheet.find({
+      relations: ['users'],
+      order: {
+        createdAt: 'DESC',
+      },
+      take: 10,
+    });
+  }
+
+  @Query(() => [Sheet])
   async filterSheets(@Arg('searchString') searchString: string): Promise<Sheet[]> {
     const terms = { searchString: `%${searchString}%` };
     return await getManager()
