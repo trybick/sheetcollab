@@ -13,7 +13,7 @@ export class SheetResolver {
   }
 
   @Query(() => [Sheet])
-  async sheets(): Promise<Sheet[]> {
+  async recentSheets(): Promise<Sheet[]> {
     return await Sheet.find({
       relations: ['users'],
       order: {

@@ -18,6 +18,7 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   sheet?: Maybe<Sheet>;
+  recentSheets: Array<Sheet>;
   filterSheets: Array<Sheet>;
   getUserSheets: Array<Sheet>;
   getSheetUsers: Array<User>;
@@ -164,6 +165,21 @@ export type SignUpMutation = (
   ) }
 );
 
+export type RecentSheetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RecentSheetsQuery = (
+  { __typename?: 'Query' }
+  & { recentSheets: Array<(
+    { __typename?: 'Sheet' }
+    & Pick<Sheet, 'artist' | 'createdAt' | 'id' | 'title' | 'year'>
+    & { users: Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'email' | 'id'>
+    )> }
+  )> }
+);
+
 
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
@@ -232,3 +248,43 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const RecentSheetsDocument = gql`
+    query RecentSheets {
+  recentSheets {
+    artist
+    createdAt
+    id
+    title
+    year
+    users {
+      email
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useRecentSheetsQuery__
+ *
+ * To run a query within a React component, call `useRecentSheetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecentSheetsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecentSheetsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRecentSheetsQuery(baseOptions?: Apollo.QueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>) {
+        return Apollo.useQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(RecentSheetsDocument, baseOptions);
+      }
+export function useRecentSheetsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>) {
+          return Apollo.useLazyQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(RecentSheetsDocument, baseOptions);
+        }
+export type RecentSheetsQueryHookResult = ReturnType<typeof useRecentSheetsQuery>;
+export type RecentSheetsLazyQueryHookResult = ReturnType<typeof useRecentSheetsLazyQuery>;
+export type RecentSheetsQueryResult = Apollo.QueryResult<RecentSheetsQuery, RecentSheetsQueryVariables>;

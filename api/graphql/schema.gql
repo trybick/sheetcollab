@@ -39,8 +39,8 @@ type Query {
   findUser(id: Int!): User
   getSheetUsers(id: Int!): [User!]!
   getUserSheets: [Sheet!]!
+  recentSheets: [Sheet!]!
   sheet(id: Int!): Sheet
-  sheets: [Sheet!]!
 }
 
 type Sheet implements Base {

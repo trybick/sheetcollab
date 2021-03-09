@@ -1,0 +1,13 @@
+query RecentSheets {
+  recentSheets {
+    artist
+    createdAt
+    id
+    title
+    year
+    users {
+      email
+      id
+    }
+  }
+}
