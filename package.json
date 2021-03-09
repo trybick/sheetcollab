@@ -12,11 +12,12 @@
   },
   "scripts": {
     "dev": "concurrently \"yarn api:start\" \"yarn front:start\"",
-    "postinstall": "(cd api && yarn); (cd front && yarn);",
+    "postinstall": "(cd api && yarn); ([ -d \"front\" ] && cd front && yarn || true);",
     "api:start": "yarn --cwd api serve",
     "front:start": "yarn --cwd front dev",
     "build": "yarn --cwd api build",
-    "api:serve:prod": "yarn --cwd api serve:prod"
+    "api:serve:prod": "yarn --cwd api serve:prod",
+    "heroku-prebuild": "rm -rf front"
   },
   "dependencies": {
     "concurrently": "^6.0.0"
