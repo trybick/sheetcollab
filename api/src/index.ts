@@ -10,6 +10,7 @@ import { UserResolver } from './entities/User/UserResolver';
 import { createContext } from './middleware/createContext';
 import { checkIsAuth } from './middleware/checkIsAuth';
 import { databaseOptions } from './config/database';
+import { corsAllowedOrigins } from './config/cors';
 
 const PORT = process.env.PORT || 4000;
 
@@ -31,7 +32,7 @@ const startServer = async () => {
   app.use(
     cors({
       credentials: true,
-      origin: ['http://localhost:4321', 'https://sheetcollab.netlify.app'],
+      origin: corsAllowedOrigins,
     })
   );
 
