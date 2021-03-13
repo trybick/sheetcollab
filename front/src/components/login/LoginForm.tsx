@@ -2,9 +2,9 @@ import { useHistory } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useLoginMutation } from 'generated/graphql';
+import { useLoginMutation } from 'graphql/generated/graphql';
+import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { LoginFormData, loginFormSchema } from './loginHelpers';
-import { isLoggedInState } from '../../atoms/IsLoggedIn';
 
 const LoginForm = () => {
   const history = useHistory();

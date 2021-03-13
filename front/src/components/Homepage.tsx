@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
-import { useRecentSheetsQuery } from 'generated/graphql';
+import { useRecentSheetsQuery } from 'graphql/generated/graphql';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 

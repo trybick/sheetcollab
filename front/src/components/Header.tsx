@@ -1,7 +1,7 @@
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Button, Flex, HStack } from '@chakra-ui/react';
-import { isLoggedInState } from '../atoms/IsLoggedIn';
+import { isLoggedInState } from 'atoms/IsLoggedIn';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
