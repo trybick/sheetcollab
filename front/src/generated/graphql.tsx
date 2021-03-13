@@ -25,21 +25,17 @@ export type Query = {
   findUser?: Maybe<User>;
 };
 
-
 export type QuerySheetArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryFilterSheetsArgs = {
   searchString: Scalars['String'];
 };
 
-
 export type QueryGetSheetUsersArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryFindUserArgs = {
   id: Scalars['Int'];
@@ -62,7 +58,6 @@ export type Base = {
   updatedAt: Scalars['DateTime'];
 };
 
-
 export type User = Base & {
   __typename?: 'User';
   id: Scalars['ID'];
@@ -83,27 +78,22 @@ export type Mutation = {
   login: LoginOrSignUpResponse;
 };
 
-
 export type MutationAddUserToSheetArgs = {
   id: Scalars['Int'];
 };
 
-
 export type MutationCreateSheetArgs = {
   data: CreateSheetInput;
 };
-
 
 export type MutationUpdateSheetArgs = {
   data: UpdateSheetInput;
   id: Scalars['Int'];
 };
 
-
 export type MutationDeleteSheetArgs = {
   id: Scalars['Int'];
 };
-
 
 export type MutationSignUpArgs = {
   name?: Maybe<Scalars['String']>;
@@ -111,7 +101,6 @@ export type MutationSignUpArgs = {
   password: Scalars['String'];
   email: Scalars['String'];
 };
-
 
 export type MutationLoginArgs = {
   password: Scalars['String'];
@@ -141,14 +130,9 @@ export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
 }>;
 
-
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & { login: (
-    { __typename?: 'LoginOrSignUpResponse' }
-    & Pick<LoginOrSignUpResponse, 'token'>
-  ) }
-);
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login: { __typename?: 'LoginOrSignUpResponse' } & Pick<LoginOrSignUpResponse, 'token'>;
+};
 
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
@@ -156,38 +140,27 @@ export type SignUpMutationVariables = Exact<{
   confirmPassword: Scalars['String'];
 }>;
 
+export type SignUpMutation = { __typename?: 'Mutation' } & {
+  signUp: { __typename?: 'LoginOrSignUpResponse' } & Pick<LoginOrSignUpResponse, 'token'>;
+};
 
-export type SignUpMutation = (
-  { __typename?: 'Mutation' }
-  & { signUp: (
-    { __typename?: 'LoginOrSignUpResponse' }
-    & Pick<LoginOrSignUpResponse, 'token'>
-  ) }
-);
+export type RecentSheetsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type RecentSheetsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type RecentSheetsQuery = (
-  { __typename?: 'Query' }
-  & { recentSheets: Array<(
-    { __typename?: 'Sheet' }
-    & Pick<Sheet, 'artist' | 'createdAt' | 'id' | 'title' | 'year'>
-    & { users: Array<(
-      { __typename?: 'User' }
-      & Pick<User, 'email' | 'id'>
-    )> }
-  )> }
-);
-
+export type RecentSheetsQuery = { __typename?: 'Query' } & {
+  recentSheets: Array<
+    { __typename?: 'Sheet' } & Pick<Sheet, 'artist' | 'createdAt' | 'id' | 'title' | 'year'> & {
+        users: Array<{ __typename?: 'User' } & Pick<User, 'email' | 'id'>>;
+      }
+  >;
+};
 
 export const LoginDocument = gql`
-    mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password) {
-    token
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
   }
-}
-    `;
+`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -208,19 +181,24 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  *   },
  * });
  */
-export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
-      }
+export function useLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>
+) {
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
+}
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>;
 export const SignUpDocument = gql`
-    mutation SignUp($email: String!, $password: String!, $confirmPassword: String!) {
-  signUp(email: $email, password: $password, confirmPassword: $confirmPassword) {
-    token
+  mutation SignUp($email: String!, $password: String!, $confirmPassword: String!) {
+    signUp(email: $email, password: $password, confirmPassword: $confirmPassword) {
+      token
+    }
   }
-}
-    `;
+`;
 export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMutationVariables>;
 
 /**
@@ -242,27 +220,32 @@ export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMut
  *   },
  * });
  */
-export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
-        return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
-      }
+export function useSignUpMutation(
+  baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>
+) {
+  return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
+}
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
-export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<
+  SignUpMutation,
+  SignUpMutationVariables
+>;
 export const RecentSheetsDocument = gql`
-    query RecentSheets {
-  recentSheets {
-    artist
-    createdAt
-    id
-    title
-    year
-    users {
-      email
+  query RecentSheets {
+    recentSheets {
+      artist
+      createdAt
       id
+      title
+      year
+      users {
+        email
+        id
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useRecentSheetsQuery__
@@ -279,12 +262,25 @@ export const RecentSheetsDocument = gql`
  *   },
  * });
  */
-export function useRecentSheetsQuery(baseOptions?: Apollo.QueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>) {
-        return Apollo.useQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(RecentSheetsDocument, baseOptions);
-      }
-export function useRecentSheetsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>) {
-          return Apollo.useLazyQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(RecentSheetsDocument, baseOptions);
-        }
+export function useRecentSheetsQuery(
+  baseOptions?: Apollo.QueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>
+) {
+  return Apollo.useQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(
+    RecentSheetsDocument,
+    baseOptions
+  );
+}
+export function useRecentSheetsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>
+) {
+  return Apollo.useLazyQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(
+    RecentSheetsDocument,
+    baseOptions
+  );
+}
 export type RecentSheetsQueryHookResult = ReturnType<typeof useRecentSheetsQuery>;
 export type RecentSheetsLazyQueryHookResult = ReturnType<typeof useRecentSheetsLazyQuery>;
-export type RecentSheetsQueryResult = Apollo.QueryResult<RecentSheetsQuery, RecentSheetsQueryVariables>;
+export type RecentSheetsQueryResult = Apollo.QueryResult<
+  RecentSheetsQuery,
+  RecentSheetsQueryVariables
+>;

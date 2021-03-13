@@ -11,10 +11,8 @@
     "node": "12.x"
   },
   "scripts": {
-    "dev": "concurrently \"yarn api:start\" \"yarn front:start\"",
     "postinstall": "(cd api && yarn); ([ -d \"front\" ] && cd front && yarn || true);",
-    "api:start": "yarn --cwd api serve",
-    "front:start": "yarn --cwd front dev",
+    "dev": "concurrently \"yarn --cwd api serve\" \"yarn --cwd front start\"",
     "build": "yarn --cwd api build",
     "api:serve:prod": "yarn --cwd api serve:prod",
     "heroku-prebuild": "rm -rf front"

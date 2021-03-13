@@ -3,10 +3,6 @@ node_modules
 .vscode
 .env
 
-# next.js
-/.next/
-/out/
-
 # production
 /build
 /api/dist

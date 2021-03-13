@@ -4,7 +4,7 @@ import { useRecentSheetsQuery } from '../generated/graphql';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-const Index = () => {
+const Homepage = () => {
   const { data, loading } = useRecentSheetsQuery();
 
   const createTableRows = () => {
@@ -17,22 +17,20 @@ const Index = () => {
     ));
   };
 
-  return (
-    !loading && (
-      <Flex maxW="500px" m="200px auto">
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Song</Th>
-              <Th>Artist</Th>
-              <Th>Date</Th>
-            </Tr>
-          </Thead>
-          <Tbody>{createTableRows()}</Tbody>
-        </Table>
-      </Flex>
-    )
+  return loading ? null : (
+    <Flex maxW="500px" m="200px auto">
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>Song</Th>
+            <Th>Artist</Th>
+            <Th>Date</Th>
+          </Tr>
+        </Thead>
+        <Tbody>{createTableRows()}</Tbody>
+      </Table>
+    </Flex>
   );
 };
 
-export default Index;
+export default Homepage;

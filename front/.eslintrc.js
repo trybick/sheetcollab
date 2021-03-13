@@ -3,7 +3,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'prettier/@typescript-eslint',
+    'prettier',
     'plugin:prettier/recommended',
   ],
   parserOptions: {
@@ -43,6 +43,8 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/jsx-sort-props': 0,
+    'sort-imports': 0,
   },
   ignorePatterns: ['node_modules/*', 'public/*', 'build/*'],
 };

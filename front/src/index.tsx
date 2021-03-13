@@ -1,28 +1,27 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import { ChakraProvider } from '@chakra-ui/react';
-import theme from '@theme';
-import Layout from 'components/Layout';
-import { apolloEndpoint } from 'utils/api';
+import theme from 'src/theme';
+
+import { apolloEndpoint } from 'src/utils/api';
+import App from 'src/components/App';
 
 const client = new ApolloClient({
   uri: apolloEndpoint,
   cache: new InMemoryCache(),
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
+ReactDOM.render(
+  <React.StrictMode>
     <ApolloProvider client={client}>
       <RecoilRoot>
         <ChakraProvider theme={theme} resetCSS>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <App />
         </ChakraProvider>
       </RecoilRoot>
     </ApolloProvider>
-  );
-}
-
-export default MyApp;
+  </React.StrictMode>,
+  document.getElementById('root')
+);

@@ -1,17 +1,16 @@
-import Link from 'next/link';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useRouter } from 'next/router';
 import { Button, Flex, HStack } from '@chakra-ui/react';
 import { isLoggedInState } from '../atoms/IsLoggedIn';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  const router = useRouter();
+  const history = useHistory();
 
   const onClickLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('sc-token');
-    router.push('/login');
+    history.push('/login');
   };
 
   return (
@@ -38,9 +37,9 @@ const Header = () => {
             Logout
           </Button>
         ) : (
-          <Link href="/login">
+          <RouterLink to="/login">
             <Button>Log in</Button>
-          </Link>
+          </RouterLink>
         )}
       </Flex>
     </Flex>
