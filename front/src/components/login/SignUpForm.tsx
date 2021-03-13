@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { isLoggedInState } from 'src/atoms/IsLoggedIn';
-import { useSignUpMutation } from 'src/generated/graphql';
+import { isLoggedInState } from 'atoms/IsLoggedIn';
+import { useSignUpMutation } from 'generated/graphql';
 import { SignUpFormData, baseSignUpFormSchema } from './loginHelpers';
 
 const SignUpForm = () => {

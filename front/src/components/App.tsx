@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Layout from 'src/components/Layout';
-import Homepage from 'src/components/Homepage';
-import LoginPage from 'src/components/login/LoginPage';
+import Layout from 'components/Layout';
+import Homepage from 'components/Homepage';
+import LoginPage from 'components/login/LoginPage';
 
 const routes = (
   <>

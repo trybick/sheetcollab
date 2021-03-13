@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { RecoilRoot } from 'recoil';
 import { ChakraProvider } from '@chakra-ui/react';
-import theme from 'src/theme';
+import theme from 'theme';
 
-import { apolloEndpoint } from 'src/utils/api';
-import App from 'src/components/App';
+import { apolloEndpoint } from 'utils/api';
+import App from 'components/App';
 
 const client = new ApolloClient({
   uri: apolloEndpoint,

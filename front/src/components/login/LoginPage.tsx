@@ -1,8 +1,8 @@
 import { Flex } from '@chakra-ui/react';
 import { useState } from 'react';
-import AboveLoginMessaging from 'src/components/login/AboveLoginMessaging';
-import LoginForm from 'src/components/login/LoginForm';
-import SignUpForm from 'src/components/login/SignUpForm';
+import AboveLoginMessaging from 'components/login/AboveLoginMessaging';
+import LoginForm from 'components/login/LoginForm';
+import SignUpForm from 'components/login/SignUpForm';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
