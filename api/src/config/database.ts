@@ -26,6 +26,6 @@ export const databaseOptions: ConnectionOptions =
         password: 'postgres',
         database: 'sheetcollab',
         synchronize: true,
-        logging: true,
+        logging: false,
         entities: ['src/entities/**/*.*'],
       };

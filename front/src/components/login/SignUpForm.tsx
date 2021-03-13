@@ -1,12 +1,15 @@
 import { useRef } from 'react';
-import { useRouter } from 'next/router';
+import { useHistory } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useSignUpMutation } from 'generated/graphql';
+import { isLoggedInState } from 'src/atoms/IsLoggedIn';
+import { useSignUpMutation } from 'src/generated/graphql';
 import { SignUpFormData, baseSignUpFormSchema } from './loginHelpers';
 
 const SignUpForm = () => {
-  const router = useRouter();
+  const history = useHistory();
+  const [, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const [signUp, { loading }] = useSignUpMutation();
 
   const { handleSubmit, errors, register, setError, watch } = useForm<SignUpFormData>();
@@ -24,9 +27,10 @@ const SignUpForm = () => {
   const onSubmit: SubmitHandler<SignUpFormData> = async ({ email, password, confirmPassword }) => {
     await signUp({ variables: { email, password, confirmPassword } })
       .then(res => {
-        const token = res.data?.signUp.token!;
+        const token = res.data!.signUp.token!;
+        setIsLoggedIn(true);
         localStorage.setItem('sc-token', token);
-        router.push('/');
+        history.push('/');
       })
       .catch((error: Error) => {
         setError('confirmPassword', {

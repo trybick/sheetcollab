@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router';
+import { useHistory } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useLoginMutation } from 'generated/graphql';
+import { useLoginMutation } from 'src/generated/graphql';
 import { LoginFormData, loginFormSchema } from './loginHelpers';
 import { isLoggedInState } from '../../atoms/IsLoggedIn';
 
 const LoginForm = () => {
-  const router = useRouter();
+  const history = useHistory();
   const [login, { loading }] = useLoginMutation();
   const { handleSubmit, errors, register, setError } = useForm<LoginFormData>();
   const [, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -15,10 +15,10 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginFormData> = async ({ email, password }) => {
     await login({ variables: { email, password } })
       .then(res => {
-        const token = res.data?.login.token!;
+        const token = res.data!.login.token!;
         setIsLoggedIn(true);
         localStorage.setItem('sc-token', token);
-        router.push('/');
+        history.push('/');
       })
       .catch((error: Error) => {
         setError('password', {

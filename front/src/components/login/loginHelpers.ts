@@ -1,4 +1,4 @@
-import { emailRegex } from 'utils/regex';
+import { emailRegex } from 'src/utils/regex';
 
 // Login
 export type LoginFormData = {

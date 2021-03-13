@@ -1,4 +1,4 @@
-import RouterLink from 'next/link';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Heading, Link, Text } from '@chakra-ui/react';
 
 const AboveLoginMessaging = ({
@@ -9,11 +9,17 @@ const AboveLoginMessaging = ({
   toggleIsLogin: () => void;
 }) => (
   <Box m="7rem auto 0">
-    <RouterLink href="/">
-      <Link color="blue.600" d="block" fontSize={18} m="10px 0 0" textAlign="center">
-        Return Home
-      </Link>
-    </RouterLink>
+    <Link
+      as={RouterLink}
+      color="blue.600"
+      d="block"
+      fontSize={18}
+      m="10px 0 0"
+      textAlign="center"
+      to="/"
+    >
+      Return Home
+    </Link>
 
     <Heading as="h2" mt={22} textAlign="center">
       {isLogin ? 'Sign in to your account' : 'Create your account'}

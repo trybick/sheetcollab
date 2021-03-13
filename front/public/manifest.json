@@ -1,0 +1,8 @@
+{
+  "short_name": "Sheet Collab",
+  "name": "Sheet music portal",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
