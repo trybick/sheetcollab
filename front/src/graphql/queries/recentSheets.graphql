@@ -8,6 +8,7 @@ query RecentSheets {
     users {
       email
       id
+      username
     }
   }
 }

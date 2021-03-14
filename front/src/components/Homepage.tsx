@@ -8,7 +8,7 @@ const Homepage = () => {
   const { data, loading } = useRecentSheetsQuery();
 
   const createTableRows = () => {
-    return data?.recentSheets.map(({ artist, id, createdAt, title }) => (
+    return data?.recentSheets.map(({ artist, id, createdAt, title, users }) => (
       <Tr key={id}>
         <Td>{title}</Td>
         <Td>{artist}</Td>
