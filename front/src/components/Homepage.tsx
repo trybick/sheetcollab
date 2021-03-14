@@ -8,13 +8,20 @@ const Homepage = () => {
   const { data, loading } = useRecentSheetsQuery();
 
   const createTableRows = () => {
-    return data?.recentSheets.map(({ artist, id, createdAt, title, users }) => (
-      <Tr key={id}>
-        <Td>{title}</Td>
-        <Td>{artist}</Td>
-        <Td>{formatDistanceToNow(parseISO(createdAt))}</Td>
-      </Tr>
-    ));
+    return data?.recentSheets.map(({ artist, id, createdAt, title, users }) => {
+      const lastUser = users[users.length - 1];
+      // @ts-ignore
+      const username = lastUser.username;
+      console.log('username:', username);
+      return (
+        <Tr key={id}>
+          <Td>{title}</Td>
+          <Td>{artist}</Td>
+          <Td>{formatDistanceToNow(parseISO(createdAt))}</Td>
+          <Td>{username}</Td>
+        </Tr>
+      );
+    });
   };
 
   return loading ? null : (
@@ -25,6 +32,7 @@ const Homepage = () => {
             <Th>Song</Th>
             <Th>Artist</Th>
             <Th>Date</Th>
+            <Th>Added By</Th>
           </Tr>
         </Thead>
         <Tbody>{createTableRows()}</Tbody>
