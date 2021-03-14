@@ -23,7 +23,7 @@ const Header = () => {
         <Button colorScheme="gray" variant="ghost">
           My Sheets
         </Button>
-        <Button colorScheme="gray" variant="ghost">
+        <Button as={RouterLink} colorScheme="gray" to="/add-sheet" variant="ghost">
           Add Sheet
         </Button>
         <Button colorScheme="gray" variant="ghost">
