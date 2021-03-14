@@ -12,5 +12,5 @@
     "strictPropertyInitialization": false,
     "target": "ES2016"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "decs.d.ts"]
 }

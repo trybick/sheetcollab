@@ -30,7 +30,7 @@ type Mutation {
   createSheet(data: CreateSheetInput!): Sheet!
   deleteSheet(id: Int!): Boolean!
   login(email: String!, password: String!): LoginOrSignUpResponse!
-  signUp(confirmPassword: String!, email: String!, name: String, password: String!): LoginOrSignUpResponse!
+  signUp(confirmPassword: String!, email: String!, password: String!): LoginOrSignUpResponse!
   updateSheet(data: UpdateSheetInput!, id: Int!): Boolean!
 }
 
@@ -63,7 +63,7 @@ type User implements Base {
   createdAt: DateTime!
   email: String!
   id: ID!
-  name: String
   sheets: [Sheet!]!
   updatedAt: DateTime!
+  username: String!
 }

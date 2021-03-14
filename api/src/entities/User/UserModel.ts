@@ -12,9 +12,9 @@ export class User extends Base {
   @Column('text', { unique: true })
   email: string;
 
-  @Column({ type: 'text', nullable: true })
-  @Field(() => String, { nullable: true })
-  name?: string | null;
+  @Field()
+  @Column()
+  username: string;
 
   @Column()
   password: string;
