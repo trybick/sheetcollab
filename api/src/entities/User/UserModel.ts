@@ -13,7 +13,7 @@ export class User extends Base {
   email: string;
 
   @Field()
-  @Column()
+  @Column('text', { unique: true })
   username: string;
 
   @Column()

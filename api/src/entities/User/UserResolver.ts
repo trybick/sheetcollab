@@ -1,7 +1,7 @@
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import UsernameGen from 'username-generator';
+import ugen from 'username-generator';
 import { User } from './UserModel';
 import { LoginOrSignUpResponse } from './types';
 require('dotenv').config();
@@ -20,7 +20,7 @@ export class UserResolver {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) throw new Error('Email already exists');
 
-    const username = UsernameGen.generateUsername() as string;
+    const username = await generateRandmomUsername();
     const hashedPassword = await bcrypt.hash(password, 11);
     const createdUser = await User.create({
       email,
@@ -56,3 +56,12 @@ export class UserResolver {
     return (await User.findOne({ where: { id } })) || null;
   }
 }
+
+const generateRandmomUsername = async () => {
+  const randomUsername = ugen.generateUsername() as string;
+  const usernameNotTaken = !(await User.findOne({ where: { username: randomUsername } }));
+  if (usernameNotTaken) {
+    return randomUsername;
+  }
+  generateRandmomUsername();
+};
