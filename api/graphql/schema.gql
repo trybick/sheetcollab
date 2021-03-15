@@ -11,6 +11,7 @@ interface Base {
 
 input CreateSheetInput {
   artist: String!
+  notes: String
   title: String!
   year: String
 }
@@ -47,6 +48,7 @@ type Sheet implements Base {
   artist: String!
   createdAt: DateTime!
   id: ID!
+  notes: String
   title: String!
   updatedAt: DateTime!
   users: [User!]!

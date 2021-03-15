@@ -10,6 +10,9 @@ export class CreateSheetInput implements Partial<Sheet> {
   artist: string;
 
   @Field({ nullable: true })
+  notes?: string;
+
+  @Field({ nullable: true })
   year?: string;
 }
 

@@ -10,6 +10,10 @@ export class Sheet extends Base {
   @Column()
   artist: string;
 
+  @Column({ type: 'text', nullable: true })
+  @Field(() => String, { nullable: true })
+  notes?: string;
+
   @Field()
   @Column()
   title: string;

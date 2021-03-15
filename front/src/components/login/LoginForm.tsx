@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { useLoginMutation } from 'graphql/generated/hooks';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
-import { LoginFormData, loginFormSchema } from './loginHelpers';
+import { LoginFormData, loginFormSchema } from 'forms/loginForms';
 
 const LoginForm = () => {
   const history = useHistory();
@@ -41,13 +41,7 @@ const LoginForm = () => {
     >
       <FormControl isInvalid={!!errors.email}>
         <FormLabel htmlFor="email">Email</FormLabel>
-        <Input
-          id="email"
-          name="email"
-          placeholder="Enter email"
-          ref={register(loginFormSchema.email)}
-          autoFocus
-        />
+        <Input id="email" name="email" ref={register(loginFormSchema.email)} autoFocus />
         <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
       </FormControl>
 
@@ -56,7 +50,6 @@ const LoginForm = () => {
         <Input
           id="password"
           name="password"
-          placeholder="Enter password"
           ref={register(loginFormSchema.password)}
           type="password"
         />

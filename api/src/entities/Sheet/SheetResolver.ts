@@ -65,10 +65,10 @@ export class SheetResolver {
   @Authorized()
   @Mutation(() => Sheet)
   async createSheet(
-    @Arg('data') { title, artist, year }: CreateSheetInput,
+    @Arg('data') { artist, title, notes, year }: CreateSheetInput,
     @Ctx() { userId }: Context
   ): Promise<Sheet> {
-    const sheet = await Sheet.create({ title, artist, year }).save();
+    const sheet = await Sheet.create({ artist, title, notes, year }).save();
     await getConnection().createQueryBuilder().relation(Sheet, 'users').of(sheet).add(userId);
     return sheet;
   }

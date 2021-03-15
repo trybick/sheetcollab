@@ -53,13 +53,7 @@ const SignUpForm = () => {
     >
       <FormControl isInvalid={!!errors.email}>
         <FormLabel htmlFor="email">Email</FormLabel>
-        <Input
-          id="email"
-          name="email"
-          placeholder="Enter email"
-          ref={register(signUpFormSchema.email)}
-          autoFocus
-        />
+        <Input id="email" name="email" ref={register(signUpFormSchema.email)} autoFocus />
         <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
       </FormControl>
 
@@ -68,7 +62,6 @@ const SignUpForm = () => {
         <Input
           id="password"
           name="password"
-          placeholder="Enter password"
           ref={register(signUpFormSchema.password)}
           type="password"
         />
@@ -80,7 +73,6 @@ const SignUpForm = () => {
         <Input
           id="confirm-password"
           name="confirmPassword"
-          placeholder="Re-enter password"
           ref={register(signUpFormSchema.confirmPassword)}
           type="password"
         />

@@ -1,0 +1,6 @@
+mutation AddSheet($artist: String!, $title: String!, $year: String, $notes: String) {
+  createSheet(data: { artist: $artist, title: $title, year: $year, notes: $notes }) {
+    id
+    title
+  }
+}

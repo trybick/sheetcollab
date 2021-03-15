@@ -15,19 +15,13 @@ const Header = () => {
 
   return (
     <Flex background="white" boxShadow="md" px={8} py={4}>
-      <Flex align="center" mr="20px">
+      <Button as={RouterLink} colorScheme="gray" mr="20px" to="/" variant="ghost">
         Sheet Collab
-      </Flex>
+      </Button>
 
       <HStack spacing="10px">
-        <Button colorScheme="gray" variant="ghost">
-          My Sheets
-        </Button>
         <Button as={RouterLink} colorScheme="gray" to="/add-sheet" variant="ghost">
           Add Sheet
-        </Button>
-        <Button colorScheme="gray" variant="ghost">
-          Search
         </Button>
       </HStack>
 

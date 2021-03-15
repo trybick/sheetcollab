@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { RecoilRoot } from 'recoil';
 import { ChakraProvider } from '@chakra-ui/react';
+import { createApolloClient } from 'graphql/config/createClient';
+import App from 'components/App';
 import theme from 'theme';
 
-import { apolloEndpoint } from 'utils/api';
-import App from 'components/App';
-
-const client = new ApolloClient({
-  uri: apolloEndpoint,
-  cache: new InMemoryCache(),
-});
+const client = createApolloClient();
 
 ReactDOM.render(
   <React.StrictMode>

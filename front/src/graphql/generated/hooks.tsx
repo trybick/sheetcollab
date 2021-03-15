@@ -47,6 +47,7 @@ export type Sheet = Base & {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   artist: Scalars['String'];
+  notes?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   users: Array<User>;
   year?: Maybe<Scalars['String']>;
@@ -109,6 +110,7 @@ export type MutationLoginArgs = {
 export type CreateSheetInput = {
   title: Scalars['String'];
   artist: Scalars['String'];
+  notes?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['String']>;
 };
 
@@ -122,6 +124,17 @@ export type LoginOrSignUpResponse = {
   __typename?: 'LoginOrSignUpResponse';
   token: Scalars['String'];
   user: User;
+};
+
+export type AddSheetMutationVariables = Exact<{
+  artist: Scalars['String'];
+  title: Scalars['String'];
+  year?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+}>;
+
+export type AddSheetMutation = { __typename?: 'Mutation' } & {
+  createSheet: { __typename?: 'Sheet' } & Pick<Sheet, 'id' | 'title'>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -147,12 +160,60 @@ export type RecentSheetsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type RecentSheetsQuery = { __typename?: 'Query' } & {
   recentSheets: Array<
-    { __typename?: 'Sheet' } & Pick<Sheet, 'artist' | 'createdAt' | 'id' | 'title' | 'year'> & {
-        users: Array<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'username'>>;
-      }
+    { __typename?: 'Sheet' } & Pick<
+      Sheet,
+      'artist' | 'createdAt' | 'id' | 'title' | 'notes' | 'year'
+    > & { users: Array<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'username'>> }
   >;
 };
 
+export const AddSheetDocument = gql`
+  mutation AddSheet($artist: String!, $title: String!, $year: String, $notes: String) {
+    createSheet(data: { artist: $artist, title: $title, year: $year, notes: $notes }) {
+      id
+      title
+    }
+  }
+`;
+export type AddSheetMutationFn = Apollo.MutationFunction<
+  AddSheetMutation,
+  AddSheetMutationVariables
+>;
+
+/**
+ * __useAddSheetMutation__
+ *
+ * To run a mutation, you first call `useAddSheetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSheetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSheetMutation, { data, loading, error }] = useAddSheetMutation({
+ *   variables: {
+ *      artist: // value for 'artist'
+ *      title: // value for 'title'
+ *      year: // value for 'year'
+ *      notes: // value for 'notes'
+ *   },
+ * });
+ */
+export function useAddSheetMutation(
+  baseOptions?: Apollo.MutationHookOptions<AddSheetMutation, AddSheetMutationVariables>
+) {
+  return Apollo.useMutation<AddSheetMutation, AddSheetMutationVariables>(
+    AddSheetDocument,
+    baseOptions
+  );
+}
+export type AddSheetMutationHookResult = ReturnType<typeof useAddSheetMutation>;
+export type AddSheetMutationResult = Apollo.MutationResult<AddSheetMutation>;
+export type AddSheetMutationOptions = Apollo.BaseMutationOptions<
+  AddSheetMutation,
+  AddSheetMutationVariables
+>;
 export const LoginDocument = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -237,6 +298,7 @@ export const RecentSheetsDocument = gql`
       createdAt
       id
       title
+      notes
       year
       users {
         email
