@@ -1,19 +1,20 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
-import { useRecentSheetsQuery } from 'graphql/generated/hooks';
+import { useMySheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const MyProfilePage = () => {
-  const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
+  const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
 
   const createTableRows = () =>
-    data?.recentSheets.map(({ artist, id, createdAt, title, users }) => (
+    data?.getUserSheets.map(({ artist, id, createdAt, title, notes, year }) => (
       <Tr key={id}>
         <Td>{title}</Td>
         <Td>{artist}</Td>
-        <Td>{users[users.length - 1].username}</Td>
         <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
+        <Td>{year}</Td>
+        <Td>{notes}</Td>
       </Tr>
     ));
 
@@ -28,8 +29,9 @@ const MyProfilePage = () => {
           <Tr>
             <Th>Song</Th>
             <Th>Artist</Th>
-            <Th>Added By</Th>
             <Th>Added</Th>
+            <Th>Year</Th>
+            <Th>Notes</Th>
           </Tr>
         </Thead>
         <Tbody>{createTableRows()}</Tbody>

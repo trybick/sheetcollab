@@ -1,0 +1,10 @@
+query MySheets {
+  getUserSheets {
+    artist
+    id
+    createdAt
+    title
+    notes
+    year
+  }
+}

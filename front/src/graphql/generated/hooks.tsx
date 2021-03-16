@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -156,6 +157,17 @@ export type SignUpMutation = { __typename?: 'Mutation' } & {
   signUp: { __typename?: 'LoginOrSignUpResponse' } & Pick<LoginOrSignUpResponse, 'token'>;
 };
 
+export type MySheetsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MySheetsQuery = { __typename?: 'Query' } & {
+  getUserSheets: Array<
+    { __typename?: 'Sheet' } & Pick<
+      Sheet,
+      'artist' | 'id' | 'createdAt' | 'title' | 'notes' | 'year'
+    >
+  >;
+};
+
 export type RecentSheetsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type RecentSheetsQuery = { __typename?: 'Query' } & {
@@ -203,10 +215,8 @@ export type AddSheetMutationFn = Apollo.MutationFunction<
 export function useAddSheetMutation(
   baseOptions?: Apollo.MutationHookOptions<AddSheetMutation, AddSheetMutationVariables>
 ) {
-  return Apollo.useMutation<AddSheetMutation, AddSheetMutationVariables>(
-    AddSheetDocument,
-    baseOptions
-  );
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddSheetMutation, AddSheetMutationVariables>(AddSheetDocument, options);
 }
 export type AddSheetMutationHookResult = ReturnType<typeof useAddSheetMutation>;
 export type AddSheetMutationResult = Apollo.MutationResult<AddSheetMutation>;
@@ -244,7 +254,8 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
 export function useLoginMutation(
   baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>
 ) {
-  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
 }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
@@ -283,7 +294,8 @@ export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMut
 export function useSignUpMutation(
   baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>
 ) {
-  return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, options);
 }
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
@@ -291,6 +303,49 @@ export type SignUpMutationOptions = Apollo.BaseMutationOptions<
   SignUpMutation,
   SignUpMutationVariables
 >;
+export const MySheetsDocument = gql`
+  query MySheets {
+    getUserSheets {
+      artist
+      id
+      createdAt
+      title
+      notes
+      year
+    }
+  }
+`;
+
+/**
+ * __useMySheetsQuery__
+ *
+ * To run a query within a React component, call `useMySheetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMySheetsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMySheetsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMySheetsQuery(
+  baseOptions?: Apollo.QueryHookOptions<MySheetsQuery, MySheetsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MySheetsQuery, MySheetsQueryVariables>(MySheetsDocument, options);
+}
+export function useMySheetsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MySheetsQuery, MySheetsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MySheetsQuery, MySheetsQueryVariables>(MySheetsDocument, options);
+}
+export type MySheetsQueryHookResult = ReturnType<typeof useMySheetsQuery>;
+export type MySheetsLazyQueryHookResult = ReturnType<typeof useMySheetsLazyQuery>;
+export type MySheetsQueryResult = Apollo.QueryResult<MySheetsQuery, MySheetsQueryVariables>;
 export const RecentSheetsDocument = gql`
   query RecentSheets {
     recentSheets {
@@ -327,17 +382,19 @@ export const RecentSheetsDocument = gql`
 export function useRecentSheetsQuery(
   baseOptions?: Apollo.QueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(
     RecentSheetsDocument,
-    baseOptions
+    options
   );
 }
 export function useRecentSheetsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<RecentSheetsQuery, RecentSheetsQueryVariables>
 ) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<RecentSheetsQuery, RecentSheetsQueryVariables>(
     RecentSheetsDocument,
-    baseOptions
+    options
   );
 }
 export type RecentSheetsQueryHookResult = ReturnType<typeof useRecentSheetsQuery>;
