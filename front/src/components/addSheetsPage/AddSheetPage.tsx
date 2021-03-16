@@ -10,8 +10,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useAddSheetMutation } from 'graphql/generated/hooks';
-import { AddSheetData, addSheetSchema } from 'forms/addSheetForm';
-import addSheetToasts from 'toasts/addSheetToasts';
+import { AddSheetData, addSheetSchema } from 'helpers/forms/addSheetForm';
+import toastConfig from 'helpers/toasts/toastConfig';
 
 const AddSheetPage = () => {
   const history = useHistory();
@@ -23,10 +23,10 @@ const AddSheetPage = () => {
     await login({ variables: values })
       .then(() => {
         history.push('/');
-        toast(addSheetToasts.success);
+        toast(toastConfig.addSheet.success);
       })
       .catch(() => {
-        toast(addSheetToasts.error);
+        toast(toastConfig.addSheet.error);
       });
   };
 

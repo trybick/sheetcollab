@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { useLoginMutation } from 'graphql/generated/hooks';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
-import { LoginFormData, loginFormSchema } from 'forms/loginForms';
+import { LoginFormData, loginFormSchema } from 'helpers/forms/loginForms';
 
 const LoginForm = () => {
   const history = useHistory();
