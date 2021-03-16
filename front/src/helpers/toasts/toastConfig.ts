@@ -1,6 +1,14 @@
 import { UseToastOptions } from '@chakra-ui/react';
 
-export default {
+type ToastStatus = 'success' | 'error' | 'warning';
+
+type ToastConfig = {
+  [key: string]: {
+    [key in ToastStatus]?: UseToastOptions;
+  };
+};
+
+export default <ToastConfig>{
   addSheet: {
     success: {
       title: 'Sheet added',
@@ -8,13 +16,13 @@ export default {
       duration: 5000,
       position: 'bottom-right',
       variant: 'left-accent',
-    } as UseToastOptions,
+    },
     error: {
       title: 'There was an error with that request.',
       status: 'error',
       duration: 5000,
       position: 'bottom-right',
       variant: 'left-accent',
-    } as UseToastOptions,
+    },
   },
 };
