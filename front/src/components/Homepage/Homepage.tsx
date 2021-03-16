@@ -13,7 +13,7 @@ const Homepage = () => {
         <Td>{title}</Td>
         <Td>{artist}</Td>
         <Td>{users[users.length - 1].username}</Td>
-        <Td>{formatDistanceToNow(parseISO(createdAt))}</Td>
+        <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
       </Tr>
     ));
 
@@ -25,7 +25,7 @@ const Homepage = () => {
             <Th>Song</Th>
             <Th>Artist</Th>
             <Th>Added By</Th>
-            <Th>Time</Th>
+            <Th>Added</Th>
           </Tr>
         </Thead>
         <Tbody>{createTableRows()}</Tbody>
