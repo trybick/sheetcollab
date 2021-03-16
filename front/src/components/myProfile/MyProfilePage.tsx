@@ -4,7 +4,7 @@ import { useRecentSheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-const Homepage = () => {
+const MyProfilePage = () => {
   const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
 
   const createTableRows = () =>
@@ -20,7 +20,7 @@ const Homepage = () => {
   return loading ? null : (
     <Box maxW="500px" m="200px auto">
       <Heading as="h3" fontSize="22px" mb="12px" textAlign="center">
-        Recently Added
+        My Sheets
       </Heading>
 
       <Table size="sm" variant="simple">
@@ -38,4 +38,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default MyProfilePage;

@@ -23,6 +23,9 @@ const Header = () => {
         <Button as={RouterLink} colorScheme="gray" to="/add-sheet" variant="ghost">
           Add Sheet
         </Button>
+        <Button as={RouterLink} colorScheme="gray" to="/my-profile" variant="ghost">
+          My Profile
+        </Button>
       </HStack>
 
       <Flex ml="auto">
