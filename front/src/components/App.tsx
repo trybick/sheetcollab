@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from 'components/core/Layout';
-import Homepage from 'components/homepage/Homepage';
+import Homepage from 'components/homepage/HomePage';
 import LoginPage from 'components/login/LoginPage';
 import AddSheetPage from 'components/addSheetsPage/AddSheetPage';
 import MyProfilePage from 'components/myProfile/MyProfilePage';
