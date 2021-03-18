@@ -4,6 +4,7 @@ import { Sheet } from './SheetModel';
 import { User } from '../User/UserModel';
 import { Context } from '../../middleware/createContext';
 import { CreateSheetInput, UpdateSheetInput } from './types';
+import parseJSON from 'date-fns/parseJSON';
 
 @Resolver(Sheet)
 export class SheetResolver {
@@ -39,11 +40,15 @@ export class SheetResolver {
   @Authorized()
   @Query(() => [Sheet])
   async getUserSheets(@Ctx() { userId }: Context): Promise<Sheet[]> {
-    return await getConnection()
+    const sheets = await getConnection()
       .createQueryBuilder()
+      .orderBy('sheets', 'ASC')
       .relation(User, 'sheets')
       .of(userId)
       .loadMany();
+    const sorted = sheets.sort((a, b) => +parseJSON(b.updatedAt) - +parseJSON(a.updatedAt));
+
+    return sorted;
   }
 
   @Authorized()

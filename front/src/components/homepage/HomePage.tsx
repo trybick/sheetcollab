@@ -1,4 +1,4 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { useRecentSheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
@@ -17,7 +17,11 @@ const Homepage = () => {
       </Tr>
     ));
 
-  return loading ? null : (
+  return loading ? (
+    <Flex justify="center" maxW="500px" m="200px auto">
+      <Spinner size="xl" />
+    </Flex>
+  ) : (
     <Box maxW="500px" m="200px auto">
       <Heading as="h3" fontSize="22px" mb="12px" textAlign="center">
         Recently Added
