@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { Search2Icon, SmallCloseIcon } from '@chakra-ui/icons';
 import { useClearInputOnEsc } from 'helpers/hooks/useClearOnEsc';
+import { useFilterSheetsQuery } from 'graphql/generated/hooks';
 
 const SearchInput = () => {
   const [value, setValue] = useState('');
@@ -24,6 +25,11 @@ const SearchInput = () => {
   };
 
   useClearInputOnEsc(handleClearInput);
+
+  const search = () => {
+    const { data, loading } = useFilterSheetsQuery({ variables: { searchString: value } });
+    console.log('data:', data);
+  };
 
   return (
     <Box ml="22px">

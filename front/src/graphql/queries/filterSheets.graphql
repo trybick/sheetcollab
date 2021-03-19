@@ -1,0 +1,9 @@
+query FilterSheets($searchString: String!) {
+  filterSheets(searchString: $searchString) {
+    id
+    artist
+    title
+    notes
+    year
+  }
+}

@@ -157,6 +157,16 @@ export type SignUpMutation = { __typename?: 'Mutation' } & {
   signUp: { __typename?: 'LoginOrSignUpResponse' } & Pick<LoginOrSignUpResponse, 'token'>;
 };
 
+export type FilterSheetsQueryVariables = Exact<{
+  searchString: Scalars['String'];
+}>;
+
+export type FilterSheetsQuery = { __typename?: 'Query' } & {
+  filterSheets: Array<
+    { __typename?: 'Sheet' } & Pick<Sheet, 'id' | 'artist' | 'title' | 'notes' | 'year'>
+  >;
+};
+
 export type MySheetsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MySheetsQuery = { __typename?: 'Query' } & {
@@ -302,6 +312,58 @@ export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<
   SignUpMutation,
   SignUpMutationVariables
+>;
+export const FilterSheetsDocument = gql`
+  query FilterSheets($searchString: String!) {
+    filterSheets(searchString: $searchString) {
+      id
+      artist
+      title
+      notes
+      year
+    }
+  }
+`;
+
+/**
+ * __useFilterSheetsQuery__
+ *
+ * To run a query within a React component, call `useFilterSheetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilterSheetsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFilterSheetsQuery({
+ *   variables: {
+ *      searchString: // value for 'searchString'
+ *   },
+ * });
+ */
+export function useFilterSheetsQuery(
+  baseOptions: Apollo.QueryHookOptions<FilterSheetsQuery, FilterSheetsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<FilterSheetsQuery, FilterSheetsQueryVariables>(
+    FilterSheetsDocument,
+    options
+  );
+}
+export function useFilterSheetsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FilterSheetsQuery, FilterSheetsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<FilterSheetsQuery, FilterSheetsQueryVariables>(
+    FilterSheetsDocument,
+    options
+  );
+}
+export type FilterSheetsQueryHookResult = ReturnType<typeof useFilterSheetsQuery>;
+export type FilterSheetsLazyQueryHookResult = ReturnType<typeof useFilterSheetsLazyQuery>;
+export type FilterSheetsQueryResult = Apollo.QueryResult<
+  FilterSheetsQuery,
+  FilterSheetsQueryVariables
 >;
 export const MySheetsDocument = gql`
   query MySheets {
