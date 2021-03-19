@@ -2,6 +2,7 @@ import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Button, Flex, HStack } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
+import SearchInput from './SearchInput';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -27,6 +28,8 @@ const Header = () => {
           My Profile
         </Button>
       </HStack>
+
+      <SearchInput />
 
       <Flex ml="auto">
         {isLoggedIn ? (
