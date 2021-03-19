@@ -5,7 +5,7 @@
     "start": "cross-env PORT=4321 react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint --fix --ext .tsx,.js,.ts .",
-    "gen": "graphql-codegen --config codegen.yml"
+    "gen": "graphql-codegen --config codegen.yml && eslint --fix --ext .tsx src/graphql/generated"
   },
   "dependencies": {
     "@apollo/client": "^3.3.12",
