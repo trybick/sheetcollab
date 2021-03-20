@@ -163,7 +163,10 @@ export type FilterSheetsQueryVariables = Exact<{
 
 export type FilterSheetsQuery = { __typename?: 'Query' } & {
   filterSheets: Array<
-    { __typename?: 'Sheet' } & Pick<Sheet, 'id' | 'artist' | 'title' | 'notes' | 'year'>
+    { __typename?: 'Sheet' } & Pick<
+      Sheet,
+      'artist' | 'createdAt' | 'id' | 'notes' | 'title' | 'year'
+    > & { users: Array<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'username'>> }
   >;
 };
 
@@ -316,11 +319,17 @@ export type SignUpMutationOptions = Apollo.BaseMutationOptions<
 export const FilterSheetsDocument = gql`
   query FilterSheets($searchString: String!) {
     filterSheets(searchString: $searchString) {
-      id
       artist
-      title
+      createdAt
+      id
       notes
+      title
       year
+      users {
+        email
+        id
+        username
+      }
     }
   }
 `;

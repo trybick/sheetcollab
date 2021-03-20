@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg, Int, Authorized, Ctx } from 'type-graphql';
-import { getManager, getConnection } from 'typeorm';
+import { getManager, getConnection, SelectQueryBuilder } from 'typeorm';
 import { Sheet } from './SheetModel';
 import { User } from '../User/UserModel';
 import { Context } from '../../middleware/createContext';
@@ -26,15 +26,17 @@ export class SheetResolver {
 
   @Query(() => [Sheet])
   async filterSheets(@Arg('searchString') searchString: string): Promise<Sheet[]> {
-    const terms = { searchString: `%${searchString}%` };
-    return await getManager()
-      .createQueryBuilder()
-      .select('sheet')
-      .from(Sheet, 'sheet')
-      .where('artist ILIKE :searchString', terms)
-      .orWhere('title ILIKE :searchString', terms)
-      .orWhere('year ILIKE :searchString', terms)
-      .getMany();
+    return await Sheet.find({
+      relations: ['users'],
+      order: {
+        createdAt: 'DESC',
+      },
+      where: (qb: SelectQueryBuilder<Sheet>) => {
+        qb.where('artist ILIKE :searchString', {
+          searchString: `%${searchString}%`,
+        }).orWhere('title ILIKE :searchString', { searchString: `%${searchString}%` });
+      },
+    });
   }
 
   @Authorized()

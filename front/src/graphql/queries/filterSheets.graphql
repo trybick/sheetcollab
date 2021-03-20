@@ -1,9 +1,16 @@
 query FilterSheets($searchString: String!) {
   filterSheets(searchString: $searchString) {
-    id
     artist
-    title
+    createdAt
+    id
     notes
+    title
     year
+
+    users {
+      email
+      id
+      username
+    }
   }
 }
