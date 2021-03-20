@@ -8,7 +8,6 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { Search2Icon, SmallCloseIcon } from '@chakra-ui/icons';
-import { useClearInputOnEsc } from 'helpers/hooks/useClearOnEsc';
 import { useFilterSheetsLazyQuery } from 'graphql/generated/hooks';
 
 const SearchInput = () => {
@@ -28,12 +27,9 @@ const SearchInput = () => {
     inputRef.current?.focus();
   };
 
-  useClearInputOnEsc(handleClearInput);
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      onSearch();
-    }
+  const handleKeyDown = ({ key }: KeyboardEvent) => {
+    key === 'Enter' && onSearch();
+    key === 'Escape' && handleClearInput();
   };
 
   const onSearch = () => {
@@ -52,7 +48,7 @@ const SearchInput = () => {
           borderRadius="12px"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="Search for a song"
+          placeholder="Search..."
           ref={inputRef}
           value={value}
           variant="outline"
