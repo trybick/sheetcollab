@@ -4,6 +4,7 @@ import Homepage from 'components/homepage/HomePage';
 import LoginPage from 'components/login/LoginPage';
 import AddSheetPage from 'components/addSheetsPage/AddSheetPage';
 import MyProfilePage from 'components/myProfile/MyProfilePage';
+import SearchPage from 'components/searchPage/SearchPage';
 
 const routes = (
   <>
@@ -18,6 +19,9 @@ const routes = (
     </Route>
     <Route path="/my-profile">
       <MyProfilePage />
+    </Route>
+    <Route path="/search/:query">
+      <SearchPage />
     </Route>
   </>
 );

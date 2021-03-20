@@ -1,4 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 import { useRecoilState } from 'recoil';
 import {
   Box,
@@ -13,13 +14,13 @@ import { useFilterSheetsLazyQuery } from 'graphql/generated/hooks';
 import { searchSheetsResultsState } from 'atoms/searchSheetsResults';
 
 const SearchInput = () => {
+  const history = useHistory();
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const [, setSearchSheetsResults] = useRecoilState(searchSheetsResultsState);
   const [filterSheets, { loading, data }] = useFilterSheetsLazyQuery({
     variables: { searchString: value },
   });
-  console.log('data:', data);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -37,6 +38,7 @@ const SearchInput = () => {
 
   const onSearch = () => {
     filterSheets({ variables: { searchString: value } });
+    history.push(`/search/${value}`);
   };
 
   useEffect(() => {
