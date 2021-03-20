@@ -1,4 +1,16 @@
-import { Badge, Box, Flex, Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Flex,
+  Heading,
+  Spinner,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 import { useParams } from 'react-router';
 import { useFilterSheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
@@ -9,7 +21,6 @@ const SearchPage = () => {
   const { loading, data: { filterSheets: results } = {} } = useFilterSheetsQuery({
     variables: { searchString: query },
   });
-  console.log('results:', results);
 
   const createTableRows = () =>
     results?.map(({ artist, id, createdAt, title, users }) => (
@@ -21,7 +32,11 @@ const SearchPage = () => {
       </Tr>
     ));
 
-  return (
+  return loading ? (
+    <Flex justify="center" maxW="500px" m="200px auto">
+      <Spinner size="xl" />
+    </Flex>
+  ) : (
     <Box m="25px auto 0" maxW="800px">
       <Flex align="center" justify="space-between">
         <Heading as="h3" fontSize="24px">
@@ -31,7 +46,7 @@ const SearchPage = () => {
         <Badge>{results?.length} results</Badge>
       </Flex>
 
-      <Table m="30px" variant="simple">
+      <Table m="30px auto 0" maxW="800px" variant="simple">
         <Thead>
           <Tr>
             <Th>Song</Th>
