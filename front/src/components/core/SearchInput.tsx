@@ -1,4 +1,5 @@
-import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import {
   Box,
   IconButton,
@@ -9,10 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { Search2Icon, SmallCloseIcon } from '@chakra-ui/icons';
 import { useFilterSheetsLazyQuery } from 'graphql/generated/hooks';
+import { searchSheetsResultsState } from 'atoms/searchSheetsResults';
 
 const SearchInput = () => {
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const [, setSearchSheetsResults] = useRecoilState(searchSheetsResultsState);
   const [filterSheets, { loading, data }] = useFilterSheetsLazyQuery({
     variables: { searchString: value },
   });
@@ -35,6 +38,10 @@ const SearchInput = () => {
   const onSearch = () => {
     filterSheets({ variables: { searchString: value } });
   };
+
+  useEffect(() => {
+    data && setSearchSheetsResults(data.filterSheets);
+  }, [data]);
 
   return (
     <Box ml="22px">
