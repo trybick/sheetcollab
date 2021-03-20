@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import {
   Box,
   IconButton,
@@ -9,11 +9,15 @@ import {
 } from '@chakra-ui/react';
 import { Search2Icon, SmallCloseIcon } from '@chakra-ui/icons';
 import { useClearInputOnEsc } from 'helpers/hooks/useClearOnEsc';
-import { useFilterSheetsQuery } from 'graphql/generated/hooks';
+import { useFilterSheetsLazyQuery } from 'graphql/generated/hooks';
 
 const SearchInput = () => {
   const [value, setValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const [filterSheets, { loading, data }] = useFilterSheetsLazyQuery({
+    variables: { searchString: value },
+  });
+  console.log('data:', data);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -26,9 +30,14 @@ const SearchInput = () => {
 
   useClearInputOnEsc(handleClearInput);
 
-  const search = () => {
-    const { data, loading } = useFilterSheetsQuery({ variables: { searchString: value } });
-    console.log('data:', data);
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      onSearch();
+    }
+  };
+
+  const onSearch = () => {
+    filterSheets({ variables: { searchString: value } });
   };
 
   return (
@@ -42,6 +51,7 @@ const SearchInput = () => {
           border="2px solid gray"
           borderRadius="12px"
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           placeholder="Search for a song"
           ref={inputRef}
           value={value}
