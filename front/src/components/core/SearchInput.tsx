@@ -9,6 +9,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { Search2Icon, SmallCloseIcon } from '@chakra-ui/icons';
+import { ROUTES } from 'helpers/routes/routeMap';
 
 const SearchInput = () => {
   const history = useHistory();
@@ -30,7 +31,7 @@ const SearchInput = () => {
   };
 
   const onSearch = () => {
-    history.push(`/search/${value}`);
+    history.push(`${ROUTES.SEARCH}/${value}`);
   };
 
   return (

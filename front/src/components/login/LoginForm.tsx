@@ -5,6 +5,7 @@ import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@c
 import { useLoginMutation } from 'graphql/generated/hooks';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { LoginFormData, loginFormSchema } from 'helpers/forms/loginForms';
+import { ROUTES } from 'helpers/routes/routeMap';
 
 const LoginForm = () => {
   const history = useHistory();
@@ -18,7 +19,7 @@ const LoginForm = () => {
         const token = res.data!.login.token!;
         setIsLoggedIn(true);
         localStorage.setItem('sc-token', token);
-        history.push('/');
+        history.push(ROUTES.HOME);
       })
       .catch((error: Error) => {
         setError('password', {

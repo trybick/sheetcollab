@@ -12,6 +12,7 @@ import {
 import { useAddSheetMutation } from 'graphql/generated/hooks';
 import { AddSheetData, addSheetSchema } from 'helpers/forms/addSheetForm';
 import toastConfig from 'helpers/toasts/toastConfig';
+import { ROUTES } from 'helpers/routes/routeMap';
 
 const AddSheetPage = () => {
   const history = useHistory();
@@ -22,7 +23,7 @@ const AddSheetPage = () => {
   const onSubmit: SubmitHandler<AddSheetData> = async values => {
     await login({ variables: values })
       .then(() => {
-        history.push('/');
+        history.push(ROUTES.HOME);
         toast(toastConfig.addSheet.success);
       })
       .catch(() => {

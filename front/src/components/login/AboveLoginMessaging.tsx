@@ -1,5 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Heading, Link, Text } from '@chakra-ui/react';
+import { ROUTES } from 'helpers/routes/routeMap';
 
 const AboveLoginMessaging = ({
   isLogin,
@@ -16,7 +17,7 @@ const AboveLoginMessaging = ({
       fontSize={18}
       m="10px 0 0"
       textAlign="center"
-      to="/"
+      to={ROUTES.HOME}
     >
       Return Home
     </Link>

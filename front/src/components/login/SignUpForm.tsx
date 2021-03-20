@@ -6,6 +6,7 @@ import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@c
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { useSignUpMutation } from 'graphql/generated/hooks';
 import { SignUpFormData, baseSignUpFormSchema } from 'helpers/forms/loginForms';
+import { ROUTES } from 'helpers/routes/routeMap';
 
 const SignUpForm = () => {
   const history = useHistory();
@@ -30,7 +31,7 @@ const SignUpForm = () => {
         const token = res.data!.signUp.token!;
         setIsLoggedIn(true);
         localStorage.setItem('sc-token', token);
-        history.push('/');
+        history.push(ROUTES.HOME);
       })
       .catch((error: Error) => {
         setError('confirmPassword', {
