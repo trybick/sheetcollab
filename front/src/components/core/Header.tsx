@@ -21,10 +21,10 @@ const Header = () => {
       </Button>
 
       <HStack spacing="10px">
-        <Button as={RouterLink} colorScheme="gray" to="/add-sheet" variant="ghost">
+        <Button as={RouterLink} colorScheme="gray" to="/addSheet" variant="ghost">
           Add Sheet
         </Button>
-        <Button as={RouterLink} colorScheme="gray" to="/my-profile" variant="ghost">
+        <Button as={RouterLink} colorScheme="gray" to="/myProfile" variant="ghost">
           My Profile
         </Button>
       </HStack>

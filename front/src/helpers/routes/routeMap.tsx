@@ -5,25 +5,33 @@ import AddSheetPage from 'components/addSheetsPage/AddSheetPage';
 import MyProfilePage from 'components/myProfile/MyProfilePage';
 import SearchPage from 'components/searchPage/SearchPage';
 
+const ROUTES = {
+  HOME: '/',
+  LOGIN: '/login',
+  ADD_SHEET: '/addSheet',
+  MY_PROFILE: '/myProfile',
+  SEARCH: '/search',
+} as const;
+
 const routeMap = [
   {
-    path: '/',
+    path: ROUTES.HOME,
     component: HomePage,
   },
   {
-    path: '/login',
+    path: ROUTES.LOGIN,
     component: LoginPage,
   },
   {
-    path: '/add-sheet',
+    path: ROUTES.ADD_SHEET,
     component: AddSheetPage,
   },
   {
-    path: '/my-profile',
+    path: ROUTES.MY_PROFILE,
     component: MyProfilePage,
   },
   {
-    path: '/search/:query',
+    path: `${ROUTES.SEARCH}/:query`,
     component: SearchPage,
   },
 ];
