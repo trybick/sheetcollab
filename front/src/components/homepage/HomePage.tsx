@@ -5,7 +5,7 @@ import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const Homepage = () => {
-  const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
+  const { data, loading } = useRecentSheetsQuery();
 
   const createTableRows = () =>
     data?.recentSheets.map(({ artist, id, createdAt, title, users }) => (
