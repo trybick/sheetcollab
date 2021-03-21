@@ -1,20 +1,7 @@
-import {
-  Badge,
-  Box,
-  Flex,
-  Heading,
-  Spinner,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react';
+import { Flex, Spinner } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 import { useFilterSheetsQuery } from 'graphql/generated/hooks';
-import { parseISO } from 'date-fns';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import SearchResultsTable from './SearchResultsTable';
 
 const SearchPage = () => {
   const { query } = useParams<{ query: string }>();
@@ -22,42 +9,12 @@ const SearchPage = () => {
     variables: { searchString: query },
   });
 
-  const createTableRows = () =>
-    results?.map(({ artist, id, createdAt, title, users }) => (
-      <Tr key={id}>
-        <Td>{title}</Td>
-        <Td>{artist}</Td>
-        <Td>{users[users.length - 1].username}</Td>
-        <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
-      </Tr>
-    ));
-
   return loading ? (
     <Flex justify="center" maxW="500px" m="200px auto">
       <Spinner size="xl" />
     </Flex>
   ) : (
-    <Box m="25px auto 0" maxW="800px">
-      <Flex align="center" justify="space-between">
-        <Heading as="h3" fontSize="24px">
-          Search
-        </Heading>
-
-        <Badge>{results?.length} results</Badge>
-      </Flex>
-
-      <Table m="30px auto 0" maxW="800px" variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Song</Th>
-            <Th>Artist</Th>
-            <Th>Added By</Th>
-            <Th>Added</Th>
-          </Tr>
-        </Thead>
-        <Tbody>{createTableRows()}</Tbody>
-      </Table>
-    </Box>
+    <SearchResultsTable results={results} />
   );
 };
 

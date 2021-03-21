@@ -134,8 +134,9 @@ export type AddSheetMutationVariables = Exact<{
   notes?: Maybe<Scalars['String']>;
 }>;
 
-export type AddSheetMutation = { __typename?: 'Mutation' } & {
-  createSheet: { __typename?: 'Sheet' } & Pick<Sheet, 'id' | 'title'>;
+export type AddSheetMutation = {
+  __typename?: 'Mutation';
+  createSheet: { __typename?: 'Sheet'; id: string; title: string };
 };
 
 export type LoginMutationVariables = Exact<{
@@ -143,8 +144,9 @@ export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
 }>;
 
-export type LoginMutation = { __typename?: 'Mutation' } & {
-  login: { __typename?: 'LoginOrSignUpResponse' } & Pick<LoginOrSignUpResponse, 'token'>;
+export type LoginMutation = {
+  __typename?: 'Mutation';
+  login: { __typename?: 'LoginOrSignUpResponse'; token: string };
 };
 
 export type SignUpMutationVariables = Exact<{
@@ -153,43 +155,58 @@ export type SignUpMutationVariables = Exact<{
   confirmPassword: Scalars['String'];
 }>;
 
-export type SignUpMutation = { __typename?: 'Mutation' } & {
-  signUp: { __typename?: 'LoginOrSignUpResponse' } & Pick<LoginOrSignUpResponse, 'token'>;
+export type SignUpMutation = {
+  __typename?: 'Mutation';
+  signUp: { __typename?: 'LoginOrSignUpResponse'; token: string };
 };
 
 export type FilterSheetsQueryVariables = Exact<{
   searchString: Scalars['String'];
 }>;
 
-export type FilterSheetsQuery = { __typename?: 'Query' } & {
-  filterSheets: Array<
-    { __typename?: 'Sheet' } & Pick<
-      Sheet,
-      'artist' | 'createdAt' | 'id' | 'notes' | 'title' | 'year'
-    > & { users: Array<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'username'>> }
-  >;
+export type FilterSheetsQuery = {
+  __typename?: 'Query';
+  filterSheets: Array<{
+    __typename?: 'Sheet';
+    artist: string;
+    createdAt: any;
+    id: string;
+    notes?: Maybe<string>;
+    title: string;
+    year?: Maybe<string>;
+    users: Array<{ __typename?: 'User'; email: string; id: string; username: string }>;
+  }>;
 };
 
 export type MySheetsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MySheetsQuery = { __typename?: 'Query' } & {
-  getUserSheets: Array<
-    { __typename?: 'Sheet' } & Pick<
-      Sheet,
-      'artist' | 'id' | 'createdAt' | 'title' | 'notes' | 'year'
-    >
-  >;
+export type MySheetsQuery = {
+  __typename?: 'Query';
+  getUserSheets: Array<{
+    __typename?: 'Sheet';
+    artist: string;
+    id: string;
+    createdAt: any;
+    title: string;
+    notes?: Maybe<string>;
+    year?: Maybe<string>;
+  }>;
 };
 
 export type RecentSheetsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type RecentSheetsQuery = { __typename?: 'Query' } & {
-  recentSheets: Array<
-    { __typename?: 'Sheet' } & Pick<
-      Sheet,
-      'artist' | 'createdAt' | 'id' | 'title' | 'notes' | 'year'
-    > & { users: Array<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'username'>> }
-  >;
+export type RecentSheetsQuery = {
+  __typename?: 'Query';
+  recentSheets: Array<{
+    __typename?: 'Sheet';
+    artist: string;
+    createdAt: any;
+    id: string;
+    title: string;
+    notes?: Maybe<string>;
+    year?: Maybe<string>;
+    users: Array<{ __typename?: 'User'; email: string; id: string; username: string }>;
+  }>;
 };
 
 export const AddSheetDocument = gql`
