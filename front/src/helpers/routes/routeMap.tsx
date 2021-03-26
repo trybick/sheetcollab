@@ -8,8 +8,8 @@ import SearchPage from 'components/searchPage/SearchPage';
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
-  ADD_SHEET: '/addSheet',
-  MY_PROFILE: '/myProfile',
+  ADD_SHEET: '/add',
+  MY_PROFILE: '/profile',
   SEARCH: '/search',
 } as const;
 
