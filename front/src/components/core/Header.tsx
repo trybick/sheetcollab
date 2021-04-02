@@ -1,6 +1,6 @@
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Button, Flex, HStack } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import SearchInput from './SearchInput';
 import { ROUTES } from 'helpers/routes/routeMap';
@@ -21,14 +21,11 @@ const Header = () => {
         Sheet Collab
       </Button>
 
-      <HStack spacing="10px">
-        <Button as={RouterLink} colorScheme="gray" to={ROUTES.ADD_SHEET} variant="ghost">
-          Add Sheet
-        </Button>
+      {isLoggedIn && (
         <Button as={RouterLink} colorScheme="gray" to={ROUTES.MY_PROFILE} variant="ghost">
           My Profile
         </Button>
-      </HStack>
+      )}
 
       <SearchInput />
 
