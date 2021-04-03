@@ -30,7 +30,7 @@ const SignUpForm = () => {
       .then(res => {
         const token = res.data!.signUp.token!;
         setIsLoggedIn(true);
-        localStorage.setItem('sc-token', token);
+        localStorage.setItem('token', token);
         history.push(ROUTES.HOME);
       })
       .catch((error: Error) => {

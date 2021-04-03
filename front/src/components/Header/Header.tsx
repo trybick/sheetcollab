@@ -11,7 +11,7 @@ const Header = () => {
 
   const onClickLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('sc-token');
+    localStorage.removeItem('token');
     history.push(ROUTES.LOGIN);
   };
 
