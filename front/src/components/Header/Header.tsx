@@ -2,8 +2,8 @@ import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Button, Flex } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
-import SearchInput from './SearchInput';
 import { ROUTES } from 'helpers/routes/routeMap';
+import SearchInput from './SearchInput';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);

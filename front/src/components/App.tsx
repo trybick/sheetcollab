@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { mappedRoutes } from 'helpers/routes/routeMap';
-import Layout from 'components/core/Layout';
+import Layout from 'components/Layout/Layout';
 
 const App = () => (
   <Router>
