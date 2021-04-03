@@ -22,9 +22,14 @@ const Header = () => {
       </Button>
 
       {isLoggedIn && (
-        <Button as={RouterLink} colorScheme="gray" to={ROUTES.MY_PROFILE} variant="ghost">
-          My Profile
-        </Button>
+        <>
+          <Button as={RouterLink} colorScheme="gray" to={ROUTES.MY_PROFILE} variant="ghost">
+            My Profile
+          </Button>
+          <Button as={RouterLink} colorScheme="gray" to={ROUTES.ADD_SHEET} variant="ghost">
+            Add Sheet
+          </Button>
+        </>
       )}
 
       <SearchInput />
