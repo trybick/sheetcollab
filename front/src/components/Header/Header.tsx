@@ -1,6 +1,16 @@
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Button, Flex } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuGroup,
+  MenuItem,
+  MenuList,
+} from '@chakra-ui/react';
+import { CgProfile } from 'react-icons/cg';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from 'helpers/routes/routeMap';
 import SearchInput from './SearchInput';
@@ -37,9 +47,21 @@ const Header = () => {
 
       <Flex ml="auto">
         {isLoggedIn ? (
-          <Button onClick={onClickLogout} variant="outline">
-            Logout
-          </Button>
+          <>
+            <Box display={{ xs: 'none', md: 'flex' }}>
+              <Menu>
+                <MenuButton aria-label="Page Options">
+                  <Box as={CgProfile} size="24px" />
+                </MenuButton>
+                <MenuList placement="bottom-end">
+                  <MenuGroup title={'email'}>
+                    <MenuItem onClick={() => history.push('/profile')}>My Profile</MenuItem>
+                    <MenuItem onClick={onClickLogout}>Logout</MenuItem>
+                  </MenuGroup>
+                </MenuList>
+              </Menu>
+            </Box>
+          </>
         ) : (
           <LoginAndSignUpButtons />
         )}
