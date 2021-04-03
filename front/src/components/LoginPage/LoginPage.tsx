@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
-import AboveLoginMessaging from 'components/login/AboveLoginMessaging';
-import LoginForm from 'components/login/LoginForm';
-import SignUpForm from 'components/login/SignUpForm';
+import AboveLoginMessaging from 'components/LoginPage/AboveLoginMessaging';
+import LoginForm from 'components/LoginPage/LoginForm';
+import SignUpForm from 'components/LoginPage/SignUpForm';
 
 const Login = () => {
   const location = useLocation<{ isLoginDefault: boolean }>();

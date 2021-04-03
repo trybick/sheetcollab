@@ -1,9 +1,9 @@
 import { Route } from 'react-router-dom';
-import HomePage from 'components/homepage/HomePage';
-import LoginPage from 'components/login/LoginPage';
-import AddSheetPage from 'components/addSheetsPage/AddSheetPage';
-import MyProfilePage from 'components/myProfile/MyProfilePage';
-import SearchPage from 'components/searchPage/SearchPage';
+import HomePage from 'components/HomePage/HomePage';
+import LoginPage from 'components/LoginPage/LoginPage';
+import AddSheetPage from 'components/AddSheetPage/AddSheetPage';
+import MyProfilePage from 'components/MyProfilePage/MyProfilePage';
+import SearchPage from 'components/SearchPage/SearchPage';
 
 export const ROUTES = {
   HOME: '/',
