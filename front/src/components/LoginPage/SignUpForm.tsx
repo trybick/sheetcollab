@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
+import { userEmailState } from 'atoms/userEmail';
 import { useSignUpMutation } from 'graphql/generated/hooks';
 import { SignUpFormData, baseSignUpFormSchema } from 'helpers/forms/loginForms';
 import { ROUTES } from 'helpers/routes/routeMap';
@@ -11,6 +12,7 @@ import { ROUTES } from 'helpers/routes/routeMap';
 const SignUpForm = () => {
   const history = useHistory();
   const [, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const [, setUserEmail] = useRecoilState(userEmailState);
   const [signUp, { loading }] = useSignUpMutation();
 
   const { handleSubmit, errors, register, setError, watch } = useForm<SignUpFormData>();
@@ -30,6 +32,7 @@ const SignUpForm = () => {
       .then(res => {
         const token = res.data!.signUp.token!;
         setIsLoggedIn(true);
+        setUserEmail(email);
         localStorage.setItem('token', token);
         history.push(ROUTES.HOME);
       })

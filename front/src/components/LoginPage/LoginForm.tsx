@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
 import { useLoginMutation } from 'graphql/generated/hooks';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
+import { userEmailState } from 'atoms/userEmail';
 import { LoginFormData, loginFormSchema } from 'helpers/forms/loginForms';
 import { ROUTES } from 'helpers/routes/routeMap';
 
@@ -12,12 +13,14 @@ const LoginForm = () => {
   const [login, { loading }] = useLoginMutation();
   const { handleSubmit, errors, register, setError } = useForm<LoginFormData>();
   const [, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const [, setUserEmail] = useRecoilState(userEmailState);
 
   const onSubmit: SubmitHandler<LoginFormData> = async ({ email, password }) => {
     await login({ variables: { email, password } })
       .then(res => {
         const token = res.data!.login.token!;
         setIsLoggedIn(true);
+        setUserEmail(email);
         localStorage.setItem('token', token);
         history.push(ROUTES.HOME);
       })
