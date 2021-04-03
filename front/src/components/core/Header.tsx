@@ -40,9 +40,17 @@ const Header = () => {
             Logout
           </Button>
         ) : (
-          <RouterLink to={ROUTES.LOGIN}>
-            <Button>Log in</Button>
-          </RouterLink>
+          <>
+            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLogin: true } }}>
+              <Button>Log In</Button>
+            </RouterLink>
+
+            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLogin: false } }}>
+              <Button colorScheme="blue" ml="8px">
+                Sign Up
+              </Button>
+            </RouterLink>
+          </>
         )}
       </Flex>
     </Flex>
