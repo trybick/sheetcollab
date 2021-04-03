@@ -13,21 +13,19 @@ const LoginAndSignUpButtons = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
   };
 
   return (
-    <>
-      <Box display={{ xs: 'none', md: 'flex' }}>
-        <Menu>
-          <MenuButton aria-label="Page Options">
-            <Box as={CgProfile} size="24px" />
-          </MenuButton>
-          <MenuList placement="bottom-end">
-            <MenuGroup title={'email'}>
-              <MenuItem onClick={() => history.push('/profile')}>My Profile</MenuItem>
-              <MenuItem onClick={onClickLogout}>Logout</MenuItem>
-            </MenuGroup>
-          </MenuList>
-        </Menu>
-      </Box>
-    </>
+    <Box display={{ xs: 'none', md: 'flex' }}>
+      <Menu>
+        <MenuButton aria-label="user options" mt="7px">
+          <Box as={CgProfile} size="26px" />
+        </MenuButton>
+        <MenuList placement="bottom-end">
+          <MenuGroup title={'email'}>
+            <MenuItem onClick={() => history.push('/profile')}>My Profile</MenuItem>
+            <MenuItem onClick={onClickLogout}>Logout</MenuItem>
+          </MenuGroup>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 
