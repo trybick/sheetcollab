@@ -4,6 +4,7 @@ import { Button, Flex } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from 'helpers/routes/routeMap';
 import SearchInput from './SearchInput';
+import LoginAndSignUpButtons from './LoginAndSignUpButtons';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -40,17 +41,7 @@ const Header = () => {
             Logout
           </Button>
         ) : (
-          <>
-            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLoginDefault: true } }}>
-              <Button>Log In</Button>
-            </RouterLink>
-
-            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLoginDefault: false } }}>
-              <Button colorScheme="blue" ml="8px">
-                Sign Up
-              </Button>
-            </RouterLink>
-          </>
+          <LoginAndSignUpButtons />
         )}
       </Flex>
     </Flex>

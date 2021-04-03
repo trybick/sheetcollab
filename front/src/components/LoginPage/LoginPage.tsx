@@ -7,7 +7,7 @@ import SignUpForm from './SignUpForm';
 
 const Login = () => {
   const location = useLocation<{ isLoginDefault: boolean }>();
-  const [isLogin, setIsLogin] = useState(location.state.isLoginDefault ?? true);
+  const [isLogin, setIsLogin] = useState(location.state?.isLoginDefault ?? true);
 
   const toggleIsLogin = () => {
     setIsLogin(!isLogin);
