@@ -5,13 +5,9 @@ import AboveLoginMessaging from 'components/login/AboveLoginMessaging';
 import LoginForm from 'components/login/LoginForm';
 import SignUpForm from 'components/login/SignUpForm';
 
-interface LocationState {
-  isLogin: boolean;
-}
-
 const Login = () => {
-  const location = useLocation<LocationState>();
-  const [isLogin, setIsLogin] = useState(location.state.isLogin);
+  const location = useLocation<{ isLoginDefault: boolean }>();
+  const [isLogin, setIsLogin] = useState(location.state.isLoginDefault ?? true);
 
   const toggleIsLogin = () => {
     setIsLogin(!isLogin);

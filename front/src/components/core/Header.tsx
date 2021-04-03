@@ -41,11 +41,11 @@ const Header = () => {
           </Button>
         ) : (
           <>
-            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLogin: true } }}>
+            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLoginDefault: true } }}>
               <Button>Log In</Button>
             </RouterLink>
 
-            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLogin: false } }}>
+            <RouterLink to={{ pathname: ROUTES.LOGIN, state: { isLoginDefault: false } }}>
               <Button colorScheme="blue" ml="8px">
                 Sign Up
               </Button>
