@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from 'helpers/routes/routeMap';
 import SearchInput from './SearchInput';
@@ -11,26 +11,32 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
   return (
-    <Flex background="white" boxShadow="md" justify="space-between" px={8} py={4}>
-      <Button as={RouterLink} colorScheme="gray" mr="20px" to={ROUTES.HOME} variant="ghost">
-        Sheet Collab
-      </Button>
-
-      {isLoggedIn && (
-        <>
-          <Button as={RouterLink} colorScheme="gray" to={ROUTES.MY_PROFILE} variant="ghost">
-            My Profile
+    <Box background="white" boxShadow="md">
+      <Flex justify="space-between" m="0 auto" px={8} py={4} w="1200px">
+        <Flex>
+          <Button as={RouterLink} colorScheme="gray" mr="20px" to={ROUTES.HOME} variant="ghost">
+            Sheet Collab
           </Button>
-          <Button as={RouterLink} colorScheme="gray" to={ROUTES.ADD_SHEET} variant="ghost">
-            Add Sheet
-          </Button>
-        </>
-      )}
 
-      <SearchInput />
+          <SearchInput />
+        </Flex>
 
-      {isLoggedIn ? <LoggedInUserMenu setIsLoggedIn={setIsLoggedIn} /> : <LoginAndSignUpButtons />}
-    </Flex>
+        {isLoggedIn ? (
+          <Flex>
+            <Button as={RouterLink} colorScheme="gray" to={ROUTES.MY_PROFILE} variant="ghost">
+              My Profile
+            </Button>
+            <Button as={RouterLink} colorScheme="gray" to={ROUTES.ADD_SHEET} variant="ghost">
+              Add Sheet
+            </Button>
+
+            <LoggedInUserMenu setIsLoggedIn={setIsLoggedIn} />
+          </Flex>
+        ) : (
+          <LoginAndSignUpButtons />
+        )}
+      </Flex>
+    </Box>
   );
 };
 
