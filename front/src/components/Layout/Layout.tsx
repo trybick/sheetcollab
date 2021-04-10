@@ -1,17 +1,16 @@
 import { useLocation } from 'react-router-dom';
 import { Box } from '@chakra-ui/layout';
+import { ROUTES } from 'helpers/routes/routeMap';
 import Header from '../Header/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  const shouldShowHeader = !(location.pathname === '/login');
+  const isLoginPage = location.pathname === ROUTES.LOGIN;
 
   return (
     <Box>
-      {shouldShowHeader && <Header />}
-      <Box w="1200px" m="0 auto">
-        {children}
-      </Box>
+      {!isLoginPage && <Header />}
+      <Box {...(!isLoginPage && { m: '0 auto', maxW: '1200px' })}>{children}</Box>
     </Box>
   );
 };
