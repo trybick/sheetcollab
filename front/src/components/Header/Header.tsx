@@ -11,7 +11,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
   return (
-    <Flex background="white" boxShadow="md" px={8} py={4}>
+    <Flex background="white" boxShadow="md" justify="space-between" px={8} py={4}>
       <Button as={RouterLink} colorScheme="gray" mr="20px" to={ROUTES.HOME} variant="ghost">
         Sheet Collab
       </Button>
@@ -29,13 +29,7 @@ const Header = () => {
 
       <SearchInput />
 
-      <Flex ml="auto">
-        {isLoggedIn ? (
-          <LoggedInUserMenu setIsLoggedIn={setIsLoggedIn} />
-        ) : (
-          <LoginAndSignUpButtons />
-        )}
-      </Flex>
+      {isLoggedIn ? <LoggedInUserMenu setIsLoggedIn={setIsLoggedIn} /> : <LoginAndSignUpButtons />}
     </Flex>
   );
 };

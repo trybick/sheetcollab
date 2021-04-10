@@ -44,9 +44,10 @@ const SearchInput = () => {
         <Input
           border="2px solid gray"
           borderRadius="12px"
+          fontSize="15px"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="Search..."
+          placeholder="Find sheet music"
           ref={inputRef}
           value={value}
           variant="outline"
