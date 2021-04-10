@@ -34,7 +34,7 @@ const routeMap = [
     path: `${ROUTES.SEARCH}/:query`,
     component: SearchPage,
   },
-];
+] as const;
 
 export const mappedRoutes = routeMap.map(({ path, component }, key) => (
   <Route path={path} component={component} key={key} exact />
