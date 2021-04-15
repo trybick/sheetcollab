@@ -17,7 +17,7 @@ const LoginAndSignUpButtons = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
 
   return (
     <Box display={{ xs: 'none', md: 'flex' }} ml="14px">
-      <Menu>
+      <Menu placement="bottom-end">
         <MenuButton aria-label="user options" mt="7px">
           <Box as={CgProfile} size="26px" />
         </MenuButton>
