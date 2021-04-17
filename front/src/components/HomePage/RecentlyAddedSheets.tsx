@@ -1,8 +1,10 @@
 import { Box, Heading, Link, Skeleton, Stack } from '@chakra-ui/react';
 import { useRecentSheetsQuery } from 'graphql/generated/hooks';
+import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
 
 const RecentlyAddedSheets = () => {
   const { data, loading } = useRecentSheetsQuery();
+  const { hasWaited } = useHasWaitedForInitialLoad();
 
   const createItems = () =>
     data?.recentSheets.map(({ artist, id, title }) => (
@@ -25,7 +27,7 @@ const RecentlyAddedSheets = () => {
         Recent
       </Heading>
 
-      <Box>{loading ? createSkeleton() : createItems()}</Box>
+      <Box>{loading && hasWaited ? createSkeleton() : createItems()}</Box>
     </Box>
   );
 };
