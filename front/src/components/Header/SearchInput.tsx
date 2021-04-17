@@ -51,7 +51,7 @@ const SearchInput = () => {
           ref={inputRef}
           value={value}
           variant="outline"
-          width="290px"
+          width="320px"
         />
 
         {value && (
