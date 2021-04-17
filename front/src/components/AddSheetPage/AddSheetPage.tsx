@@ -65,7 +65,7 @@ const AddSheetPage = () => {
         <FormErrorMessage>{errors.notes?.message}</FormErrorMessage>
       </FormControl>
 
-      <Button isLoading={loading} mt="28px" type="submit" colorScheme="gray" w="100%">
+      <Button isLoading={loading} mt="28px" type="submit" colorScheme="blue" w="100%">
         Save
       </Button>
     </Box>

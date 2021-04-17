@@ -1,6 +1,7 @@
-import { Box, Heading, Link, Skeleton, Stack } from '@chakra-ui/react';
+import { Box, Heading, Link } from '@chakra-ui/react';
 import { useRecentSheetsQuery } from 'graphql/generated/hooks';
 import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
+import LoadingSkeleton from 'components/common/LoadingSkeleton';
 
 const RecentlyAddedSheets = () => {
   const { data, loading } = useRecentSheetsQuery();
@@ -13,21 +14,19 @@ const RecentlyAddedSheets = () => {
       </Box>
     ));
 
-  const createSkeleton = () => (
-    <Stack>
-      {Array.from(Array(8).keys()).map(n => (
-        <Skeleton height="20px" key={n} mb="4px" />
-      ))}
-    </Stack>
-  );
-
   return (
     <Box maxW="500px" m="200px auto">
-      <Heading as="h3" fontSize="22px" mb="12px" textAlign="center">
-        Recent
+      <Heading as="h3" fontSize="18px" mb="6px" textAlign="center">
+        Recently Added
       </Heading>
 
-      <Box>{loading && hasWaited ? createSkeleton() : createItems()}</Box>
+      <Box>
+        {loading && hasWaited ? (
+          <LoadingSkeleton numRows={8} mb="4px" rowHeight="20px" />
+        ) : (
+          createItems()
+        )}
+      </Box>
     </Box>
   );
 };
