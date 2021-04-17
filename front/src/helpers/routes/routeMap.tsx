@@ -4,6 +4,7 @@ import LoginPage from 'components/LoginPage/LoginPage';
 import AddSheetPage from 'components/AddSheetPage/AddSheetPage';
 import MyProfilePage from 'components/MyProfilePage/MyProfilePage';
 import SearchPage from 'components/SearchPage/SearchPage';
+import MessagesPage from 'components/MessagesPage/MessagesPage';
 
 export const ROUTES = {
   HOME: '/',
@@ -11,6 +12,7 @@ export const ROUTES = {
   ADD_SHEET: '/add',
   MY_PROFILE: '/profile',
   SEARCH: '/search',
+  MESSAGES: '/messages',
 } as const;
 
 const routeMap = [
@@ -33,6 +35,10 @@ const routeMap = [
   {
     path: `${ROUTES.SEARCH}/:query`,
     component: SearchPage,
+  },
+  {
+    path: ROUTES.MESSAGES,
+    component: MessagesPage,
   },
 ] as const;
 

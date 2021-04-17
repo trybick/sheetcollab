@@ -29,6 +29,9 @@ const Header = () => {
             <Button as={RouterLink} colorScheme="gray" to={ROUTES.ADD_SHEET} variant="ghost">
               Add Sheet
             </Button>
+            <Button as={RouterLink} colorScheme="gray" to={ROUTES.MESSAGES} variant="ghost">
+              Messages
+            </Button>
 
             <LoggedInUserMenu setIsLoggedIn={setIsLoggedIn} />
           </Flex>
