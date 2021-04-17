@@ -3,9 +3,11 @@ import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { useMySheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
 
 const MySheets = () => {
   const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
+  const { hasWaited } = useHasWaitedForInitialLoad();
 
   const createTableRows = () =>
     data?.getUserSheets.map(({ artist, id, createdAt, title, year }) => (
@@ -17,7 +19,7 @@ const MySheets = () => {
       </Tr>
     ));
 
-  return loading ? (
+  return loading && hasWaited ? (
     <Flex justify="center" maxW="500px" m="200px auto">
       <Spinner size="xl" />
     </Flex>

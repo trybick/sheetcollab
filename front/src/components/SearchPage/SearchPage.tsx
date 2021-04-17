@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 import { useFilterSheetsQuery } from 'graphql/generated/hooks';
 import SearchResultsTable from './SearchResultsTable';
@@ -11,15 +11,15 @@ const SearchPage = () => {
     variables: { searchString: query },
   });
 
-  return loading ? (
-    <Flex justify="center" maxW="500px" m="200px auto">
-      <Spinner size="xl" />
-    </Flex>
-  ) : (
+  return (
     <Box m="25px auto 0" maxW="800px">
       <SearchResultsHeader numResults={results?.length || 0} />
 
-      {results?.length ? <SearchResultsTable results={results} /> : <NoResultsMessage />}
+      {loading || results?.length ? (
+        <SearchResultsTable loading={loading} results={results} />
+      ) : (
+        <NoResultsMessage />
+      )}
     </Box>
   );
 };

@@ -1,14 +1,23 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Flex, Spinner, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { FilterSheetsQuery } from 'graphql/generated/hooks';
+import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
 
 const SearchResultsTable = ({
+  loading,
   results,
 }: {
+  loading: boolean;
   results: FilterSheetsQuery['filterSheets'] | undefined;
 }) => {
-  return (
+  const { hasWaited } = useHasWaitedForInitialLoad();
+
+  return loading && hasWaited ? (
+    <Flex justify="center" maxW="500px" m="200px auto">
+      <Spinner size="xl" />
+    </Flex>
+  ) : (
     <Table m="30px auto 0" maxW="800px" variant="simple">
       <Thead>
         <Tr>
