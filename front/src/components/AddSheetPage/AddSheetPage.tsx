@@ -23,7 +23,7 @@ const AddSheetPage = () => {
   const onSubmit: SubmitHandler<AddSheetData> = async values => {
     await login({ variables: values })
       .then(() => {
-        history.push(ROUTES.HOME);
+        history.push(ROUTES.MY_PROFILE);
         toast(toastConfig.addSheet.success);
       })
       .catch(() => {

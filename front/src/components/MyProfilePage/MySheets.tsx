@@ -8,13 +8,12 @@ const MySheets = () => {
   const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
 
   const createTableRows = () =>
-    data?.getUserSheets.map(({ artist, id, createdAt, title, notes, year }) => (
+    data?.getUserSheets.map(({ artist, id, createdAt, title, year }) => (
       <Tr key={id}>
         <Td>{title}</Td>
         <Td>{artist}</Td>
         <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
         <Td>{year}</Td>
-        <Td>{notes}</Td>
       </Tr>
     ));
 
@@ -35,7 +34,6 @@ const MySheets = () => {
             <Th>Artist</Th>
             <Th>Added</Th>
             <Th>Year</Th>
-            <Th>Notes</Th>
           </Tr>
         </Thead>
         <Tbody>{createTableRows()}</Tbody>
