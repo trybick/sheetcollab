@@ -31,7 +31,7 @@ const SearchInput = () => {
   };
 
   const onSearch = () => {
-    history.push(`${ROUTES.SEARCH}/${value}`);
+    value && history.push(`${ROUTES.SEARCH}/${value}`);
   };
 
   return (

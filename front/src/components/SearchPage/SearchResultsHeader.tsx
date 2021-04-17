@@ -3,9 +3,9 @@ import { Badge, Flex, Heading } from '@chakra-ui/react';
 const SearchResultsHeader = ({ numResults }: { numResults: number }) => (
   <Flex align="center" justify="space-between">
     <Heading as="h3" fontSize="24px">
-      Search
+      Results
     </Heading>
-    <Badge>{numResults} results</Badge>
+    <Badge>{numResults} matches</Badge>
   </Flex>
 );
 
