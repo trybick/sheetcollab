@@ -5,7 +5,7 @@ import { CgProfile } from 'react-icons/cg';
 import { ROUTES } from 'helpers/routes/routeMap';
 import { userEmailState } from 'atoms/userEmail';
 
-const LoginAndSignUpButtons = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
+const UserDropdownMenu = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
   const history = useHistory();
   const [userEmail] = useRecoilState(userEmailState);
 
@@ -31,4 +31,4 @@ const LoginAndSignUpButtons = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
   );
 };
 
-export default LoginAndSignUpButtons;
+export default UserDropdownMenu;

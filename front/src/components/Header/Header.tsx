@@ -1,13 +1,11 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Box, Button, Flex } from '@chakra-ui/react';
-import { MdMarkunread } from 'react-icons/md';
-import { RiFolderMusicLine } from 'react-icons/ri';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from 'helpers/routes/routeMap';
 import SearchInput from './SearchInput';
 import LoginAndSignUpButtons from './LoginAndSignUpButtons';
-import LoggedInUserMenu from './LoggedInUserMenu';
+import LoggedInUserSection from './LoggedInUserSection';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -24,28 +22,7 @@ const Header = () => {
         </Flex>
 
         {isLoggedIn ? (
-          <Flex>
-            <Button
-              as={RouterLink}
-              colorScheme="gray"
-              leftIcon={<RiFolderMusicLine />}
-              to={ROUTES.MY_PROFILE}
-              variant="ghost"
-            >
-              Profile
-            </Button>
-            <Button
-              as={RouterLink}
-              colorScheme="gray"
-              leftIcon={<MdMarkunread />}
-              to={ROUTES.MESSAGES}
-              variant="ghost"
-            >
-              Messages
-            </Button>
-
-            <LoggedInUserMenu setIsLoggedIn={setIsLoggedIn} />
-          </Flex>
+          <LoggedInUserSection setIsLoggedIn={setIsLoggedIn} />
         ) : (
           <LoginAndSignUpButtons />
         )}
