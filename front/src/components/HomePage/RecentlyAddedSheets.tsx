@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Link, Spinner } from '@chakra-ui/react';
+import { Box, Heading, Link, Skeleton, Stack } from '@chakra-ui/react';
 import { useRecentSheetsQuery } from 'graphql/generated/hooks';
 
 const RecentlyAddedSheets = () => {
@@ -11,17 +11,21 @@ const RecentlyAddedSheets = () => {
       </Box>
     ));
 
-  return loading ? (
-    <Flex justify="center" maxW="500px" m="200px auto">
-      <Spinner size="xl" />
-    </Flex>
-  ) : (
+  const createSkeleton = () => (
+    <Stack>
+      {Array.from(Array(8).keys()).map(n => (
+        <Skeleton height="20px" key={n} mb="4px" />
+      ))}
+    </Stack>
+  );
+
+  return (
     <Box maxW="500px" m="200px auto">
       <Heading as="h3" fontSize="22px" mb="12px" textAlign="center">
         Recent
       </Heading>
 
-      <Box>{createItems()}</Box>
+      <Box>{loading ? createSkeleton() : createItems()}</Box>
     </Box>
   );
 };
