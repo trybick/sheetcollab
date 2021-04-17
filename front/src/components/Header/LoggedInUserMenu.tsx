@@ -23,7 +23,6 @@ const LoginAndSignUpButtons = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
         </MenuButton>
         <MenuList placement="bottom-end">
           <MenuGroup title={userEmail}>
-            <MenuItem onClick={() => history.push('/profile')}>My Profile</MenuItem>
             <MenuItem onClick={onClickLogout}>Logout</MenuItem>
           </MenuGroup>
         </MenuList>
