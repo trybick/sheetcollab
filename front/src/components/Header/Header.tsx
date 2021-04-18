@@ -11,7 +11,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
   return (
-    <Box background="white" boxShadow="md">
+    <Box background="white" boxShadow="md" width="100vw">
       <Flex justify="space-between" m="0 auto" px={8} py={4} maxW="1200px">
         <Button as={RouterLink} colorScheme="gray" mr="20px" to={ROUTES.HOME} variant="ghost">
           Sheet Collab
