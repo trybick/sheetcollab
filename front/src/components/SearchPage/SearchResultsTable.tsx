@@ -11,13 +11,17 @@ const SearchResultsTable = ({
   loading: boolean;
   results: FilterSheetsQuery['filterSheets'] | undefined;
 }) => {
-  const { hasWaited } = useHasWaitedForInitialLoad();
+  const { hasWaited } = useHasWaitedForInitialLoad(300, loading);
 
-  return loading && hasWaited ? (
-    <Flex justify="center" maxW="500px" m="200px auto">
-      <Spinner size="xl" />
-    </Flex>
-  ) : (
+  if (loading && hasWaited) {
+    return (
+      <Flex justify="center" maxW="500px" m="200px auto">
+        <Spinner size="xl" />
+      </Flex>
+    );
+  }
+
+  return results?.length ? (
     <Table m="30px auto 0" maxW="800px" variant="simple">
       <Thead>
         <Tr>
@@ -38,7 +42,7 @@ const SearchResultsTable = ({
         ))}
       </Tbody>
     </Table>
-  );
+  ) : null;
 };
 
 export default SearchResultsTable;

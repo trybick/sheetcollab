@@ -2,7 +2,6 @@ import { Redirect, Route } from 'react-router';
 import { useRecoilState } from 'recoil';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from './routeMap';
-import React from 'react';
 
 const PrivateRoute = ({
   children,
