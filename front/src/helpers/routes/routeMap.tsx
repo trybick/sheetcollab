@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import HomePage from 'components/HomePage/HomePage';
 import LoginPage from 'components/LoginPage/LoginPage';
 import AddSheetPage from 'components/AddSheetPage/AddSheetPage';
@@ -31,6 +31,10 @@ const routeMap = [
   {
     path: ROUTES.MY_PROFILE,
     component: MyProfilePage,
+  },
+  {
+    path: ROUTES.SEARCH,
+    component: () => <Redirect to={ROUTES.HOME} />,
   },
   {
     path: `${ROUTES.SEARCH}/:query`,

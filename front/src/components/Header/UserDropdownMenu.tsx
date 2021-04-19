@@ -12,7 +12,7 @@ const UserDropdownMenu = ({ setIsLoggedIn }: { setIsLoggedIn: any }) => {
   const onClickLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
-    history.push(ROUTES.LOGIN);
+    history.push(ROUTES.HOME);
   };
 
   return (

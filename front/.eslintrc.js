@@ -46,6 +46,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-sort-props': 0,
     'sort-imports': 0,
+    'react/display-name': 0,
   },
   ignorePatterns: ['node_modules/*', 'public/*', 'build/*'],
 };
