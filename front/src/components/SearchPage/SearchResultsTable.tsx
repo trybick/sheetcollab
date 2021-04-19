@@ -11,7 +11,7 @@ const SearchResultsTable = ({
   loading: boolean;
   results: FilterSheetsQuery['filterSheets'] | undefined;
 }) => {
-  const { hasWaited } = useHasWaitedForInitialLoad(300, loading);
+  const { hasWaited } = useHasWaitedForInitialLoad({ loading });
 
   if (loading && hasWaited) {
     return (

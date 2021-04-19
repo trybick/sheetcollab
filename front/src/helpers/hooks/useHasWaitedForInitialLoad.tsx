@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
-export const useHasWaitedForInitialLoad = (timeToWait = 300, loading = true) => {
+export const useHasWaitedForInitialLoad = ({
+  timeToWait = 300,
+  loading = false,
+}: {
+  timeToWait?: number;
+  loading?: boolean;
+} = {}) => {
   const [hasWaited, setHasWaited] = useState(false);
 
   useEffect(() => {
