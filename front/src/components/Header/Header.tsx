@@ -13,7 +13,22 @@ const Header = () => {
   return (
     <Box background="white" boxShadow="md" width="100vw">
       <Flex justify="space-between" m="0 auto" px={8} py={4} maxW="1200px">
-        <Button as={RouterLink} colorScheme="gray" mr="20px" to={ROUTES.HOME} variant="ghost">
+        <Button
+          as={RouterLink}
+          colorScheme="gray"
+          mr="20px"
+          to={ROUTES.HOME}
+          variant="ghost"
+          _hover={{
+            background: 'white',
+          }}
+          _active={{
+            background: 'white',
+          }}
+          _focus={{
+            outline: '0',
+          }}
+        >
           Sheet Collab
         </Button>
 
