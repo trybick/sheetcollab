@@ -17,47 +17,57 @@ export const ROUTES = {
 } as const;
 
 const routeMap = [
+  // *
+  // * Public
+  // *
   {
     path: ROUTES.HOME,
-    component: HomePage,
+    component: <HomePage />,
     isPrivate: false,
   },
   {
     path: ROUTES.LOGIN,
-    component: LoginPage,
+    component: <LoginPage />,
     isPrivate: false,
   },
   {
-    path: ROUTES.ADD_SHEET,
-    component: AddSheetPage,
-    isPrivate: true,
-  },
-  {
-    path: ROUTES.MY_PROFILE,
-    component: MyProfilePage,
-    isPrivate: true,
-  },
-  {
     path: ROUTES.SEARCH,
-    component: () => <Redirect to={ROUTES.HOME} />,
+    component: <Redirect to={ROUTES.HOME} />,
     isPrivate: false,
   },
   {
     path: `${ROUTES.SEARCH}/:query`,
-    component: SearchPage,
+    component: <SearchPage />,
     isPrivate: false,
+  },
+  // *
+  // * Private
+  // *
+  {
+    path: ROUTES.ADD_SHEET,
+    component: <AddSheetPage />,
+    isPrivate: true,
+  },
+  {
+    path: ROUTES.MY_PROFILE,
+    component: <MyProfilePage />,
+    isPrivate: true,
   },
   {
     path: ROUTES.MESSAGES,
-    component: MessagesPage,
+    component: <MessagesPage />,
     isPrivate: true,
   },
 ] as const;
 
 export const mappedRoutes = routeMap.map(({ component, isPrivate, path }, key) =>
   isPrivate ? (
-    <PrivateRoute component={component} key={key} path={path} exact />
+    <PrivateRoute key={key} path={path} exact>
+      {component}
+    </PrivateRoute>
   ) : (
-    <Route component={component} key={key} path={path} exact />
+    <Route key={key} path={path} exact>
+      {component}
+    </Route>
   )
 );

@@ -2,12 +2,13 @@ import { Redirect, Route } from 'react-router';
 import { useRecoilState } from 'recoil';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from './routeMap';
+import React from 'react';
 
 const PrivateRoute = ({
-  component,
+  children,
   ...rest
 }: {
-  component: () => JSX.Element;
+  children: React.ReactNode;
   exact: true;
   path: string;
 }) => {
@@ -15,7 +16,7 @@ const PrivateRoute = ({
 
   return (
     <Route
-      render={() => (isLoggedIn ? component() : <Redirect to={{ pathname: ROUTES.LOGIN }} />)}
+      render={() => (isLoggedIn ? children : <Redirect to={{ pathname: ROUTES.LOGIN }} />)}
       {...rest}
     />
   );
