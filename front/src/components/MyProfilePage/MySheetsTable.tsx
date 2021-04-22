@@ -1,8 +1,10 @@
-import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Flex, Heading, Spinner } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { useMySheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { ROUTES } from 'helpers/routes/routeMap';
 import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
 
 const MySheets = () => {
@@ -24,10 +26,17 @@ const MySheets = () => {
       <Spinner size="xl" />
     </Flex>
   ) : (
-    <Box maxW="500px" m="40px auto">
-      <Heading as="h3" fontSize="22px" mb="12px" textAlign="center">
-        My Sheets
-      </Heading>
+    <Box maxW="900px" m="40px auto">
+      <Flex align="center" justify="space-between" mb="12px">
+        <Heading as="h3" fontSize="19px">
+          My Sheets
+        </Heading>
+        <Box>
+          <Button as={RouterLink} colorScheme="blue" size="sm" to={ROUTES.ADD_SHEET}>
+            Add New
+          </Button>
+        </Box>
+      </Flex>
 
       <Table size="md">
         <Thead background="gray.100">

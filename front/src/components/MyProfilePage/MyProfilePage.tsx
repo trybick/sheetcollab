@@ -1,26 +1,10 @@
-import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button } from '@chakra-ui/react';
-import { ROUTES } from 'helpers/routes/routeMap';
-import MySheets from './MySheets';
+import { Box } from '@chakra-ui/react';
+import MySheets from './MySheetsTable';
 
-const MyProfilePage = () => {
-  return (
-    <Box>
-      <Box m="40px 80px" textAlign="right">
-        <Button
-          as={RouterLink}
-          colorScheme="blue"
-          size="sm"
-          textAlign="right"
-          to={ROUTES.ADD_SHEET}
-        >
-          Add New
-        </Button>
-      </Box>
-
-      <MySheets />
-    </Box>
-  );
-};
+const MyProfilePage = () => (
+  <Box>
+    <MySheets />
+  </Box>
+);
 
 export default MyProfilePage;
