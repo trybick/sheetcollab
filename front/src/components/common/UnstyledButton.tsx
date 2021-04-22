@@ -6,6 +6,7 @@ const UnstyledButton = (props: ButtonProps & LinkProps) => (
     {...props}
     _hover={{
       background: 'white',
+      textDecor: 'underline',
     }}
     _active={{
       background: 'white',

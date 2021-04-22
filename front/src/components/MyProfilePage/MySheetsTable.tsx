@@ -11,6 +11,16 @@ const MySheets = () => {
   const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
   const { hasWaited } = useHasWaitedForInitialLoad();
 
+  const onEdit = (id: string) => {
+    console.log('Editing sheet:', id);
+  };
+
+  const EditButton = ({ id }: { id: string }) => (
+    <Button color="blue.500" onClick={() => onEdit(id)} variant="link">
+      Edit
+    </Button>
+  );
+
   const createTableRows = () =>
     data?.getUserSheets.map(({ artist, id, createdAt, title, year }) => (
       <Tr key={id}>
@@ -18,6 +28,7 @@ const MySheets = () => {
         <Td>{artist}</Td>
         <Td>{year}</Td>
         <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
+        <Td>{<EditButton id={id} />}</Td>
       </Tr>
     ));
 
@@ -28,7 +39,7 @@ const MySheets = () => {
   ) : (
     <Box maxW="900px" m="40px auto">
       <Flex align="center" justify="space-between" mb="12px">
-        <Heading as="h3" fontSize="19px">
+        <Heading as="h3" fontSize="20px">
           My Sheets
         </Heading>
         <Box>
@@ -38,13 +49,14 @@ const MySheets = () => {
         </Box>
       </Flex>
 
-      <Table size="md">
+      <Table>
         <Thead background="gray.100">
           <Tr>
             <Th>Song</Th>
             <Th>Artist</Th>
             <Th>Year</Th>
             <Th>Added</Th>
+            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>{createTableRows()}</Tbody>
