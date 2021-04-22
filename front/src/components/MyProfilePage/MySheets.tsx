@@ -14,8 +14,8 @@ const MySheets = () => {
       <Tr key={id}>
         <Td>{title}</Td>
         <Td>{artist}</Td>
-        <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
         <Td>{year}</Td>
+        <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
       </Tr>
     ));
 
@@ -29,13 +29,13 @@ const MySheets = () => {
         My Sheets
       </Heading>
 
-      <Table size="sm" variant="simple">
-        <Thead>
+      <Table size="md">
+        <Thead background="gray.100">
           <Tr>
             <Th>Song</Th>
             <Th>Artist</Th>
-            <Th>Added</Th>
             <Th>Year</Th>
+            <Th>Added</Th>
           </Tr>
         </Thead>
         <Tbody>{createTableRows()}</Tbody>
