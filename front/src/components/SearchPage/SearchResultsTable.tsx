@@ -13,15 +13,11 @@ const SearchResultsTable = ({
 }) => {
   const { hasWaited } = useHasWaitedForInitialLoad({ loading });
 
-  if (loading && hasWaited) {
-    return (
-      <Flex justify="center" maxW="500px" m="200px auto">
-        <Spinner size="xl" />
-      </Flex>
-    );
-  }
-
-  return results?.length ? (
+  return loading && hasWaited ? (
+    <Flex justify="center" maxW="500px" m="200px auto">
+      <Spinner size="xl" />
+    </Flex>
+  ) : results?.length ? (
     <Table m="30px auto 0" maxW="800px" variant="simple">
       <Thead>
         <Tr>

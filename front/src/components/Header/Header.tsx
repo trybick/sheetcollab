@@ -1,8 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { isLoggedInState } from 'atoms/IsLoggedIn';
 import { ROUTES } from 'helpers/routes/routeMap';
+import UnstyledButton from 'components/common/UnstyledButton';
 import SearchInput from './SearchInput';
 import LoginAndSignUpButtons from './LoginAndSignUpButtons';
 import LoggedInUserSection from './LoggedInUserSection';
@@ -13,24 +14,15 @@ const Header = () => {
   return (
     <Box background="white" boxShadow="md" width="100vw">
       <Flex justify="space-between" m="0 auto" px={8} py={4} maxW="1200px">
-        <Button
+        <UnstyledButton
           as={RouterLink}
           colorScheme="gray"
           mr="20px"
           to={ROUTES.HOME}
           variant="ghost"
-          _hover={{
-            background: 'white',
-          }}
-          _active={{
-            background: 'white',
-          }}
-          _focus={{
-            outline: '0',
-          }}
         >
           Sheet Collab
-        </Button>
+        </UnstyledButton>
 
         <SearchInput />
 
