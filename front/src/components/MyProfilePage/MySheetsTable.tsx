@@ -1,11 +1,17 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Flex, Heading, Spinner } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Skeleton } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { useMySheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { ROUTES } from 'helpers/routes/routeMap';
 import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
+
+const LoadingSkeleton = () => (
+  <Td>
+    <Skeleton height="20px" />
+  </Td>
+);
 
 const MySheets = () => {
   const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
@@ -32,11 +38,7 @@ const MySheets = () => {
       </Tr>
     ));
 
-  return loading && hasWaited ? (
-    <Flex justify="center" maxW="500px" m="200px auto">
-      <Spinner size="xl" />
-    </Flex>
-  ) : (
+  return (
     <Box maxW="900px" m="40px auto">
       <Flex align="center" justify="space-between" mb="12px">
         <Heading as="h3" fontSize="20px">
@@ -59,7 +61,18 @@ const MySheets = () => {
             <Th></Th>
           </Tr>
         </Thead>
-        <Tbody>{createTableRows()}</Tbody>
+        <Tbody>
+          {loading && hasWaited
+            ? [...Array(8)].map(i => (
+                <Tr key={i}>
+                  <LoadingSkeleton />
+                  <LoadingSkeleton />
+                  <LoadingSkeleton />
+                  <LoadingSkeleton />
+                </Tr>
+              ))
+            : createTableRows()}
+        </Tbody>
       </Table>
     </Box>
   );
