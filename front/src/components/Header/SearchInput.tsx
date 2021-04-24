@@ -43,7 +43,7 @@ const SearchInput = () => {
 
         <Input
           border="2px solid gray"
-          borderRadius="12px"
+          borderRadius="6px"
           fontSize="15px"
           onChange={handleChange}
           onKeyDown={handleKeyDown}

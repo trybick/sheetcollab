@@ -1,28 +1,19 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Flex, Heading, Skeleton } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { useMySheetsQuery } from 'graphql/generated/hooks';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { ROUTES } from 'helpers/routes/routeMap';
 import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
-
-const LoadingSkeleton = () => (
-  <Td>
-    <Skeleton height="20px" />
-  </Td>
-);
+import SkeletonTableRows from 'components/common/SkeletonTableRows';
 
 const MySheets = () => {
   const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
   const { hasWaited } = useHasWaitedForInitialLoad();
 
-  const onEdit = (id: string) => {
-    console.log('Editing sheet:', id);
-  };
-
   const EditButton = ({ id }: { id: string }) => (
-    <Button color="blue.500" onClick={() => onEdit(id)} variant="link">
+    <Button color="blue.500" onClick={() => console.log('Editing sheet:', id)} variant="link">
       Edit
     </Button>
   );
@@ -52,7 +43,7 @@ const MySheets = () => {
       </Flex>
 
       <Table>
-        <Thead background="gray.100">
+        <Thead height={1} background="gray.100">
           <Tr>
             <Th>Song</Th>
             <Th>Artist</Th>
@@ -61,17 +52,13 @@ const MySheets = () => {
             <Th></Th>
           </Tr>
         </Thead>
+
         <Tbody>
-          {loading && hasWaited
-            ? [...Array(8)].map(i => (
-                <Tr key={i}>
-                  <LoadingSkeleton />
-                  <LoadingSkeleton />
-                  <LoadingSkeleton />
-                  <LoadingSkeleton />
-                </Tr>
-              ))
-            : createTableRows()}
+          {loading && hasWaited ? (
+            <SkeletonTableRows numCells={4} numRows={10} height="20px" />
+          ) : (
+            createTableRows()
+          )}
         </Tbody>
       </Table>
     </Box>
