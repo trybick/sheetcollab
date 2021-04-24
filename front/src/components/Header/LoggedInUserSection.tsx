@@ -9,7 +9,14 @@ import UnstyledButton from 'components/common/UnstyledButton';
 import UserDropdownMenu from './UserDropdownMenu';
 
 const NavLink = ({ icon, text, to }: { icon: ReactElement; text: string; to: string }) => (
-  <UnstyledButton as={RouterLink} colorScheme="gray" leftIcon={icon} to={to} variant="ghost">
+  <UnstyledButton
+    as={RouterLink}
+    colorScheme="gray"
+    fontSize="16.5px"
+    leftIcon={icon}
+    to={to}
+    variant="ghost"
+  >
     {text}
   </UnstyledButton>
 );

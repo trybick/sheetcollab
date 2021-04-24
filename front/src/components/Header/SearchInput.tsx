@@ -37,7 +37,7 @@ const SearchInput = () => {
   return (
     <Box ml="22px">
       <InputGroup display="flex">
-        <InputLeftElement>
+        <InputLeftElement mt="2px">
           <Search2Icon color="gray" />
         </InputLeftElement>
 
@@ -45,6 +45,7 @@ const SearchInput = () => {
           border="2px solid gray"
           borderRadius="6px"
           fontSize="15px"
+          height="44px"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Find sheet music"
