@@ -5,7 +5,7 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputLeftElement,
+  InputRightAddon,
   InputRightElement,
 } from '@chakra-ui/react';
 import { Search2Icon, SmallCloseIcon } from '@chakra-ui/icons';
@@ -37,28 +37,25 @@ const SearchInput = () => {
   return (
     <Box ml="22px">
       <InputGroup display="flex">
-        <InputLeftElement mt="2px">
-          <Search2Icon color="gray" />
-        </InputLeftElement>
-
         <Input
           border="2px solid gray"
           borderRadius="6px"
           fontSize="15px"
-          height="44px"
+          height="42px"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Find sheet music"
           ref={inputRef}
           value={value}
           variant="outline"
-          width="320px"
+          width="300px"
         />
 
         {value && (
-          <InputRightElement>
+          <InputRightElement mr="50px">
             <IconButton
               aria-label="Clear input"
+              cursor="default"
               icon={<SmallCloseIcon />}
               onClick={handleClearInput}
               size="sm"
@@ -66,6 +63,10 @@ const SearchInput = () => {
             />
           </InputRightElement>
         )}
+
+        <InputRightAddon cursor="pointer" height="42px">
+          <Search2Icon color="gray" onClick={onSearch} />
+        </InputRightAddon>
       </InputGroup>
     </Box>
   );
