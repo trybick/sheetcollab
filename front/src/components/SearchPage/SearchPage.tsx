@@ -13,12 +13,12 @@ const SearchPage = () => {
 
   return (
     <Box m="25px auto 0" maxW="800px">
-      <SearchResultsHeader numResults={results?.length || 0} />
+      {results?.length ? <SearchResultsHeader numResults={results.length || 0} /> : null}
 
       {loading || results?.length ? (
         <SearchResultsTable loading={loading} results={results} />
       ) : (
-        <NoResultsMessage />
+        <NoResultsMessage query={query} />
       )}
     </Box>
   );
