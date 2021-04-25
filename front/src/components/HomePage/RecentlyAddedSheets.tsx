@@ -1,13 +1,11 @@
 import { Box, Button, Heading, Table, Tbody, Td, Tr } from '@chakra-ui/react';
 import { useRecentSheetsQuery } from 'graphql/generated/hooks';
-import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitialLoad';
 import SkeletonStack from 'components/common/SkeletonStack';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-const RecentlyAddedSheets = () => {
+const RecentlyAddedSheets = ({ hasWaited }: { hasWaited: boolean }) => {
   const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
-  const { hasWaited } = useHasWaitedForInitialLoad();
 
   const createRows = () =>
     data?.recentSheets.map(({ artist, createdAt, id, title }) => (
@@ -29,7 +27,7 @@ const RecentlyAddedSheets = () => {
   return (
     <Box maxW="500px" m="40px auto">
       <Heading as="h3" fontSize="17px" mb="6px">
-        Recently added
+        Recently Added
       </Heading>
 
       <Box>
