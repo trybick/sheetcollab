@@ -6,19 +6,19 @@ import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const RecentlyAddedSheets = () => {
-  const { data, loading } = useRecentSheetsQuery();
+  const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
   const { hasWaited } = useHasWaitedForInitialLoad();
 
   const createRows = () =>
     data?.recentSheets.map(({ artist, createdAt, id, title }) => (
       <Tr key={id}>
         <Td w="170px">
-          <Button color="blue.500" variant="link">
+          <Button color="blue.500" fontSize="15.5px" variant="link">
             {title}
           </Button>
         </Td>
         <Td w="170px">
-          <Button color="blue.500" variant="link">
+          <Button color="blue.500" fontSize="15.5px" variant="link">
             {artist}
           </Button>
         </Td>
@@ -28,7 +28,7 @@ const RecentlyAddedSheets = () => {
 
   return (
     <Box maxW="500px" m="40px auto">
-      <Heading as="h3" fontSize="18px" mb="6px">
+      <Heading as="h3" fontSize="17px" mb="6px">
         Recently added
       </Heading>
 
