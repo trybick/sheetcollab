@@ -12,12 +12,12 @@ const RecentlyAddedSheets = () => {
   const createRows = () =>
     data?.recentSheets.map(({ artist, createdAt, id, title }) => (
       <Tr key={id}>
-        <Td>
+        <Td w="170px">
           <Button color="blue.500" variant="link">
             {title}
           </Button>
         </Td>
-        <Td>
+        <Td w="170px">
           <Button color="blue.500" variant="link">
             {artist}
           </Button>

@@ -21,11 +21,23 @@ const MySheets = () => {
   const createTableRows = () =>
     data?.getUserSheets.map(({ artist, id, createdAt, title, year }) => (
       <Tr key={id}>
-        <Td>{title}</Td>
-        <Td>{artist}</Td>
+        <Td>
+          <Button color="blue.500" variant="link">
+            {title}
+          </Button>
+        </Td>
+        <Td>
+          <Button color="blue.500" variant="link">
+            {artist}
+          </Button>
+        </Td>
         <Td>{year}</Td>
         <Td>{formatDistanceToNow(parseISO(createdAt), { addSuffix: true })}</Td>
-        <Td>{<EditButton id={id} />}</Td>
+        <Td>
+          <Button color="blue.500" variant="link">
+            {<EditButton id={id} />}
+          </Button>
+        </Td>
       </Tr>
     ));
 
