@@ -1,4 +1,4 @@
-import { InputType, Field } from 'type-graphql';
+import { InputType, Field, ObjectType } from 'type-graphql';
 import { Sheet } from './SheetModel';
 
 @InputType()
@@ -26,4 +26,13 @@ export class UpdateSheetInput implements Partial<Sheet> {
 
   @Field({ nullable: true })
   year?: string;
+}
+
+@ObjectType()
+export class ArtistCount {
+  @Field()
+  artist: string;
+
+  @Field()
+  count: string;
 }

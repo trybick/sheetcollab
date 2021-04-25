@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type ArtistCount {
+  artist: String!
+  count: String!
+}
+
 interface Base {
   createdAt: DateTime!
   id: ID!
@@ -40,6 +45,7 @@ type Query {
   findUser(id: Int!): User
   getSheetUsers(id: Int!): [User!]!
   getUserSheets: [Sheet!]!
+  popularArtists: [ArtistCount!]!
   recentSheets: [Sheet!]!
   sheet(id: Int!): Sheet
 }

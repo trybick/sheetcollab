@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Arg, Int, Authorized, Ctx } from 'type-graphql';
-import { getManager, getConnection, SelectQueryBuilder } from 'typeorm';
+import { getConnection, getRepository, SelectQueryBuilder } from 'typeorm';
 import { Sheet } from './SheetModel';
 import { User } from '../User/UserModel';
 import { Context } from '../../middleware/createContext';
-import { CreateSheetInput, UpdateSheetInput } from './types';
+import { ArtistCount, CreateSheetInput, UpdateSheetInput } from './types';
 import parseJSON from 'date-fns/parseJSON';
 
 @Resolver(Sheet)
@@ -37,6 +37,20 @@ export class SheetResolver {
         }).orWhere('title ILIKE :searchString', { searchString: `%${searchString}%` });
       },
     });
+  }
+
+  @Query(() => [ArtistCount])
+  async popularArtists(): Promise<ArtistCount[]> {
+    const popularArtists = (await getRepository(Sheet)
+      .createQueryBuilder('sheet')
+      .select('sheet.artist AS artist')
+      .addSelect('COUNT(*) AS count')
+      .groupBy('sheet.artist')
+      .orderBy('count', 'DESC')
+      .take(5)
+      .getRawMany()) as ArtistCount[];
+
+    return popularArtists;
   }
 
   @Authorized()
