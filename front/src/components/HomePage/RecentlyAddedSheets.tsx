@@ -27,7 +27,7 @@ const RecentlyAddedSheets = () => {
     ));
 
   return (
-    <Box maxW="500px" m="200px auto">
+    <Box maxW="500px" m="40px auto">
       <Heading as="h3" fontSize="18px" mb="6px">
         Recently added
       </Heading>

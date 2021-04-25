@@ -42,7 +42,7 @@ const MySheets = () => {
     ));
 
   return (
-    <Box maxW="900px" m="40px auto">
+    <Box m={6}>
       <Flex align="center" justify="space-between" mb="12px">
         <Heading as="h3" fontSize="20px">
           My Sheets

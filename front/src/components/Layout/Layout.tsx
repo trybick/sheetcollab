@@ -10,7 +10,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Box>
       {!isLoginPage && <Header />}
-      <Box {...(!isLoginPage && { m: '0 auto', maxW: '1200px' })}>{children}</Box>
+      <Box {...(!isLoginPage && { m: '0 auto', maxW: '1200px', padding: '0 35px' })}>
+        {children}
+      </Box>
     </Box>
   );
 };
