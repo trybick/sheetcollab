@@ -2,7 +2,7 @@ import { Box, Button, Heading, ListItem, OrderedList, Skeleton } from '@chakra-u
 import { usePopularArtistsQuery } from 'graphql/generated/hooks';
 
 const PopularArists = ({ hasWaited }: { hasWaited: boolean }) => {
-  const { data, loading } = usePopularArtistsQuery({ fetchPolicy: 'cache-and-network' });
+  const { data, loading } = usePopularArtistsQuery();
 
   return (
     <Box maxW="500px" m="40px auto">

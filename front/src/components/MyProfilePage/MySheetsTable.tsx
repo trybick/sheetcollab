@@ -9,7 +9,7 @@ import { useHasWaitedForInitialLoad } from 'helpers/hooks/useHasWaitedForInitial
 import SkeletonTableRows from 'components/common/SkeletonTableRows';
 
 const MySheets = () => {
-  const { data, loading } = useMySheetsQuery({ fetchPolicy: 'cache-and-network' });
+  const { data, loading } = useMySheetsQuery();
   const { hasWaited } = useHasWaitedForInitialLoad();
 
   const EditButton = ({ id }: { id: string }) => (

@@ -5,7 +5,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import SkeletonTableRows from 'components/common/SkeletonTableRows';
 
 const RecentlyAddedSheets = ({ hasWaited }: { hasWaited: boolean }) => {
-  const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
+  const { data, loading } = useRecentSheetsQuery();
 
   const createRows = () =>
     data?.recentSheets.map(({ artist, createdAt, id, title }) => (
