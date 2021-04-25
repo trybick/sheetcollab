@@ -1,8 +1,8 @@
 import { Box, Button, Heading, Table, Tbody, Td, Tr } from '@chakra-ui/react';
 import { useRecentSheetsQuery } from 'graphql/generated/hooks';
-import SkeletonStack from 'components/common/SkeletonStack';
 import { parseISO } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import SkeletonTableRows from 'components/common/SkeletonTableRows';
 
 const RecentlyAddedSheets = ({ hasWaited }: { hasWaited: boolean }) => {
   const { data, loading } = useRecentSheetsQuery({ fetchPolicy: 'cache-and-network' });
@@ -25,20 +25,20 @@ const RecentlyAddedSheets = ({ hasWaited }: { hasWaited: boolean }) => {
     ));
 
   return (
-    <Box maxW="500px" m="40px auto">
+    <Box w="500px" m="40px auto">
       <Heading as="h3" fontSize="17px" mb="6px">
         Recently Added
       </Heading>
 
-      <Box>
-        {loading && hasWaited ? (
-          <SkeletonStack height="20px" numRows={8} mb="4px" />
-        ) : (
-          <Table size="sm">
-            <Tbody>{createRows()}</Tbody>
-          </Table>
-        )}
-      </Box>
+      <Table size="sm">
+        <Tbody>
+          {loading && hasWaited ? (
+            <SkeletonTableRows numCells={3} numRows={10} height="20px" />
+          ) : (
+            createRows()
+          )}
+        </Tbody>
+      </Table>
     </Box>
   );
 };
