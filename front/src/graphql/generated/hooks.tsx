@@ -21,6 +21,7 @@ export type Query = {
   sheet?: Maybe<Sheet>;
   recentSheets: Array<Sheet>;
   filterSheets: Array<Sheet>;
+  popularArtists: Array<ArtistCount>;
   getUserSheets: Array<Sheet>;
   getSheetUsers: Array<User>;
   findUser?: Maybe<User>;
@@ -68,6 +69,12 @@ export type User = Base & {
   email: Scalars['String'];
   username: Scalars['String'];
   sheets: Array<Sheet>;
+};
+
+export type ArtistCount = {
+  __typename?: 'ArtistCount';
+  artist: Scalars['String'];
+  count: Scalars['String'];
 };
 
 export type Mutation = {
@@ -191,6 +198,13 @@ export type MySheetsQuery = {
     notes?: Maybe<string>;
     year?: Maybe<string>;
   }>;
+};
+
+export type PopularArtistsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type PopularArtistsQuery = {
+  __typename?: 'Query';
+  popularArtists: Array<{ __typename?: 'ArtistCount'; artist: string; count: string }>;
 };
 
 export type RecentSheetsQueryVariables = Exact<{ [key: string]: never }>;
@@ -434,6 +448,54 @@ export function useMySheetsLazyQuery(
 export type MySheetsQueryHookResult = ReturnType<typeof useMySheetsQuery>;
 export type MySheetsLazyQueryHookResult = ReturnType<typeof useMySheetsLazyQuery>;
 export type MySheetsQueryResult = Apollo.QueryResult<MySheetsQuery, MySheetsQueryVariables>;
+export const PopularArtistsDocument = gql`
+  query PopularArtists {
+    popularArtists {
+      artist
+      count
+    }
+  }
+`;
+
+/**
+ * __usePopularArtistsQuery__
+ *
+ * To run a query within a React component, call `usePopularArtistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePopularArtistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePopularArtistsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePopularArtistsQuery(
+  baseOptions?: Apollo.QueryHookOptions<PopularArtistsQuery, PopularArtistsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PopularArtistsQuery, PopularArtistsQueryVariables>(
+    PopularArtistsDocument,
+    options
+  );
+}
+export function usePopularArtistsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PopularArtistsQuery, PopularArtistsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PopularArtistsQuery, PopularArtistsQueryVariables>(
+    PopularArtistsDocument,
+    options
+  );
+}
+export type PopularArtistsQueryHookResult = ReturnType<typeof usePopularArtistsQuery>;
+export type PopularArtistsLazyQueryHookResult = ReturnType<typeof usePopularArtistsLazyQuery>;
+export type PopularArtistsQueryResult = Apollo.QueryResult<
+  PopularArtistsQuery,
+  PopularArtistsQueryVariables
+>;
 export const RecentSheetsDocument = gql`
   query RecentSheets {
     recentSheets {

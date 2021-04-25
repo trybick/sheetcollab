@@ -13,12 +13,12 @@ const RecentlyAddedSheets = () => {
     data?.recentSheets.map(({ artist, createdAt, id, title }) => (
       <Tr key={id}>
         <Td w="170px">
-          <Button color="blue.500" fontSize="15.5px" variant="link">
+          <Button color="blue.500" fontSize="15.5px" minW={0} variant="link">
             {title}
           </Button>
         </Td>
         <Td w="170px">
-          <Button color="blue.500" fontSize="15.5px" variant="link">
+          <Button color="blue.500" fontSize="15.5px" minW={0} variant="link">
             {artist}
           </Button>
         </Td>

@@ -1,0 +1,6 @@
+query PopularArtists {
+  popularArtists {
+    artist
+    count
+  }
+}
