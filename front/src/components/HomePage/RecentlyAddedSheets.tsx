@@ -25,7 +25,7 @@ const RecentlyAddedSheets = ({ hasWaited }: { hasWaited: boolean }) => {
     ));
 
   return (
-    <Box w="500px" m="40px auto">
+    <Box>
       <Heading as="h3" fontSize="17px" mb="6px">
         Recently Added
       </Heading>

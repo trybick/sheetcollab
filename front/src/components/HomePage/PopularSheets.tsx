@@ -1,13 +1,13 @@
 import { Box, Button, Heading, ListItem, OrderedList, Skeleton } from '@chakra-ui/react';
-import { usePopularArtistsQuery } from 'graphql/generated/hooks';
+import { usePopularSheetsQuery } from 'graphql/generated/hooks';
 
 const PopularArists = ({ hasWaited }: { hasWaited: boolean }) => {
-  const { data, loading } = usePopularArtistsQuery();
+  const { data, loading } = usePopularSheetsQuery();
 
   return (
-    <Box>
+    <Box mb="18px">
       <Heading as="h3" fontSize="17px" mb="6px">
-        Popular Artists
+        Popular Songs
       </Heading>
 
       <OrderedList>
@@ -17,10 +17,10 @@ const PopularArists = ({ hasWaited }: { hasWaited: boolean }) => {
                 <Skeleton height="14px" position="relative" top="33%" transform="translateY(33%)" />
               </ListItem>
             ))
-          : data?.popularArtists.map(({ artist }) => (
-              <ListItem key={artist}>
+          : data?.popularSheets.map(({ title }) => (
+              <ListItem key={title}>
                 <Button color="blue.500" fontSize="15.5px" minW={0} variant="link">
-                  {artist}
+                  {title}
                 </Button>
               </ListItem>
             ))}

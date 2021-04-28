@@ -46,6 +46,7 @@ type Query {
   getSheetUsers(id: Int!): [User!]!
   getUserSheets: [Sheet!]!
   popularArtists: [ArtistCount!]!
+  popularSheets: [SheetCount!]!
   recentSheets: [Sheet!]!
   sheet(id: Int!): Sheet
 }
@@ -59,6 +60,11 @@ type Sheet implements Base {
   updatedAt: DateTime!
   users: [User!]!
   year: String
+}
+
+type SheetCount {
+  count: String!
+  title: String!
 }
 
 input UpdateSheetInput {

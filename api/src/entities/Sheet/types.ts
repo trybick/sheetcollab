@@ -36,3 +36,12 @@ export class ArtistCount {
   @Field()
   count: string;
 }
+
+@ObjectType()
+export class SheetCount {
+  @Field()
+  title: string;
+
+  @Field()
+  count: string;
+}

@@ -3,7 +3,7 @@ import { getConnection, getRepository, SelectQueryBuilder } from 'typeorm';
 import { Sheet } from './SheetModel';
 import { User } from '../User/UserModel';
 import { Context } from '../../middleware/createContext';
-import { ArtistCount, CreateSheetInput, UpdateSheetInput } from './types';
+import { ArtistCount, CreateSheetInput, UpdateSheetInput, SheetCount } from './types';
 import parseJSON from 'date-fns/parseJSON';
 
 @Resolver(Sheet)
@@ -51,6 +51,20 @@ export class SheetResolver {
       .getRawMany()) as ArtistCount[];
 
     return popularArtists;
+  }
+
+  @Query(() => [SheetCount])
+  async popularSheets(): Promise<SheetCount[]> {
+    const popularSheets = (await getRepository(Sheet)
+      .createQueryBuilder('sheet')
+      .select('sheet.title AS title')
+      .addSelect('COUNT(*) AS count')
+      .groupBy('sheet.title')
+      .orderBy('count', 'DESC')
+      .take(5)
+      .getRawMany()) as SheetCount[];
+
+    return popularSheets;
   }
 
   @Authorized()

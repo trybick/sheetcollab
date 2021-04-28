@@ -22,6 +22,7 @@ export type Query = {
   recentSheets: Array<Sheet>;
   filterSheets: Array<Sheet>;
   popularArtists: Array<ArtistCount>;
+  popularSheets: Array<SheetCount>;
   getUserSheets: Array<Sheet>;
   getSheetUsers: Array<User>;
   findUser?: Maybe<User>;
@@ -74,6 +75,12 @@ export type User = Base & {
 export type ArtistCount = {
   __typename?: 'ArtistCount';
   artist: Scalars['String'];
+  count: Scalars['String'];
+};
+
+export type SheetCount = {
+  __typename?: 'SheetCount';
+  title: Scalars['String'];
   count: Scalars['String'];
 };
 
@@ -205,6 +212,13 @@ export type PopularArtistsQueryVariables = Exact<{ [key: string]: never }>;
 export type PopularArtistsQuery = {
   __typename?: 'Query';
   popularArtists: Array<{ __typename?: 'ArtistCount'; artist: string; count: string }>;
+};
+
+export type PopularSheetsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type PopularSheetsQuery = {
+  __typename?: 'Query';
+  popularSheets: Array<{ __typename?: 'SheetCount'; title: string; count: string }>;
 };
 
 export type RecentSheetsQueryVariables = Exact<{ [key: string]: never }>;
@@ -495,6 +509,54 @@ export type PopularArtistsLazyQueryHookResult = ReturnType<typeof usePopularArti
 export type PopularArtistsQueryResult = Apollo.QueryResult<
   PopularArtistsQuery,
   PopularArtistsQueryVariables
+>;
+export const PopularSheetsDocument = gql`
+  query PopularSheets {
+    popularSheets {
+      title
+      count
+    }
+  }
+`;
+
+/**
+ * __usePopularSheetsQuery__
+ *
+ * To run a query within a React component, call `usePopularSheetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePopularSheetsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePopularSheetsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePopularSheetsQuery(
+  baseOptions?: Apollo.QueryHookOptions<PopularSheetsQuery, PopularSheetsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PopularSheetsQuery, PopularSheetsQueryVariables>(
+    PopularSheetsDocument,
+    options
+  );
+}
+export function usePopularSheetsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PopularSheetsQuery, PopularSheetsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PopularSheetsQuery, PopularSheetsQueryVariables>(
+    PopularSheetsDocument,
+    options
+  );
+}
+export type PopularSheetsQueryHookResult = ReturnType<typeof usePopularSheetsQuery>;
+export type PopularSheetsLazyQueryHookResult = ReturnType<typeof usePopularSheetsLazyQuery>;
+export type PopularSheetsQueryResult = Apollo.QueryResult<
+  PopularSheetsQuery,
+  PopularSheetsQueryVariables
 >;
 export const RecentSheetsDocument = gql`
   query RecentSheets {

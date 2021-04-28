@@ -3,6 +3,20 @@ import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { apolloEndpoint } from 'utils/api';
 
+const defaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'cache-and-network',
+    errorPolicy: 'ignore',
+  },
+  query: {
+    fetchPolicy: 'cache-first',
+    errorPolicy: 'all',
+  },
+  mutate: {
+    errorPolicy: 'all',
+  },
+} as const;
+
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path }) =>
@@ -34,17 +48,5 @@ export const createApolloClient = () =>
   new ApolloClient({
     link: additiveLink,
     cache: new InMemoryCache(),
-    defaultOptions: {
-      watchQuery: {
-        fetchPolicy: 'cache-and-network',
-        errorPolicy: 'ignore',
-      },
-      query: {
-        fetchPolicy: 'cache-first',
-        errorPolicy: 'all',
-      },
-      mutate: {
-        errorPolicy: 'all',
-      },
-    },
+    defaultOptions,
   });
